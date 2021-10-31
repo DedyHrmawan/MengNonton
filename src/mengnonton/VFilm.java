@@ -5,9 +5,11 @@
  */
 package mengnonton;
 
+import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
 import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.awt.Font;
 import javax.swing.JLabel;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
@@ -301,7 +303,7 @@ public class VFilm extends javax.swing.JFrame {
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
-        ButtonTambah.setBackground(new java.awt.Color(0, 8, 66));
+        ButtonTambah.setBackground(new java.awt.Color(12, 33, 193));
         ButtonTambah.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
         ButtonTambah.setForeground(new java.awt.Color(255, 255, 255));
         ButtonTambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/tambah.png"))); // NOI18N
@@ -417,12 +419,6 @@ public class VFilm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ButtonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahActionPerformed
-        // TODO add your handling code here:
-        new VTambahFilm().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_ButtonTambahActionPerformed
-
     private void FormSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormSearchFocusGained
         // TODO add your handling code here:
         if (FormSearch.getText().equals("Cari")) {
@@ -459,6 +455,8 @@ public class VFilm extends javax.swing.JFrame {
 
     private void MLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLogoutActionPerformed
         // TODO add your handling code here:
+        new VLogin().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_MLogoutActionPerformed
 
     private void MfilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MfilmActionPerformed
@@ -466,6 +464,12 @@ public class VFilm extends javax.swing.JFrame {
         new VFilm().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MfilmActionPerformed
+
+    private void ButtonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahActionPerformed
+        // TODO add your handling code here:
+        new VTambahFilm().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_ButtonTambahActionPerformed
 
     /**
      * @param args the command line arguments
@@ -498,6 +502,11 @@ public class VFilm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                try {
+                    UIManager.setLookAndFeel(new AluminiumLookAndFeel());
+                    
+                } catch (Exception e) {
+                }
                 new VFilm().setVisible(true);
             }
         });

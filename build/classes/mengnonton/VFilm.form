@@ -518,7 +518,7 @@
         <Component class="javax.swing.JButton" name="ButtonTambah">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="42" green="8" red="0" type="rgb"/>
+              <Color blue="c1" green="21" red="c" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Lato" size="17" style="0"/>

@@ -5,9 +5,11 @@
  */
 package mengnonton;
 
+import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
 import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.awt.Font;
 import javax.swing.JLabel;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
@@ -95,7 +97,6 @@ public class VMakanan extends javax.swing.JFrame {
         Mfilm.setHideActionText(true);
         Mfilm.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         Mfilm.setIconTextGap(10);
-        Mfilm.setOpaque(false);
         Mfilm.setPreferredSize(new java.awt.Dimension(97, 32));
         Mfilm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -302,7 +303,7 @@ public class VMakanan extends javax.swing.JFrame {
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
-        ButtonTambah.setBackground(new java.awt.Color(0, 8, 66));
+        ButtonTambah.setBackground(new java.awt.Color(12, 33, 193));
         ButtonTambah.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
         ButtonTambah.setForeground(new java.awt.Color(255, 255, 255));
         ButtonTambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/tambah.png"))); // NOI18N
@@ -460,6 +461,8 @@ public class VMakanan extends javax.swing.JFrame {
 
     private void MLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLogoutActionPerformed
         // TODO add your handling code here:
+        new VLogin().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_MLogoutActionPerformed
 
     private void MfilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MfilmActionPerformed
@@ -498,6 +501,11 @@ public class VMakanan extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                try {
+                    UIManager.setLookAndFeel(new AluminiumLookAndFeel());
+                    
+                } catch (Exception e) {
+                }
                 new VMakanan().setVisible(true);
             }
         });

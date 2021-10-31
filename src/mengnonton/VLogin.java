@@ -5,6 +5,9 @@
  */
 package mengnonton;
 
+import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
+import javax.swing.UIManager;
+
 /**
  *
  * @author dblenk
@@ -36,9 +39,9 @@ public class VLogin extends javax.swing.JFrame {
         FormEmail = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         FormPassword = new javax.swing.JPasswordField();
-        ButtonLogin = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
         ButtonForgot = new javax.swing.JButton();
+        ButtonLogin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,6 +86,7 @@ public class VLogin extends javax.swing.JFrame {
 
         FormPassword.setForeground(new java.awt.Color(0, 8, 66));
         FormPassword.setText("password");
+        FormPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         FormPassword.setPreferredSize(new java.awt.Dimension(105, 21));
         FormPassword.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -93,16 +97,6 @@ public class VLogin extends javax.swing.JFrame {
             }
         });
 
-        ButtonLogin.setBackground(new java.awt.Color(0, 8, 66));
-        ButtonLogin.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
-        ButtonLogin.setForeground(new java.awt.Color(255, 255, 255));
-        ButtonLogin.setText("Login");
-        ButtonLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonLoginActionPerformed(evt);
-            }
-        });
-
         jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
         jCheckBox1.setText("ingat Saya ?");
@@ -110,6 +104,17 @@ public class VLogin extends javax.swing.JFrame {
         ButtonForgot.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
         ButtonForgot.setText("Lupa Password ?");
         ButtonForgot.setBorder(null);
+
+        ButtonLogin.setBackground(new java.awt.Color(12, 33, 193));
+        ButtonLogin.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
+        ButtonLogin.setForeground(new java.awt.Color(255, 255, 255));
+        ButtonLogin.setText("LOGIN");
+        ButtonLogin.setPreferredSize(new java.awt.Dimension(200, 42));
+        ButtonLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonLoginActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -129,11 +134,12 @@ public class VLogin extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(FormEmail)
                             .addComponent(jLabel5)
-                            .addComponent(FormPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(ButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                            .addComponent(FormPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(116, 116, 116)))
                 .addComponent(jLabel1))
         );
         bgLayout.setVerticalGroup(
@@ -158,8 +164,8 @@ public class VLogin extends javax.swing.JFrame {
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCheckBox1)
                     .addComponent(ButtonForgot))
-                .addGap(60, 60, 60)
-                .addComponent(ButtonLogin)
+                .addGap(40, 40, 40)
+                .addComponent(ButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -245,6 +251,10 @@ public class VLogin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                try {
+                    UIManager.setLookAndFeel(new AluminiumLookAndFeel());
+                } catch (Exception e) {
+                }
                 new VLogin().setVisible(true);
             }
         });

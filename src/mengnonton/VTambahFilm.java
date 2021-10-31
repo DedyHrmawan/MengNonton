@@ -5,6 +5,9 @@
  */
 package mengnonton;
 
+import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
+import javax.swing.UIManager;
+
 /**
  *
  * @author dblenk
@@ -374,7 +377,6 @@ public class VTambahFilm extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/simpan.png"))); // NOI18N
         jButton1.setText("SIMPAN");
-        jButton1.setBorder(null);
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -533,6 +535,8 @@ public class VTambahFilm extends javax.swing.JFrame {
 
     private void MLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLogoutActionPerformed
         // TODO add your handling code here:
+        new VLogin().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_MLogoutActionPerformed
 
     /**
@@ -568,6 +572,11 @@ public class VTambahFilm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                try {
+                    UIManager.setLookAndFeel(new AluminiumLookAndFeel());
+                    
+                } catch (Exception e) {
+                }
                 new VTambahFilm().setVisible(true);
             }
         });
