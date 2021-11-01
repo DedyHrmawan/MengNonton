@@ -7,10 +7,31 @@ package mengnonton;
 
 import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
 import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.AbstractCellEditor;
+import javax.swing.ButtonModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
+import mengnonton.VTest.ButtonEditor;
+import mengnonton.VTest.ButtonRenderer;
 
 /**
  *
@@ -24,10 +45,6 @@ public class VMakanan extends javax.swing.JFrame {
     public VMakanan() {
         initComponents();
         tabelMakanan.getTableHeader().setFont(new Font("Lato", Font.BOLD, 17));
-        tabelMakanan.getColumnModel().getColumn(0).setPreferredWidth(2);
-        tabelMakanan.getColumnModel().getColumn(3).setPreferredWidth(8);
-        tabelMakanan.getColumnModel().getColumn(4).setPreferredWidth(8);
-        tabelMakanan.getColumnModel().getColumn(5).setPreferredWidth(8);
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -36,6 +53,13 @@ public class VMakanan extends javax.swing.JFrame {
         DefaultTableCellRenderer centerInt = new DefaultTableCellRenderer();
         centerInt.setHorizontalAlignment(JLabel.CENTER);
         tabelMakanan.setDefaultRenderer(Integer.class, centerInt);
+        tabelMakanan.setRowHeight(30);
+
+        tabelMakanan.getColumn("Aksi").setCellRenderer(new ButtonsRenderer());
+        tabelMakanan.getColumn("Aksi").setCellEditor(
+                new ButtonsEditor(new JTable()));
+        
+        
     }
 
     /**
@@ -69,6 +93,7 @@ public class VMakanan extends javax.swing.JFrame {
         tabelMakanan = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
 
         bg.setBackground(new java.awt.Color(255, 255, 255));
         bg.setPreferredSize(new java.awt.Dimension(1000, 700));
@@ -291,7 +316,7 @@ public class VMakanan extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addComponent(jLabel1)))
-                .addContainerGap(448, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -331,8 +356,7 @@ public class VMakanan extends javax.swing.JFrame {
 
         iconSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/search.png"))); // NOI18N
 
-        tabelMakanan.setFont(new java.awt.Font("Lato", 1, 17)); // NOI18N
-        tabelMakanan.setForeground(new java.awt.Color(0, 8, 66));
+        tabelMakanan.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
         tabelMakanan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 { new Integer(1), "M001", "Pizza",  new Integer(10000),  new Integer(10), null},
@@ -353,7 +377,16 @@ public class VMakanan extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tabelMakanan.setGridColor(new java.awt.Color(153, 153, 153));
         jScrollPane1.setViewportView(tabelMakanan);
+        if (tabelMakanan.getColumnModel().getColumnCount() > 0) {
+            tabelMakanan.getColumnModel().getColumn(0).setMinWidth(25);
+            tabelMakanan.getColumnModel().getColumn(0).setPreferredWidth(25);
+            tabelMakanan.getColumnModel().getColumn(0).setMaxWidth(25);
+            tabelMakanan.getColumnModel().getColumn(5).setMinWidth(120);
+            tabelMakanan.getColumnModel().getColumn(5).setPreferredWidth(120);
+            tabelMakanan.getColumnModel().getColumn(5).setMaxWidth(200);
+        }
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -362,13 +395,11 @@ public class VMakanan extends javax.swing.JFrame {
             .addGroup(bgLayout.createSequentialGroup()
                 .addComponent(sidepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                         .addGap(60, 60, 60)
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(bgLayout.createSequentialGroup()
                                 .addComponent(ButtonTambah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -399,31 +430,10 @@ public class VMakanan extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
-        );
+        getContentPane().add(bg);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void ButtonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahActionPerformed
-        // TODO add your handling code here:
-        new VTambahMakanan().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_ButtonTambahActionPerformed
 
     private void FormSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormSearchFocusGained
         // TODO add your handling code here:
@@ -451,7 +461,7 @@ public class VMakanan extends javax.swing.JFrame {
 
     private void MMinumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MMinumanActionPerformed
         // TODO add your handling code here:
-         new VMinuman().setVisible(true);
+        new VMinuman().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MMinumanActionPerformed
 
@@ -470,6 +480,12 @@ public class VMakanan extends javax.swing.JFrame {
         new VFilm().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MfilmActionPerformed
+
+    private void ButtonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahActionPerformed
+        // TODO add your handling code here:
+        new VTambahMakanan().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_ButtonTambahActionPerformed
 
     /**
      * @param args the command line arguments
@@ -497,18 +513,154 @@ public class VMakanan extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(VMakanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
                     UIManager.setLookAndFeel(new AluminiumLookAndFeel());
-                    
+
                 } catch (Exception e) {
                 }
                 new VMakanan().setVisible(true);
             }
         });
+    }
+    
+
+    class ButtonsPanel extends JPanel {
+        public final List <JButton> buttons = Arrays.asList(new JButton("edit"), new JButton("hapus"));
+        protected ButtonsPanel() {
+           
+            setOpaque(true);
+            for (JButton b : buttons) {
+                b.setFocusable(false);
+                b.setRolloverEnabled(false);
+                add(b);
+            }
+        }
+    }
+
+    class ButtonsRenderer implements TableCellRenderer {
+
+        private final ButtonsPanel panel = new ButtonsPanel() {
+            
+            @Override
+            public void updateUI() {
+                super.updateUI();
+                setName("Table.cellRenderer");
+            }
+        };
+        
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            panel.setBackground(new Color(255, 255, 255));
+//            panel.setBackground(isSelected ? table.getSelectionBackground() : table.getBackground());
+            return panel;
+        }
+    }
+            
+    class EditAction extends AbstractAction {
+
+        private final JTable table;
+
+        protected EditAction(JTable table) {
+            super("edit");
+           
+            this.table = table;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent evt) {
+            new VEditMakanan().setVisible(true);
+            setVisible(false);
+//            JOptionPane.showMessageDialog(table, "Edit");
+        }
+        
+    }
+
+    class HapusAction extends AbstractAction {
+
+        private final JTable table;
+
+        protected HapusAction(JTable table) {
+            super("hapus");
+            this.table = table;
+        }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JOptionPane.showMessageDialog(table, "Data berhadil dihapus !");
+        }
+        
+//        @Override
+//        public void actionPerformed(ActionEvent e) {
+//            // Object o = table.getModel().getValueAt(table.getSelectedRow(), 0);
+//            int row = table.convertRowIndexToModel(table.getEditingRow());
+//            Object o = table.getModel().getValueAt(row, 0);
+//            JOptionPane.showMessageDialog(table, "Editing: " + o);
+//        }
+    }
+
+// delegation pattern
+    class ButtonsEditor extends AbstractCellEditor implements TableCellEditor {
+
+        protected final ButtonsPanel panel = new ButtonsPanel();
+        protected final JTable table;
+            
+          
+        private class EditingStopHandler extends MouseAdapter implements ActionListener {
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                Object o = e.getSource();
+                if (o instanceof TableCellEditor) {
+                    actionPerformed(null);
+                } else if (o instanceof JButton) {
+                    // DEBUG: view button click -> control key down + edit button(same cell) press -> remain selection color
+                    ButtonModel m = ((JButton) e.getComponent()).getModel();
+                    if (m.isPressed() && table.isRowSelected(table.getEditingRow()) && e.isControlDown()) {
+                        panel.setBackground(table.getBackground());
+                    }
+                }
+            }
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EventQueue.invokeLater(() -> fireEditingStopped());
+            }
+        }
+
+        protected ButtonsEditor(JTable table) {
+            super();
+            this.table = table;
+            panel.buttons.get(0).setAction(new EditAction(table));
+            panel.buttons.get(1).setAction(new HapusAction(table));
+
+            EditingStopHandler handler = new EditingStopHandler();
+            for (JButton b : panel.buttons) {
+                b.addMouseListener(handler);
+                b.addActionListener(handler);
+            }
+            panel.addMouseListener(handler);
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable tbl, Object value, boolean isSelected, int row, int column) {
+            panel.setBackground(tbl.getSelectionBackground());
+            return panel;
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            return "";
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
