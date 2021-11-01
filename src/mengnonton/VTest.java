@@ -6,20 +6,52 @@
 package mengnonton;
 
 import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
+import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
  * @author dblenk
  */
-public class VEditMinuman extends javax.swing.JFrame {
+public class VTest extends javax.swing.JFrame {
 
     /**
      * Creates new form VMakanan
      */
-    public VEditMinuman() {
+    public VTest() {
         initComponents();
-        bg.setFocusable(true);
+
+        tabelMakanan.getColumn("Aksi").setCellRenderer(new ButtonRenderer());
+        tabelMakanan.getColumn("Aksi").setCellEditor(
+                new ButtonEditor(new JCheckBox()));
+        
+        tabelMakanan.getTableHeader().setFont(new Font("Lato", Font.BOLD, 17));
+        tabelMakanan.getColumnModel().getColumn(0).setPreferredWidth(2);
+        tabelMakanan.getColumnModel().getColumn(3).setPreferredWidth(8);
+        tabelMakanan.getColumnModel().getColumn(4).setPreferredWidth(8);
+        tabelMakanan.getColumnModel().getColumn(5).setPreferredWidth(8);
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        tabelMakanan.setDefaultRenderer(String.class, centerRenderer);
+
+        DefaultTableCellRenderer centerInt = new DefaultTableCellRenderer();
+        centerInt.setHorizontalAlignment(JLabel.CENTER);
+        tabelMakanan.setDefaultRenderer(Integer.class, centerInt);
     }
 
     /**
@@ -43,18 +75,14 @@ public class VEditMinuman extends javax.swing.JFrame {
         MMinuman = new javax.swing.JButton();
         MPembayaran = new javax.swing.JButton();
         MLogout = new javax.swing.JButton();
-        headpanel = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         LMakanan = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        FormIDMinuman = new javax.swing.JTextField();
-        FormNamaMinuman = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        FormHarga = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        FormStok = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        ButtonTambah = new javax.swing.JButton();
+        FormSearch = new javax.swing.JTextField();
+        iconSearch = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelMakanan = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
@@ -215,18 +243,17 @@ public class VEditMinuman extends javax.swing.JFrame {
             sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidepanelLayout.createSequentialGroup()
                 .addGap(72, 72, 72)
-                .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(Mfilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MTiket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MStudio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MJadwal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MMakanan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MMinuman, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MPembayaran, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2)
-                    .addComponent(MJudul))
+                .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MJudul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Mfilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MTiket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MStudio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MJadwal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MMakanan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MMinuman, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MPembayaran, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(73, Short.MAX_VALUE))
         );
         sidepanelLayout.setVerticalGroup(
@@ -255,37 +282,37 @@ public class VEditMinuman extends javax.swing.JFrame {
                 .addContainerGap(136, Short.MAX_VALUE))
         );
 
-        headpanel.setBackground(new java.awt.Color(12, 33, 193));
-        headpanel.setPreferredSize(new java.awt.Dimension(675, 102));
+        jPanel2.setBackground(new java.awt.Color(12, 33, 193));
+        jPanel2.setPreferredSize(new java.awt.Dimension(675, 102));
 
         LMakanan.setBackground(new java.awt.Color(255, 255, 255));
         LMakanan.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
         LMakanan.setForeground(new java.awt.Color(255, 255, 255));
-        LMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/makanan.png"))); // NOI18N
-        LMakanan.setText("Minuman");
+        LMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/film.png"))); // NOI18N
+        LMakanan.setText("Film");
 
         jLabel1.setBackground(new java.awt.Color(153, 153, 153));
         jLabel1.setFont(new java.awt.Font("Lato", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel1.setText("Edit Data Minuman");
+        jLabel1.setText("Menu Data Film");
 
-        javax.swing.GroupLayout headpanelLayout = new javax.swing.GroupLayout(headpanel);
-        headpanel.setLayout(headpanelLayout);
-        headpanelLayout.setHorizontalGroup(
-            headpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headpanelLayout.createSequentialGroup()
-                .addGroup(headpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(headpanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(LMakanan))
-                    .addGroup(headpanelLayout.createSequentialGroup()
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addComponent(jLabel1)))
-                .addContainerGap(459, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        headpanelLayout.setVerticalGroup(
-            headpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headpanelLayout.createSequentialGroup()
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(LMakanan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -293,91 +320,57 @@ public class VEditMinuman extends javax.swing.JFrame {
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
-        jLabel3.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel3.setText("ID Minuman");
-
-        FormIDMinuman.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
-        FormIDMinuman.setForeground(new java.awt.Color(0, 8, 66));
-        FormIDMinuman.setText("ID Minuman");
-        FormIDMinuman.setToolTipText("");
-        FormIDMinuman.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        FormIDMinuman.setCaretColor(new java.awt.Color(0, 8, 66));
-        FormIDMinuman.setDisabledTextColor(new java.awt.Color(0, 6, 66));
-        FormIDMinuman.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                FormIDMinumanFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                FormIDMinumanFocusLost(evt);
+        ButtonTambah.setBackground(new java.awt.Color(12, 33, 193));
+        ButtonTambah.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
+        ButtonTambah.setForeground(new java.awt.Color(255, 255, 255));
+        ButtonTambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/tambah.png"))); // NOI18N
+        ButtonTambah.setText("Tambah");
+        ButtonTambah.setPreferredSize(new java.awt.Dimension(141, 43));
+        ButtonTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonTambahActionPerformed(evt);
             }
         });
 
-        FormNamaMinuman.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
-        FormNamaMinuman.setForeground(new java.awt.Color(0, 8, 66));
-        FormNamaMinuman.setText("Nama Minuman");
-        FormNamaMinuman.setToolTipText("");
-        FormNamaMinuman.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        FormNamaMinuman.setCaretColor(new java.awt.Color(0, 8, 66));
-        FormNamaMinuman.setDisabledTextColor(new java.awt.Color(0, 6, 66));
-        FormNamaMinuman.addFocusListener(new java.awt.event.FocusAdapter() {
+        FormSearch.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
+        FormSearch.setForeground(new java.awt.Color(204, 204, 204));
+        FormSearch.setText("Cari");
+        FormSearch.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 8, 66), 1, true));
+        FormSearch.setPreferredSize(new java.awt.Dimension(211, 43));
+        FormSearch.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                FormNamaMinumanFocusGained(evt);
+                FormSearchFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                FormNamaMinumanFocusLost(evt);
+                FormSearchFocusLost(evt);
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel5.setText("Nama Minuman");
+        iconSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/search.png"))); // NOI18N
 
-        FormHarga.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
-        FormHarga.setForeground(new java.awt.Color(0, 8, 66));
-        FormHarga.setText("Harga Minuman");
-        FormHarga.setToolTipText("");
-        FormHarga.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        FormHarga.setCaretColor(new java.awt.Color(0, 8, 66));
-        FormHarga.setDisabledTextColor(new java.awt.Color(0, 6, 66));
-        FormHarga.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                FormHargaFocusGained(evt);
+        tabelMakanan.setFont(new java.awt.Font("Lato", 1, 17)); // NOI18N
+        tabelMakanan.setForeground(new java.awt.Color(0, 8, 66));
+        tabelMakanan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                { new Integer(1), "M001", "Pizza",  new Integer(10000),  new Integer(10), null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "No", "ID Film", "Judul Film", "Durasi Film", "Rating Film", "Aksi"
             }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                FormHargaFocusLost(evt);
-            }
-        });
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
+            };
 
-        jLabel6.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel6.setText("Harga");
-
-        FormStok.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
-        FormStok.setForeground(new java.awt.Color(0, 8, 66));
-        FormStok.setText("Stok Minuman");
-        FormStok.setToolTipText("");
-        FormStok.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        FormStok.setCaretColor(new java.awt.Color(0, 8, 66));
-        FormStok.setDisabledTextColor(new java.awt.Color(0, 6, 66));
-        FormStok.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                FormStokFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                FormStokFocusLost(evt);
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
             }
         });
-
-        jLabel7.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel7.setText("Stok");
-
-        jButton1.setBackground(new java.awt.Color(12, 33, 193));
-        jButton1.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/simpan.png"))); // NOI18N
-        jButton1.setText("SIMPAN");
+        jScrollPane1.setViewportView(tabelMakanan);
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -386,20 +379,21 @@ public class VEditMinuman extends javax.swing.JFrame {
             .addGroup(bgLayout.createSequentialGroup()
                 .addComponent(sidepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(headpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(FormStok)
-                            .addComponent(FormIDMinuman)
-                            .addComponent(FormNamaMinuman)
-                            .addComponent(FormHarga, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE))
-                        .addGap(65, 65, 65))))
+                        .addGap(60, 60, 60)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addComponent(ButtonTambah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(FormSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(iconSearch)
+                        .addGap(219, 219, 219))
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 843, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -408,26 +402,20 @@ public class VEditMinuman extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(bgLayout.createSequentialGroup()
                 .addGap(58, 58, 58)
-                .addComponent(headpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FormIDMinuman, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FormNamaMinuman, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FormHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FormStok, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(iconSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ButtonTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(FormSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         getContentPane().add(bg);
@@ -435,67 +423,19 @@ public class VEditMinuman extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void FormIDMinumanFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormIDMinumanFocusGained
+    private void FormSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormSearchFocusGained
         // TODO add your handling code here:
-        if (FormIDMinuman.getText().equals("ID Minuman")) {
-            FormIDMinuman.setText("");
+        if (FormSearch.getText().equals("Cari")) {
+            FormSearch.setText("");
         }
-    }//GEN-LAST:event_FormIDMinumanFocusGained
+    }//GEN-LAST:event_FormSearchFocusGained
 
-    private void FormIDMinumanFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormIDMinumanFocusLost
+    private void FormSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormSearchFocusLost
         // TODO add your handling code here:
-        if (FormIDMinuman.getText().equals("")) {
-            FormIDMinuman.setText("ID Minuman");
+        if (FormSearch.getText().equals("")) {
+            FormSearch.setText("Cari");
         }
-    }//GEN-LAST:event_FormIDMinumanFocusLost
-
-    private void FormNamaMinumanFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormNamaMinumanFocusGained
-        // TODO add your handling code here:
-         if (FormNamaMinuman.getText().equals("Nama Minuman")) {
-            FormNamaMinuman.setText("");
-        }
-    }//GEN-LAST:event_FormNamaMinumanFocusGained
-
-    private void FormNamaMinumanFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormNamaMinumanFocusLost
-        // TODO add your handling code here:
-         if (FormNamaMinuman.getText().equals("")) {
-            FormNamaMinuman.setText("Nama Minuman");
-        }
-    }//GEN-LAST:event_FormNamaMinumanFocusLost
-
-    private void FormHargaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormHargaFocusGained
-        // TODO add your handling code here:
-          if (FormHarga.getText().equals("Harga Minuman")) {
-            FormHarga.setText("");
-        }
-    }//GEN-LAST:event_FormHargaFocusGained
-
-    private void FormHargaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormHargaFocusLost
-        // TODO add your handling code here:
-          if (FormHarga.getText().equals("")) {
-            FormHarga.setText("Harga Minuman");
-        }
-    }//GEN-LAST:event_FormHargaFocusLost
-
-    private void FormStokFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormStokFocusGained
-        // TODO add your handling code here:
-          if (FormStok.getText().equals("Stok Minuman")) {
-            FormStok.setText("");
-        }
-    }//GEN-LAST:event_FormStokFocusGained
-
-    private void FormStokFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormStokFocusLost
-        // TODO add your handling code here:
-          if (FormStok.getText().equals("")) {
-            FormStok.setText("Stok Minuman");
-        }
-    }//GEN-LAST:event_FormStokFocusLost
-
-    private void MfilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MfilmActionPerformed
-        // TODO add your handling code here:
-        new VFilm().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MfilmActionPerformed
+    }//GEN-LAST:event_FormSearchFocusLost
 
     private void MJadwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MJadwalActionPerformed
         // TODO add your handling code here:
@@ -509,7 +449,7 @@ public class VEditMinuman extends javax.swing.JFrame {
 
     private void MMinumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MMinumanActionPerformed
         // TODO add your handling code here:
-         new VMinuman().setVisible(true);
+        new VMinuman().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MMinumanActionPerformed
 
@@ -522,6 +462,18 @@ public class VEditMinuman extends javax.swing.JFrame {
         new VLogin().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MLogoutActionPerformed
+
+    private void MfilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MfilmActionPerformed
+        // TODO add your handling code here:
+        new VTest().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MfilmActionPerformed
+
+    private void ButtonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahActionPerformed
+        // TODO add your handling code here:
+        new VTambahFilm().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_ButtonTambahActionPerformed
 
     /**
      * @param args the command line arguments
@@ -540,18 +492,14 @@ public class VEditMinuman extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VEditMinuman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VEditMinuman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VEditMinuman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VEditMinuman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VTest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -562,19 +510,143 @@ public class VEditMinuman extends javax.swing.JFrame {
             public void run() {
                 try {
                     UIManager.setLookAndFeel(new AluminiumLookAndFeel());
-                    
+
                 } catch (Exception e) {
                 }
-                new VEditMinuman().setVisible(true);
+                new VTest().setVisible(true);
             }
         });
     }
 
+    class ButtonRenderer extends JButton implements TableCellRenderer {
+
+        public ButtonRenderer() {
+            setOpaque(false);
+            setBackground(new Color(12, 33, 193));
+            setFont(new Font("Lato", 0, 17)); // NOI18N
+            setBorder(null);
+            setBorderPainted(false);
+            setContentAreaFilled(false);
+            setHideActionText(true);
+            setForeground(new Color(255, 255, 255));
+            setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/edit.png"))); // NOI18N
+
+        }
+
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column) {
+            if (isSelected) {
+                setForeground(new Color(255, 255, 255));
+                setBackground(new Color(12, 33, 193));
+            } else {
+                setForeground(table.getForeground());
+                setBackground(UIManager.getColor("Button.background"));
+            }
+            setText((value == null) ? "" : value.toString());
+            return this;
+        }
+    }
+
+    /**
+     * @version 1.0 11/09/98
+     */
+    class ButtonEditor extends DefaultCellEditor {
+
+        protected JButton button;
+        protected JButton btnDel;
+
+        private String label;
+
+        private boolean isPushed;
+//    ButtonTambah.setBackground(new java.awt.Color(12, 33, 193));
+//        ButtonTambah.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
+//        ButtonTambah.setForeground(new java.awt.Color(255, 255, 255));
+//        ButtonTambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/tambah.png"))); // NOI18N
+//        ButtonTambah.setText("Tambah");
+//        ButtonTambah.setPreferredSize(new java.awt.Dimension(141, 43));
+//        ButtonTambah.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                ButtonTambahActionPerformed(evt);
+//            }
+//        });
+
+        public ButtonEditor(JCheckBox checkBox) {
+            super(checkBox);
+            button = new JButton();
+            button.setBackground(new Color(12, 33, 193));
+            button.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
+            button.setForeground(new Color(255, 255, 255));
+            button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/edit.png"))); // NOI18N
+            button.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    fireEditingStopped();
+                }
+            });
+            
+            btnDel = new JButton();
+            btnDel.setBackground(new Color(12, 33, 193));
+            btnDel.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
+            btnDel.setForeground(new Color(255, 255, 255));
+            btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/edit.png"))); // NOI18N
+            btnDel.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    fireEditingStopped();
+                }
+            });
+            
+        }
+
+        public Component getTableCellEditorComponent(JTable table, Object value,
+                boolean isSelected, int row, int column) {
+            if (isSelected) {
+                button.setOpaque(false);
+                button.setBackground(new Color(12, 33, 193));
+                button.setFont(new Font("Lato", 0, 17)); // NOI18N
+                button.setBorder(null);
+                button.setBorderPainted(false);
+                button.setContentAreaFilled(false);
+                button.setHideActionText(true);
+                button.setForeground(new Color(255, 255, 255));
+            } else {
+              button.setOpaque(false);
+                button.setBackground(new Color(12, 33, 193));
+                button.setFont(new Font("Lato", 0, 17)); // NOI18N
+                button.setBorder(null);
+                button.setBorderPainted(false);
+                button.setContentAreaFilled(false);
+                button.setHideActionText(true);
+                button.setForeground(new Color(255, 255, 255));
+            }
+            label = (value == null) ? "" : value.toString();
+            button.setText(label);
+            isPushed = true;
+            return button;
+        }
+
+        public Object getCellEditorValue() {
+            if (isPushed) {
+//            new VEditFilm().setVisible(true);
+                JOptionPane.showMessageDialog(button, label + ": Ouch!");
+                // System.out.println(label + ": Ouch!");
+            }
+            isPushed = false;
+            return new String(label);
+        }
+
+        public boolean stopCellEditing() {
+            isPushed = false;
+            return super.stopCellEditing();
+        }
+
+        protected void fireEditingStopped() {
+            super.fireEditingStopped();
+        }
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField FormHarga;
-    private javax.swing.JTextField FormIDMinuman;
-    private javax.swing.JTextField FormNamaMinuman;
-    private javax.swing.JTextField FormStok;
+    private javax.swing.JButton ButtonTambah;
+    private javax.swing.JTextField FormSearch;
     private javax.swing.JLabel LMakanan;
     private javax.swing.JButton MJadwal;
     private javax.swing.JLabel MJudul;
@@ -586,14 +658,12 @@ public class VEditMinuman extends javax.swing.JFrame {
     private javax.swing.JButton MTiket;
     private javax.swing.JButton Mfilm;
     private javax.swing.JPanel bg;
-    private javax.swing.JPanel headpanel;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel iconSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel sidepanel;
+    private javax.swing.JTable tabelMakanan;
     // End of variables declaration//GEN-END:variables
 }
