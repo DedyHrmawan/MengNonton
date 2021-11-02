@@ -6,59 +6,20 @@
 package mengnonton;
 
 import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
-import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.Arrays;
-import java.util.List;
-import javax.swing.AbstractAction;
-import javax.swing.AbstractCellEditor;
-import javax.swing.ButtonModel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.UIManager;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableCellRenderer;
-import mengnonton.VTest.ButtonEditor;
-import mengnonton.VTest.ButtonRenderer;
 
 /**
  *
  * @author dblenk
  */
-public class VFilm extends javax.swing.JFrame {
+public class VTambahStudio extends javax.swing.JFrame {
 
     /**
      * Creates new form VMakanan
      */
-    public VFilm() {
+    public VTambahStudio() {
         initComponents();
-        tabelFilm.getTableHeader().setFont(new Font("Lato", Font.BOLD, 17));
-
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        tabelFilm.setDefaultRenderer(String.class, centerRenderer);
-
-        DefaultTableCellRenderer centerInt = new DefaultTableCellRenderer();
-        centerInt.setHorizontalAlignment(JLabel.CENTER);
-        tabelFilm.setDefaultRenderer(Integer.class, centerInt);
-        tabelFilm.setRowHeight(30);
-
-        tabelFilm.getColumn("Aksi").setCellRenderer(new ButtonsRenderer());
-        tabelFilm.getColumn("Aksi").setCellEditor(
-                new ButtonsEditor(new JTable()));
-
+        bg.setFocusable(true);
     }
 
     /**
@@ -82,14 +43,18 @@ public class VFilm extends javax.swing.JFrame {
         MMinuman = new javax.swing.JButton();
         MPembayaran = new javax.swing.JButton();
         MLogout = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        headpanel = new javax.swing.JPanel();
         LMakanan = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        ButtonTambah = new javax.swing.JButton();
-        FormSearch = new javax.swing.JTextField();
-        iconSearch = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabelFilm = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        FormIDStudio = new javax.swing.JTextField();
+        FormNamaStudio = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        FormKapasitas = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        FormJenis = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
@@ -255,17 +220,18 @@ public class VFilm extends javax.swing.JFrame {
             sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidepanelLayout.createSequentialGroup()
                 .addGap(72, 72, 72)
-                .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MJudul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Mfilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MTiket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MStudio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MJadwal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MMakanan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MMinuman, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MPembayaran, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(Mfilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(MTiket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(MStudio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(MJadwal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(MMakanan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(MMinuman, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(MPembayaran, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2)
+                    .addComponent(MJudul))
                 .addContainerGap(73, Short.MAX_VALUE))
         );
         sidepanelLayout.setVerticalGroup(
@@ -294,37 +260,37 @@ public class VFilm extends javax.swing.JFrame {
                 .addContainerGap(136, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(12, 33, 193));
-        jPanel2.setPreferredSize(new java.awt.Dimension(675, 102));
+        headpanel.setBackground(new java.awt.Color(12, 33, 193));
+        headpanel.setPreferredSize(new java.awt.Dimension(675, 102));
 
         LMakanan.setBackground(new java.awt.Color(255, 255, 255));
         LMakanan.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
         LMakanan.setForeground(new java.awt.Color(255, 255, 255));
-        LMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/film.png"))); // NOI18N
-        LMakanan.setText("Film");
+        LMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/studio.png"))); // NOI18N
+        LMakanan.setText("Studio");
 
         jLabel1.setBackground(new java.awt.Color(153, 153, 153));
         jLabel1.setFont(new java.awt.Font("Lato", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel1.setText("Menu Data Film");
+        jLabel1.setText("Tambah Data Studio");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout headpanelLayout = new javax.swing.GroupLayout(headpanel);
+        headpanel.setLayout(headpanelLayout);
+        headpanelLayout.setHorizontalGroup(
+            headpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headpanelLayout.createSequentialGroup()
+                .addGroup(headpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(headpanelLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(LMakanan))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(headpanelLayout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addComponent(jLabel1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        headpanelLayout.setVerticalGroup(
+            headpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headpanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(LMakanan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -332,65 +298,96 @@ public class VFilm extends javax.swing.JFrame {
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
-        ButtonTambah.setBackground(new java.awt.Color(12, 33, 193));
-        ButtonTambah.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
-        ButtonTambah.setForeground(new java.awt.Color(255, 255, 255));
-        ButtonTambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/tambah.png"))); // NOI18N
-        ButtonTambah.setText("Tambah");
-        ButtonTambah.setPreferredSize(new java.awt.Dimension(141, 43));
-        ButtonTambah.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonTambahActionPerformed(evt);
-            }
-        });
+        jLabel3.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel3.setText("ID Studio");
 
-        FormSearch.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
-        FormSearch.setForeground(new java.awt.Color(204, 204, 204));
-        FormSearch.setText("Cari");
-        FormSearch.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 8, 66), 1, true));
-        FormSearch.setPreferredSize(new java.awt.Dimension(211, 43));
-        FormSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+        FormIDStudio.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
+        FormIDStudio.setForeground(new java.awt.Color(0, 8, 66));
+        FormIDStudio.setText("Masukan ID Studio");
+        FormIDStudio.setToolTipText("");
+        FormIDStudio.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        FormIDStudio.setCaretColor(new java.awt.Color(0, 8, 66));
+        FormIDStudio.setDisabledTextColor(new java.awt.Color(0, 6, 66));
+        FormIDStudio.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                FormSearchFocusGained(evt);
+                FormIDStudioFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                FormSearchFocusLost(evt);
+                FormIDStudioFocusLost(evt);
+            }
+        });
+        FormIDStudio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FormIDStudioActionPerformed(evt);
             }
         });
 
-        iconSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/search.png"))); // NOI18N
-
-        tabelFilm.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
-        tabelFilm.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                { new Integer(1), "M001", "Pizza",  new Integer(10000),  new Integer(10), null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "No", "ID Film", "Judul Film", "Durasi Film", "Rating Film", "Aksi"
+        FormNamaStudio.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
+        FormNamaStudio.setForeground(new java.awt.Color(0, 8, 66));
+        FormNamaStudio.setText("Masukan Nama Studio");
+        FormNamaStudio.setToolTipText("");
+        FormNamaStudio.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        FormNamaStudio.setCaretColor(new java.awt.Color(0, 8, 66));
+        FormNamaStudio.setDisabledTextColor(new java.awt.Color(0, 6, 66));
+        FormNamaStudio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                FormNamaStudioFocusGained(evt);
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                FormNamaStudioFocusLost(evt);
             }
         });
-        tabelFilm.setGridColor(new java.awt.Color(153, 153, 153));
-        jScrollPane1.setViewportView(tabelFilm);
-        if (tabelFilm.getColumnModel().getColumnCount() > 0) {
-            tabelFilm.getColumnModel().getColumn(0).setMinWidth(25);
-            tabelFilm.getColumnModel().getColumn(0).setPreferredWidth(25);
-            tabelFilm.getColumnModel().getColumn(0).setMaxWidth(25);
-            tabelFilm.getColumnModel().getColumn(5).setMinWidth(120);
-            tabelFilm.getColumnModel().getColumn(5).setPreferredWidth(120);
-            tabelFilm.getColumnModel().getColumn(5).setMaxWidth(200);
-        }
+
+        jLabel5.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel5.setText("Nama Studio");
+
+        FormKapasitas.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
+        FormKapasitas.setForeground(new java.awt.Color(0, 8, 66));
+        FormKapasitas.setText("Masukan Kapasitas");
+        FormKapasitas.setToolTipText("");
+        FormKapasitas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        FormKapasitas.setCaretColor(new java.awt.Color(0, 8, 66));
+        FormKapasitas.setDisabledTextColor(new java.awt.Color(0, 6, 66));
+        FormKapasitas.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                FormKapasitasFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                FormKapasitasFocusLost(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel6.setText("Kapasitas");
+
+        FormJenis.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
+        FormJenis.setForeground(new java.awt.Color(0, 8, 66));
+        FormJenis.setText("Masukan Jenis Studio");
+        FormJenis.setToolTipText("");
+        FormJenis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        FormJenis.setCaretColor(new java.awt.Color(0, 8, 66));
+        FormJenis.setDisabledTextColor(new java.awt.Color(0, 6, 66));
+        FormJenis.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                FormJenisFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                FormJenisFocusLost(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel7.setText("Jenis Studio");
+
+        jButton1.setBackground(new java.awt.Color(12, 33, 193));
+        jButton1.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/simpan.png"))); // NOI18N
+        jButton1.setText("SIMPAN");
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -399,39 +396,48 @@ public class VFilm extends javax.swing.JFrame {
             .addGroup(bgLayout.createSequentialGroup()
                 .addComponent(sidepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addGroup(bgLayout.createSequentialGroup()
-                                .addComponent(ButtonTambah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
-                                .addComponent(iconSearch)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(FormSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(60, 60, 60))))
+                    .addComponent(headpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(FormJenis, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(FormIDStudio)
+                            .addComponent(FormNamaStudio, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(FormKapasitas, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE))
+                        .addGap(65, 65, 65))))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
                 .addComponent(sidepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 27, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(bgLayout.createSequentialGroup()
                 .addGap(58, 58, 58)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ButtonTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(FormSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(iconSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(headpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(FormIDStudio, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(FormNamaStudio, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(FormKapasitas, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(FormJenis, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51))
         );
 
         getContentPane().add(bg);
@@ -439,19 +445,67 @@ public class VFilm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void FormSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormSearchFocusGained
+    private void FormIDStudioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormIDStudioFocusGained
         // TODO add your handling code here:
-        if (FormSearch.getText().equals("Cari")) {
-            FormSearch.setText("");
+        if (FormIDStudio.getText().equals("Masukan ID Studio")) {
+            FormIDStudio.setText("");
         }
-    }//GEN-LAST:event_FormSearchFocusGained
+    }//GEN-LAST:event_FormIDStudioFocusGained
 
-    private void FormSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormSearchFocusLost
+    private void FormIDStudioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormIDStudioFocusLost
         // TODO add your handling code here:
-        if (FormSearch.getText().equals("")) {
-            FormSearch.setText("Cari");
+        if (FormIDStudio.getText().equals("")) {
+            FormIDStudio.setText("Masukan ID Studio");
         }
-    }//GEN-LAST:event_FormSearchFocusLost
+    }//GEN-LAST:event_FormIDStudioFocusLost
+
+    private void FormNamaStudioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormNamaStudioFocusGained
+        // TODO add your handling code here:
+         if (FormNamaStudio.getText().equals("Masukan Nama Studio")) {
+            FormNamaStudio.setText("");
+        }
+    }//GEN-LAST:event_FormNamaStudioFocusGained
+
+    private void FormNamaStudioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormNamaStudioFocusLost
+        // TODO add your handling code here:
+         if (FormNamaStudio.getText().equals("")) {
+            FormNamaStudio.setText("Masukan Nama Studio");
+        }
+    }//GEN-LAST:event_FormNamaStudioFocusLost
+
+    private void FormKapasitasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormKapasitasFocusGained
+        // TODO add your handling code here:
+          if (FormKapasitas.getText().equals("Masukan Kapasitas")) {
+            FormKapasitas.setText("");
+        }
+    }//GEN-LAST:event_FormKapasitasFocusGained
+
+    private void FormKapasitasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormKapasitasFocusLost
+        // TODO add your handling code here:
+          if (FormKapasitas.getText().equals("")) {
+            FormKapasitas.setText("Masukan Kapasitas");
+        }
+    }//GEN-LAST:event_FormKapasitasFocusLost
+
+    private void FormJenisFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormJenisFocusGained
+        // TODO add your handling code here:
+          if (FormJenis.getText().equals("Masukan Jenis Studio")) {
+            FormJenis.setText("");
+        }
+    }//GEN-LAST:event_FormJenisFocusGained
+
+    private void FormJenisFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormJenisFocusLost
+        // TODO add your handling code here:
+          if (FormJenis.getText().equals("")) {
+            FormJenis.setText("Masukan Jenis Studio");
+        }
+    }//GEN-LAST:event_FormJenisFocusLost
+
+    private void MfilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MfilmActionPerformed
+        // TODO add your handling code here:
+        new VStudio().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MfilmActionPerformed
 
     private void MJadwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MJadwalActionPerformed
         // TODO add your handling code here:
@@ -465,7 +519,7 @@ public class VFilm extends javax.swing.JFrame {
 
     private void MMinumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MMinumanActionPerformed
         // TODO add your handling code here:
-        new VMinuman().setVisible(true);
+         new VMinuman().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MMinumanActionPerformed
 
@@ -479,17 +533,9 @@ public class VFilm extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_MLogoutActionPerformed
 
-    private void MfilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MfilmActionPerformed
+    private void FormIDStudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FormIDStudioActionPerformed
         // TODO add your handling code here:
-        new VFilm().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MfilmActionPerformed
-
-    private void ButtonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahActionPerformed
-        // TODO add your handling code here:
-        new VTambahFilm().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_ButtonTambahActionPerformed
+    }//GEN-LAST:event_FormIDStudioActionPerformed
 
     private void MStudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MStudioActionPerformed
         // TODO add your handling code here:
@@ -514,13 +560,13 @@ public class VFilm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VFilm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VTambahStudio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VFilm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VTambahStudio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VFilm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VTambahStudio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VFilm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VTambahStudio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -536,147 +582,19 @@ public class VFilm extends javax.swing.JFrame {
             public void run() {
                 try {
                     UIManager.setLookAndFeel(new AluminiumLookAndFeel());
-
+                    
                 } catch (Exception e) {
                 }
-                new VFilm().setVisible(true);
+                new VTambahStudio().setVisible(true);
             }
         });
     }
 
-    class ButtonsPanel extends JPanel {
-
-        public final List<JButton> buttons = Arrays.asList(new JButton("edit"), new JButton("hapus"));
-
-        protected ButtonsPanel() {
-
-            setOpaque(true);
-            for (JButton b : buttons) {
-                b.setFocusable(false);
-                b.setRolloverEnabled(false);
-                add(b);
-            }
-        }
-    }
-
-    class ButtonsRenderer implements TableCellRenderer {
-
-        private final ButtonsPanel panel = new ButtonsPanel() {
-
-            @Override
-            public void updateUI() {
-                super.updateUI();
-                setName("Table.cellRenderer");
-            }
-        };
-
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            panel.setBackground(new Color(255, 255, 255));
-//            panel.setBackground(isSelected ? table.getSelectionBackground() : table.getBackground());
-            return panel;
-        }
-    }
-
-    class EditAction extends AbstractAction {
-
-        private final JTable table;
-
-        protected EditAction(JTable table) {
-            super("edit");
-
-            this.table = table;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            new VEditFilm().setVisible(true);
-            setVisible(false);
-//            this.setVisible(false);
-//            JOptionPane.showMessageDialog(table, "Edit");
-        }
-    }
-
-    class HapusAction extends AbstractAction {
-
-        private final JTable table;
-
-        protected HapusAction(JTable table) {
-            super("hapus");
-            this.table = table;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            JOptionPane.showMessageDialog(table, "Data berhadil dihapus !");
-        }
-
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//            // Object o = table.getModel().getValueAt(table.getSelectedRow(), 0);
-//            int row = table.convertRowIndexToModel(table.getEditingRow());
-//            Object o = table.getModel().getValueAt(row, 0);
-//            JOptionPane.showMessageDialog(table, "Editing: " + o);
-//        }
-    }
-
-// delegation pattern
-    class ButtonsEditor extends AbstractCellEditor implements TableCellEditor {
-
-        protected final ButtonsPanel panel = new ButtonsPanel();
-        protected final JTable table;
-
-        private class EditingStopHandler extends MouseAdapter implements ActionListener {
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                Object o = e.getSource();
-                if (o instanceof TableCellEditor) {
-                    actionPerformed(null);
-                } else if (o instanceof JButton) {
-                    // DEBUG: view button click -> control key down + edit button(same cell) press -> remain selection color
-                    ButtonModel m = ((JButton) e.getComponent()).getModel();
-                    if (m.isPressed() && table.isRowSelected(table.getEditingRow()) && e.isControlDown()) {
-                        panel.setBackground(table.getBackground());
-                    }
-                }
-            }
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                EventQueue.invokeLater(() -> fireEditingStopped());
-            }
-        }
-
-        protected ButtonsEditor(JTable table) {
-            super();
-            this.table = table;
-            panel.buttons.get(0).setAction(new EditAction(table));
-            panel.buttons.get(1).setAction(new HapusAction(table));
-
-            EditingStopHandler handler = new EditingStopHandler();
-            for (JButton b : panel.buttons) {
-                b.addMouseListener(handler);
-                b.addActionListener(handler);
-            }
-            panel.addMouseListener(handler);
-        }
-
-        @Override
-        public Component getTableCellEditorComponent(JTable tbl, Object value, boolean isSelected, int row, int column) {
-            panel.setBackground(tbl.getSelectionBackground());
-            return panel;
-        }
-
-        @Override
-        public Object getCellEditorValue() {
-            return "";
-        }
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ButtonTambah;
-    private javax.swing.JTextField FormSearch;
+    private javax.swing.JTextField FormIDStudio;
+    private javax.swing.JTextField FormJenis;
+    private javax.swing.JTextField FormKapasitas;
+    private javax.swing.JTextField FormNamaStudio;
     private javax.swing.JLabel LMakanan;
     private javax.swing.JButton MJadwal;
     private javax.swing.JLabel MJudul;
@@ -688,12 +606,14 @@ public class VFilm extends javax.swing.JFrame {
     private javax.swing.JButton MTiket;
     private javax.swing.JButton Mfilm;
     private javax.swing.JPanel bg;
-    private javax.swing.JLabel iconSearch;
+    private javax.swing.JPanel headpanel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel sidepanel;
-    private javax.swing.JTable tabelFilm;
     // End of variables declaration//GEN-END:variables
 }

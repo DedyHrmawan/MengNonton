@@ -183,6 +183,11 @@ public class VMinuman extends javax.swing.JFrame {
         MStudio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MStudio.setIconTextGap(10);
         MStudio.setPreferredSize(new java.awt.Dimension(97, 32));
+        MStudio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MStudioActionPerformed(evt);
+            }
+        });
 
         MJadwal.setBackground(new java.awt.Color(0, 8, 66));
         MJadwal.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
@@ -515,6 +520,12 @@ public class VMinuman extends javax.swing.JFrame {
         new VTambahMinuman().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_ButtonTambahActionPerformed
+
+    private void MStudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MStudioActionPerformed
+        // TODO add your handling code here:
+        new VStudio().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MStudioActionPerformed
 
     /**
      * @param args the command line arguments
