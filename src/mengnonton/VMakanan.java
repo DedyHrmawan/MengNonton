@@ -6,6 +6,7 @@
 package mengnonton;
 
 import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
+import java.sql.*;
 import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.awt.Color;
 import java.awt.Component;
@@ -28,6 +29,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import mengnonton.VTest.ButtonEditor;
@@ -38,7 +40,8 @@ import mengnonton.VTest.ButtonRenderer;
  * @author dblenk
  */
 public class VMakanan extends javax.swing.JFrame {
-
+    DefaultTableModel tabModel;
+    ResultSet RsProduk=null;
     /**
      * Creates new form VMakanan
      */
@@ -54,14 +57,41 @@ public class VMakanan extends javax.swing.JFrame {
         centerInt.setHorizontalAlignment(JLabel.CENTER);
         tabelMakanan.setDefaultRenderer(Integer.class, centerInt);
         tabelMakanan.setRowHeight(30);
+        
+        tampilData();
+    }
+    
+    private void tampilData(){
+        try{
+            Object[] judul_kolom = {"No", "ID Makanan", "Nama Makanan", "Harga", "Stok", "Aksi"};
+            tabModel = new DefaultTableModel(null,judul_kolom);
+            tabelMakanan.setModel(tabModel);
+            
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            tabModel.getDataVector().removeAllElements();
+            
+            RsProduk=stt.executeQuery("SELECT * from makanan ");  
+            int no = 0;
+            while(RsProduk.next()){
+                no++;
+                Object[] data={
+                    no,
+                    RsProduk.getString("ID_MAKANAN"),
+                    RsProduk.getString("NAMA_MAKANAN"),
+                    RsProduk.getString("HARGA_MAKANAN"),
+                    RsProduk.getString("STOK_MAKANAN")         
+                };
+               tabModel.addRow(data);
+            }                
+        } catch (Exception ex) {
+        System.err.println(ex.getMessage());
+        }     
 
         tabelMakanan.getColumn("Aksi").setCellRenderer(new ButtonsRenderer());
         tabelMakanan.getColumn("Aksi").setCellEditor(
-                new ButtonsEditor(new JTable()));
-        
-        
+                new ButtonsEditor(tabelMakanan)); 
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -579,7 +609,7 @@ public class VMakanan extends javax.swing.JFrame {
 
         @Override
         public void actionPerformed(ActionEvent evt) {
-            new VEditMakanan().setVisible(true);
+            new VEditMakanan(tabModel.getValueAt(table.getSelectedRow(),1)+"").setVisible(true);
             setVisible(false);
 //            JOptionPane.showMessageDialog(table, "Edit");
         }
@@ -596,7 +626,17 @@ public class VMakanan extends javax.swing.JFrame {
         }
         @Override
         public void actionPerformed(ActionEvent e) {
+            String id_dihapus = "";
+            id_dihapus = tabModel.getValueAt(table.getSelectedRow(),1)+"";
+            try{
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            stt.executeUpdate("DELETE FROM makanan WHERE ID_MAKANAN='"+id_dihapus+"'");
             JOptionPane.showMessageDialog(table, "Data berhadil dihapus !");
+            tampilData();
+            } catch(SQLException a){
+                JOptionPane.showMessageDialog(table,"Delete data gagal\n"+a.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            }            
         }
         
 //        @Override

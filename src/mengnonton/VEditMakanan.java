@@ -6,6 +6,8 @@
 package mengnonton;
 
 import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
+import java.sql.*;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 /**
@@ -13,13 +15,31 @@ import javax.swing.UIManager;
  * @author dblenk
  */
 public class VEditMakanan extends javax.swing.JFrame {
-
+    ResultSet RsProduk = null;
+    String id_edit = "";
     /**
      * Creates new form VMakanan
      */
-    public VEditMakanan() {
+    public VEditMakanan(String idmakanan) {
         initComponents();
         bg.setFocusable(true);
+        id_edit = idmakanan;
+        
+        try{            
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            
+            RsProduk=stt.executeQuery("SELECT * from makanan WHERE ID_MAKANAN ='"+idmakanan+"'");  
+            
+            if(RsProduk.next()){
+                FormIDMakanan.setText(RsProduk.getString("ID_MAKANAN"));
+                FormNamaMakanan.setText(RsProduk.getString("NAMA_MAKANAN"));
+                FormHarga.setText(RsProduk.getString("HARGA_MAKANAN"));
+                FormStok.setText(RsProduk.getString("STOK_MAKANAN"));
+             }            
+        } catch (Exception ex) {
+        System.err.println(ex.getMessage());
+        }
     }
 
     /**
@@ -217,7 +237,7 @@ public class VEditMakanan extends javax.swing.JFrame {
                 .addGap(72, 72, 72)
                 .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(Mfilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Mfilm, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
                         .addComponent(MTiket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(MStudio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(MJadwal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -227,7 +247,7 @@ public class VEditMakanan extends javax.swing.JFrame {
                         .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2)
                     .addComponent(MJudul))
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         sidepanelLayout.setVerticalGroup(
             sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,7 +272,7 @@ public class VEditMakanan extends javax.swing.JFrame {
                 .addComponent(MPembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
 
         headpanel.setBackground(new java.awt.Color(12, 33, 193));
@@ -281,7 +301,7 @@ public class VEditMakanan extends javax.swing.JFrame {
                     .addGroup(headpanelLayout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addComponent(jLabel1)))
-                .addContainerGap(462, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         headpanelLayout.setVerticalGroup(
             headpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,7 +310,7 @@ public class VEditMakanan extends javax.swing.JFrame {
                 .addComponent(LMakanan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jLabel3.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
@@ -378,6 +398,11 @@ public class VEditMakanan extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/simpan.png"))); // NOI18N
         jButton1.setText("SIMPAN");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -386,7 +411,7 @@ public class VEditMakanan extends javax.swing.JFrame {
             .addGroup(bgLayout.createSequentialGroup()
                 .addComponent(sidepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(headpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(headpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
                     .addGroup(bgLayout.createSequentialGroup()
                         .addGap(65, 65, 65)
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,7 +423,7 @@ public class VEditMakanan extends javax.swing.JFrame {
                             .addComponent(FormStok)
                             .addComponent(FormIDMakanan)
                             .addComponent(FormNamaMakanan)
-                            .addComponent(FormHarga, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE))
+                            .addComponent(FormHarga, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
                         .addGap(65, 65, 65))))
         );
         bgLayout.setVerticalGroup(
@@ -523,6 +548,22 @@ public class VEditMakanan extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_MLogoutActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try{
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            stt.executeUpdate("update makanan set NAMA_MAKANAN = '"+FormNamaMakanan.getText()+"',"
+                    + "HARGA_MAKANAN ='"+FormHarga.getText()+"', STOK_MAKANAN='"+FormStok.getText()+"', ID_MAKANAN = '"+FormIDMakanan.getText()+"'"
+                    + "WHERE ID_MAKANAN ='"+id_edit+"'");
+            conn.close();
+            JOptionPane.showMessageDialog(null, "Berhasil diubah");
+            new VMakanan().setVisible(true);
+            setVisible(false);
+        }catch(Exception exc){
+            System.err.println(exc.getMessage());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -561,7 +602,6 @@ public class VEditMakanan extends javax.swing.JFrame {
                     
                 } catch (Exception e) {
                 }
-                new VEditMakanan().setVisible(true);
             }
         });
     }
