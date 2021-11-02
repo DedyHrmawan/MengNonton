@@ -37,26 +37,26 @@ import mengnonton.VTest.ButtonRenderer;
  *
  * @author dblenk
  */
-public class VFilm extends javax.swing.JFrame {
+public class VStudio extends javax.swing.JFrame {
 
     /**
      * Creates new form VMakanan
      */
-    public VFilm() {
+    public VStudio() {
         initComponents();
-        tabelFilm.getTableHeader().setFont(new Font("Lato", Font.BOLD, 17));
+        tabelStudio.getTableHeader().setFont(new Font("Lato", Font.BOLD, 17));
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        tabelFilm.setDefaultRenderer(String.class, centerRenderer);
+        tabelStudio.setDefaultRenderer(String.class, centerRenderer);
 
         DefaultTableCellRenderer centerInt = new DefaultTableCellRenderer();
         centerInt.setHorizontalAlignment(JLabel.CENTER);
-        tabelFilm.setDefaultRenderer(Integer.class, centerInt);
-        tabelFilm.setRowHeight(30);
+        tabelStudio.setDefaultRenderer(Integer.class, centerInt);
+        tabelStudio.setRowHeight(30);
 
-        tabelFilm.getColumn("Aksi").setCellRenderer(new ButtonsRenderer());
-        tabelFilm.getColumn("Aksi").setCellEditor(
+        tabelStudio.getColumn("Aksi").setCellRenderer(new ButtonsRenderer());
+        tabelStudio.getColumn("Aksi").setCellEditor(
                 new ButtonsEditor(new JTable()));
 
     }
@@ -89,7 +89,7 @@ public class VFilm extends javax.swing.JFrame {
         FormSearch = new javax.swing.JTextField();
         iconSearch = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelFilm = new javax.swing.JTable();
+        tabelStudio = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
@@ -300,13 +300,13 @@ public class VFilm extends javax.swing.JFrame {
         LMakanan.setBackground(new java.awt.Color(255, 255, 255));
         LMakanan.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
         LMakanan.setForeground(new java.awt.Color(255, 255, 255));
-        LMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/film.png"))); // NOI18N
-        LMakanan.setText("Film");
+        LMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/studio.png"))); // NOI18N
+        LMakanan.setText("Studio");
 
         jLabel1.setBackground(new java.awt.Color(153, 153, 153));
         jLabel1.setFont(new java.awt.Font("Lato", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel1.setText("Menu Data Film");
+        jLabel1.setText("Menu Data Studio");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -360,36 +360,36 @@ public class VFilm extends javax.swing.JFrame {
 
         iconSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/search.png"))); // NOI18N
 
-        tabelFilm.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
-        tabelFilm.setModel(new javax.swing.table.DefaultTableModel(
+        tabelStudio.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
+        tabelStudio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), "M001", "Pizza",  new Integer(10000),  new Integer(10), null},
+                { new Integer(1), "M001", "Pizza",  new Integer(10000), null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "No", "ID Film", "Judul Film", "Durasi Film", "Rating Film", "Aksi"
+                "No", "ID Studio", "Nama Studio", "Kapasitas", "Jenis Studio", "Aksi"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        tabelFilm.setGridColor(new java.awt.Color(153, 153, 153));
-        jScrollPane1.setViewportView(tabelFilm);
-        if (tabelFilm.getColumnModel().getColumnCount() > 0) {
-            tabelFilm.getColumnModel().getColumn(0).setMinWidth(25);
-            tabelFilm.getColumnModel().getColumn(0).setPreferredWidth(25);
-            tabelFilm.getColumnModel().getColumn(0).setMaxWidth(25);
-            tabelFilm.getColumnModel().getColumn(5).setMinWidth(120);
-            tabelFilm.getColumnModel().getColumn(5).setPreferredWidth(120);
-            tabelFilm.getColumnModel().getColumn(5).setMaxWidth(200);
+        tabelStudio.setGridColor(new java.awt.Color(153, 153, 153));
+        jScrollPane1.setViewportView(tabelStudio);
+        if (tabelStudio.getColumnModel().getColumnCount() > 0) {
+            tabelStudio.getColumnModel().getColumn(0).setMinWidth(25);
+            tabelStudio.getColumnModel().getColumn(0).setPreferredWidth(25);
+            tabelStudio.getColumnModel().getColumn(0).setMaxWidth(25);
+            tabelStudio.getColumnModel().getColumn(5).setMinWidth(120);
+            tabelStudio.getColumnModel().getColumn(5).setPreferredWidth(120);
+            tabelStudio.getColumnModel().getColumn(5).setMaxWidth(200);
         }
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
@@ -481,13 +481,13 @@ public class VFilm extends javax.swing.JFrame {
 
     private void MfilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MfilmActionPerformed
         // TODO add your handling code here:
-        new VFilm().setVisible(true);
+        new VStudio().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MfilmActionPerformed
 
     private void ButtonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahActionPerformed
         // TODO add your handling code here:
-        new VTambahFilm().setVisible(true);
+        new VTambahStudio().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_ButtonTambahActionPerformed
 
@@ -514,14 +514,22 @@ public class VFilm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VFilm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VStudio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VFilm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VStudio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VFilm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VStudio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VFilm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VStudio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -539,7 +547,7 @@ public class VFilm extends javax.swing.JFrame {
 
                 } catch (Exception e) {
                 }
-                new VFilm().setVisible(true);
+                new VStudio().setVisible(true);
             }
         });
     }
@@ -590,7 +598,7 @@ public class VFilm extends javax.swing.JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            new VEditFilm().setVisible(true);
+            new VEditStudio().setVisible(true);
             setVisible(false);
 //            this.setVisible(false);
 //            JOptionPane.showMessageDialog(table, "Edit");
@@ -694,6 +702,6 @@ public class VFilm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel sidepanel;
-    private javax.swing.JTable tabelFilm;
+    private javax.swing.JTable tabelStudio;
     // End of variables declaration//GEN-END:variables
 }

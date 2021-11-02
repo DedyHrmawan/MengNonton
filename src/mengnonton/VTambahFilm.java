@@ -118,6 +118,11 @@ public class VTambahFilm extends javax.swing.JFrame {
         MStudio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MStudio.setIconTextGap(10);
         MStudio.setPreferredSize(new java.awt.Dimension(97, 32));
+        MStudio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MStudioActionPerformed(evt);
+            }
+        });
 
         MJadwal.setBackground(new java.awt.Color(0, 8, 66));
         MJadwal.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
@@ -281,7 +286,7 @@ public class VTambahFilm extends javax.swing.JFrame {
                     .addGroup(headpanelLayout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addComponent(jLabel1)))
-                .addContainerGap(468, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         headpanelLayout.setVerticalGroup(
             headpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -386,7 +391,7 @@ public class VTambahFilm extends javax.swing.JFrame {
             .addGroup(bgLayout.createSequentialGroup()
                 .addComponent(sidepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(headpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(headpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
                     .addGroup(bgLayout.createSequentialGroup()
                         .addGap(65, 65, 65)
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -395,10 +400,10 @@ public class VTambahFilm extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7)
-                            .addComponent(FormRating)
+                            .addComponent(FormRating, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(FormIDFlm)
-                            .addComponent(FormJudulFilm)
-                            .addComponent(FormDurasi, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE))
+                            .addComponent(FormJudulFilm, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(FormDurasi, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE))
                         .addGap(65, 65, 65))))
         );
         bgLayout.setVerticalGroup(
@@ -522,6 +527,12 @@ public class VTambahFilm extends javax.swing.JFrame {
         new VLogin().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MLogoutActionPerformed
+
+    private void MStudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MStudioActionPerformed
+        // TODO add your handling code here:
+        new VStudio().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MStudioActionPerformed
 
     /**
      * @param args the command line arguments

@@ -119,6 +119,11 @@ public class VTambahMinuman extends javax.swing.JFrame {
         MStudio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MStudio.setIconTextGap(10);
         MStudio.setPreferredSize(new java.awt.Dimension(97, 32));
+        MStudio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MStudioActionPerformed(evt);
+            }
+        });
 
         MJadwal.setBackground(new java.awt.Color(0, 8, 66));
         MJadwal.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
@@ -228,7 +233,7 @@ public class VTambahMinuman extends javax.swing.JFrame {
                         .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2)
                     .addComponent(MJudul))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         sidepanelLayout.setVerticalGroup(
             sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,7 +258,7 @@ public class VTambahMinuman extends javax.swing.JFrame {
                 .addComponent(MPembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
 
         headpanel.setBackground(new java.awt.Color(12, 33, 193));
@@ -291,7 +296,7 @@ public class VTambahMinuman extends javax.swing.JFrame {
                 .addComponent(LMakanan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jLabel3.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
@@ -543,6 +548,12 @@ public class VTambahMinuman extends javax.swing.JFrame {
             System.err.println(exc.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void MStudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MStudioActionPerformed
+        // TODO add your handling code here:
+        new VStudio().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MStudioActionPerformed
 
     /**
      * @param args the command line arguments
