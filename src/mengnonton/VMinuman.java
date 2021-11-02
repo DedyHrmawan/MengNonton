@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package mengnonton;
-
+import java.sql.*;
 import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
 import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.awt.Color;
@@ -32,13 +32,15 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import mengnonton.VTest.ButtonEditor;
 import mengnonton.VTest.ButtonRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author dblenk
  */
 public class VMinuman extends javax.swing.JFrame {
-
+    DefaultTableModel tabModel;
+    ResultSet RsProduk=null;
     /**
      * Creates new form VMakanan
      */
@@ -54,14 +56,41 @@ public class VMinuman extends javax.swing.JFrame {
         centerInt.setHorizontalAlignment(JLabel.CENTER);
         tabelMinuman.setDefaultRenderer(Integer.class, centerInt);
         tabelMinuman.setRowHeight(30);
-
-        tabelMinuman.getColumn("Aksi").setCellRenderer(new ButtonsRenderer());
-        tabelMinuman.getColumn("Aksi").setCellEditor(
-                new ButtonsEditor(new JTable()));
         
-        
+        tampilData();
     }
 
+    private void tampilData(){
+        try{
+            Object[] judul_kolom = {"No", "ID Minuman", "Nama Minuman", "Harga", "Stok", "Aksi"};
+            tabModel = new DefaultTableModel(null,judul_kolom);
+            tabelMinuman.setModel(tabModel);
+            
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            tabModel.getDataVector().removeAllElements();
+            
+            RsProduk=stt.executeQuery("SELECT * from minuman ");  
+            int no = 0;
+            while(RsProduk.next()){
+                no++;
+                Object[] data={
+                    no,
+                    RsProduk.getString("ID_MINUMAN"),
+                    RsProduk.getString("NAMA_MINUMAN"),
+                    RsProduk.getString("HARGA_MINUMAN"),
+                    RsProduk.getString("STOK_MINUMAN")         
+                };
+               tabModel.addRow(data);
+            }                
+        } catch (Exception ex) {
+        System.err.println(ex.getMessage());
+        } 
+        
+        tabelMinuman.getColumn("Aksi").setCellRenderer(new ButtonsRenderer());
+        tabelMinuman.getColumn("Aksi").setCellEditor(
+                new ButtonsEditor(tabelMinuman));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -579,7 +608,7 @@ public class VMinuman extends javax.swing.JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            new VEditMinuman().setVisible(true);
+            new VEditMinuman(tabModel.getValueAt(table.getSelectedRow(),1)+"").setVisible(true);
             setVisible(false);
 //            JOptionPane.showMessageDialog(table, "Edit");
         }
@@ -595,7 +624,17 @@ public class VMinuman extends javax.swing.JFrame {
         }
         @Override
         public void actionPerformed(ActionEvent e) {
+            String id_dihapus = "";
+            id_dihapus = tabModel.getValueAt(table.getSelectedRow(),1)+"";
+            try{
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            stt.executeUpdate("DELETE FROM minuman WHERE ID_MINUMAN='"+id_dihapus+"'");
             JOptionPane.showMessageDialog(table, "Data berhadil dihapus !");
+            tampilData();
+            } catch(SQLException a){
+                JOptionPane.showMessageDialog(table,"Delete data gagal\n"+a.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            }
         }
         
 //        @Override
