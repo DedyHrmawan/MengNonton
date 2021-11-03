@@ -238,6 +238,9 @@
                   <Dimension value="[97, 32]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MTiketActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="MStudio">
               <Properties>
@@ -520,7 +523,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="42" green="8" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Masukan ID Film"/>
+            <Property name="text" type="java.lang.String" value="ID Film"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
@@ -547,7 +550,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="42" green="8" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Masukan Judul Film"/>
+            <Property name="text" type="java.lang.String" value="Judul Film"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
@@ -585,7 +588,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="42" green="8" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Masukan Durasi Film"/>
+            <Property name="text" type="java.lang.String" value="Durasi Film"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
@@ -623,7 +626,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="42" green="8" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Masukan Rating Film"/>
+            <Property name="text" type="java.lang.String" value="Rating Film"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">

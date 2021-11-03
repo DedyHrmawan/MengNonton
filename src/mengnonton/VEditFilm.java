@@ -105,6 +105,11 @@ public class VEditFilm extends javax.swing.JFrame {
         MTiket.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MTiket.setIconTextGap(10);
         MTiket.setPreferredSize(new java.awt.Dimension(97, 32));
+        MTiket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MTiketActionPerformed(evt);
+            }
+        });
 
         MStudio.setBackground(new java.awt.Color(0, 8, 66));
         MStudio.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
@@ -304,7 +309,7 @@ public class VEditFilm extends javax.swing.JFrame {
 
         FormIDFlm.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
         FormIDFlm.setForeground(new java.awt.Color(0, 8, 66));
-        FormIDFlm.setText("Masukan ID Film");
+        FormIDFlm.setText("ID Film");
         FormIDFlm.setToolTipText("");
         FormIDFlm.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         FormIDFlm.setCaretColor(new java.awt.Color(0, 8, 66));
@@ -320,7 +325,7 @@ public class VEditFilm extends javax.swing.JFrame {
 
         FormJudulFilm.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
         FormJudulFilm.setForeground(new java.awt.Color(0, 8, 66));
-        FormJudulFilm.setText("Masukan Judul Film");
+        FormJudulFilm.setText("Judul Film");
         FormJudulFilm.setToolTipText("");
         FormJudulFilm.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         FormJudulFilm.setCaretColor(new java.awt.Color(0, 8, 66));
@@ -340,7 +345,7 @@ public class VEditFilm extends javax.swing.JFrame {
 
         FormDurasi.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
         FormDurasi.setForeground(new java.awt.Color(0, 8, 66));
-        FormDurasi.setText("Masukan Durasi Film");
+        FormDurasi.setText("Durasi Film");
         FormDurasi.setToolTipText("");
         FormDurasi.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         FormDurasi.setCaretColor(new java.awt.Color(0, 8, 66));
@@ -360,7 +365,7 @@ public class VEditFilm extends javax.swing.JFrame {
 
         FormRating.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
         FormRating.setForeground(new java.awt.Color(0, 8, 66));
-        FormRating.setText("Masukan Rating Film");
+        FormRating.setText("Rating Film");
         FormRating.setToolTipText("");
         FormRating.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         FormRating.setCaretColor(new java.awt.Color(0, 8, 66));
@@ -504,6 +509,8 @@ public class VEditFilm extends javax.swing.JFrame {
 
     private void MJadwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MJadwalActionPerformed
         // TODO add your handling code here:
+        new VJadwal().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_MJadwalActionPerformed
 
     private void MMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MMakananActionPerformed
@@ -533,6 +540,12 @@ public class VEditFilm extends javax.swing.JFrame {
         new VStudio().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MStudioActionPerformed
+
+    private void MTiketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MTiketActionPerformed
+        // TODO add your handling code here:
+        new VTiket().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MTiketActionPerformed
 
     /**
      * @param args the command line arguments

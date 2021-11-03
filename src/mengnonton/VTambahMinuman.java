@@ -106,6 +106,11 @@ public class VTambahMinuman extends javax.swing.JFrame {
         MTiket.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MTiket.setIconTextGap(10);
         MTiket.setPreferredSize(new java.awt.Dimension(97, 32));
+        MTiket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MTiketActionPerformed(evt);
+            }
+        });
 
         MStudio.setBackground(new java.awt.Color(0, 8, 66));
         MStudio.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
@@ -510,6 +515,8 @@ public class VTambahMinuman extends javax.swing.JFrame {
 
     private void MJadwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MJadwalActionPerformed
         // TODO add your handling code here:
+        new VJadwal().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_MJadwalActionPerformed
 
     private void MMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MMakananActionPerformed
@@ -554,6 +561,12 @@ public class VTambahMinuman extends javax.swing.JFrame {
         new VStudio().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MStudioActionPerformed
+
+    private void MTiketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MTiketActionPerformed
+        // TODO add your handling code here:
+        new VTiket().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MTiketActionPerformed
 
     /**
      * @param args the command line arguments

@@ -4,23 +4,61 @@
  * and open the template in the editor.
  */
 package mengnonton;
-import java.sql.*;
+
 import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
+import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.AbstractCellEditor;
+import javax.swing.ButtonModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
+import mengnonton.VTest.ButtonEditor;
+import mengnonton.VTest.ButtonRenderer;
 
 /**
  *
  * @author dblenk
  */
-public class VTambahMakanan extends javax.swing.JFrame {
+public class VTiket extends javax.swing.JFrame {
 
     /**
      * Creates new form VMakanan
      */
-    public VTambahMakanan() {
+    public VTiket() {
         initComponents();
-        bg.setFocusable(true);
+        tabelJadwal.getTableHeader().setFont(new Font("Lato", Font.BOLD, 17));
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        tabelJadwal.setDefaultRenderer(String.class, centerRenderer);
+
+        DefaultTableCellRenderer centerInt = new DefaultTableCellRenderer();
+        centerInt.setHorizontalAlignment(JLabel.CENTER);
+        tabelJadwal.setDefaultRenderer(Integer.class, centerInt);
+        tabelJadwal.setRowHeight(30);
+
+        tabelJadwal.getColumn("Aksi").setCellRenderer(new ButtonsRenderer());
+        tabelJadwal.getColumn("Aksi").setCellEditor(
+                new ButtonsEditor(new JTable()));
+
     }
 
     /**
@@ -44,18 +82,14 @@ public class VTambahMakanan extends javax.swing.JFrame {
         MMinuman = new javax.swing.JButton();
         MPembayaran = new javax.swing.JButton();
         MLogout = new javax.swing.JButton();
-        headpanel = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         LMakanan = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        FormIDMakanan = new javax.swing.JTextField();
-        FormNamaMakanan = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        FormHarga = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        FormStok = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        ButtonTambah = new javax.swing.JButton();
+        FormSearch = new javax.swing.JTextField();
+        iconSearch = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelJadwal = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
@@ -106,11 +140,6 @@ public class VTambahMakanan extends javax.swing.JFrame {
         MTiket.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MTiket.setIconTextGap(10);
         MTiket.setPreferredSize(new java.awt.Dimension(97, 32));
-        MTiket.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MTiketActionPerformed(evt);
-            }
-        });
 
         MStudio.setBackground(new java.awt.Color(0, 8, 66));
         MStudio.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
@@ -226,18 +255,17 @@ public class VTambahMakanan extends javax.swing.JFrame {
             sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidepanelLayout.createSequentialGroup()
                 .addGap(72, 72, 72)
-                .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(Mfilm, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                        .addComponent(MTiket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MStudio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MJadwal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MMakanan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MMinuman, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MPembayaran, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2)
-                    .addComponent(MJudul))
+                .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MJudul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Mfilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MTiket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MStudio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MJadwal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MMakanan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MMinuman, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MPembayaran, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(73, Short.MAX_VALUE))
         );
         sidepanelLayout.setVerticalGroup(
@@ -266,37 +294,37 @@ public class VTambahMakanan extends javax.swing.JFrame {
                 .addContainerGap(136, Short.MAX_VALUE))
         );
 
-        headpanel.setBackground(new java.awt.Color(12, 33, 193));
-        headpanel.setPreferredSize(new java.awt.Dimension(675, 102));
+        jPanel2.setBackground(new java.awt.Color(12, 33, 193));
+        jPanel2.setPreferredSize(new java.awt.Dimension(675, 102));
 
         LMakanan.setBackground(new java.awt.Color(255, 255, 255));
         LMakanan.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
         LMakanan.setForeground(new java.awt.Color(255, 255, 255));
-        LMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/makanan.png"))); // NOI18N
-        LMakanan.setText("Makanan");
+        LMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/tiket.png"))); // NOI18N
+        LMakanan.setText("Tiket");
 
         jLabel1.setBackground(new java.awt.Color(153, 153, 153));
         jLabel1.setFont(new java.awt.Font("Lato", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel1.setText("Tambah Data Makanan");
+        jLabel1.setText("Menu Data Tiket");
 
-        javax.swing.GroupLayout headpanelLayout = new javax.swing.GroupLayout(headpanel);
-        headpanel.setLayout(headpanelLayout);
-        headpanelLayout.setHorizontalGroup(
-            headpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headpanelLayout.createSequentialGroup()
-                .addGroup(headpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(headpanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(LMakanan))
-                    .addGroup(headpanelLayout.createSequentialGroup()
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addComponent(jLabel1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        headpanelLayout.setVerticalGroup(
-            headpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headpanelLayout.createSequentialGroup()
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(LMakanan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -304,96 +332,65 @@ public class VTambahMakanan extends javax.swing.JFrame {
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
-        jLabel3.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel3.setText("ID Makanan");
-
-        FormIDMakanan.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
-        FormIDMakanan.setForeground(new java.awt.Color(0, 8, 66));
-        FormIDMakanan.setText("Masukan ID Makanan");
-        FormIDMakanan.setToolTipText("");
-        FormIDMakanan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        FormIDMakanan.setCaretColor(new java.awt.Color(0, 8, 66));
-        FormIDMakanan.setDisabledTextColor(new java.awt.Color(0, 6, 66));
-        FormIDMakanan.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                FormIDMakananFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                FormIDMakananFocusLost(evt);
-            }
-        });
-
-        FormNamaMakanan.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
-        FormNamaMakanan.setForeground(new java.awt.Color(0, 8, 66));
-        FormNamaMakanan.setText("Masukan Nama Makanan");
-        FormNamaMakanan.setToolTipText("");
-        FormNamaMakanan.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        FormNamaMakanan.setCaretColor(new java.awt.Color(0, 8, 66));
-        FormNamaMakanan.setDisabledTextColor(new java.awt.Color(0, 6, 66));
-        FormNamaMakanan.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                FormNamaMakananFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                FormNamaMakananFocusLost(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel5.setText("Nama Makanan");
-
-        FormHarga.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
-        FormHarga.setForeground(new java.awt.Color(0, 8, 66));
-        FormHarga.setText("Masukan Harga Makanan");
-        FormHarga.setToolTipText("");
-        FormHarga.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        FormHarga.setCaretColor(new java.awt.Color(0, 8, 66));
-        FormHarga.setDisabledTextColor(new java.awt.Color(0, 6, 66));
-        FormHarga.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                FormHargaFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                FormHargaFocusLost(evt);
-            }
-        });
-
-        jLabel6.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel6.setText("Harga");
-
-        FormStok.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
-        FormStok.setForeground(new java.awt.Color(0, 8, 66));
-        FormStok.setText("Masukan Stok Makanan");
-        FormStok.setToolTipText("");
-        FormStok.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        FormStok.setCaretColor(new java.awt.Color(0, 8, 66));
-        FormStok.setDisabledTextColor(new java.awt.Color(0, 6, 66));
-        FormStok.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                FormStokFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                FormStokFocusLost(evt);
-            }
-        });
-
-        jLabel7.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel7.setText("Stok");
-
-        jButton1.setBackground(new java.awt.Color(12, 33, 193));
-        jButton1.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/simpan.png"))); // NOI18N
-        jButton1.setText("SIMPAN");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        ButtonTambah.setBackground(new java.awt.Color(12, 33, 193));
+        ButtonTambah.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
+        ButtonTambah.setForeground(new java.awt.Color(255, 255, 255));
+        ButtonTambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/tambah.png"))); // NOI18N
+        ButtonTambah.setText("Tambah");
+        ButtonTambah.setPreferredSize(new java.awt.Dimension(141, 43));
+        ButtonTambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ButtonTambahActionPerformed(evt);
             }
         });
+
+        FormSearch.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
+        FormSearch.setForeground(new java.awt.Color(204, 204, 204));
+        FormSearch.setText("Cari");
+        FormSearch.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 8, 66), 1, true));
+        FormSearch.setPreferredSize(new java.awt.Dimension(211, 43));
+        FormSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                FormSearchFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                FormSearchFocusLost(evt);
+            }
+        });
+
+        iconSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/search.png"))); // NOI18N
+
+        tabelJadwal.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
+        tabelJadwal.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                { new Integer(1), "M001", "Pizza", null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "No", "ID Tiket", "ID Jadwal", "Harga Tiket", "Aksi"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tabelJadwal.setGridColor(new java.awt.Color(153, 153, 153));
+        jScrollPane1.setViewportView(tabelJadwal);
+        if (tabelJadwal.getColumnModel().getColumnCount() > 0) {
+            tabelJadwal.getColumnModel().getColumn(0).setMinWidth(25);
+            tabelJadwal.getColumnModel().getColumn(0).setPreferredWidth(25);
+            tabelJadwal.getColumnModel().getColumn(0).setMaxWidth(25);
+            tabelJadwal.getColumnModel().getColumn(4).setMinWidth(120);
+            tabelJadwal.getColumnModel().getColumn(4).setPreferredWidth(120);
+            tabelJadwal.getColumnModel().getColumn(4).setMaxWidth(200);
+        }
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -402,48 +399,39 @@ public class VTambahMakanan extends javax.swing.JFrame {
             .addGroup(bgLayout.createSequentialGroup()
                 .addComponent(sidepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(headpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(FormStok, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                            .addComponent(FormIDMakanan, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                            .addComponent(FormNamaMakanan, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                            .addComponent(FormHarga, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
-                        .addGap(65, 65, 65))))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addComponent(ButtonTambah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                                .addComponent(iconSearch)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(FormSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(60, 60, 60))))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
                 .addComponent(sidepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 27, Short.MAX_VALUE))
             .addGroup(bgLayout.createSequentialGroup()
                 .addGap(58, 58, 58)
-                .addComponent(headpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FormIDMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ButtonTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(FormSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(iconSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FormNamaMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FormHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FormStok, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(bg);
@@ -451,72 +439,22 @@ public class VTambahMakanan extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void FormIDMakananFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormIDMakananFocusGained
+    private void FormSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormSearchFocusGained
         // TODO add your handling code here:
-        if (FormIDMakanan.getText().equals("Masukan ID Makanan")) {
-            FormIDMakanan.setText("");
+        if (FormSearch.getText().equals("Cari")) {
+            FormSearch.setText("");
         }
-    }//GEN-LAST:event_FormIDMakananFocusGained
+    }//GEN-LAST:event_FormSearchFocusGained
 
-    private void FormIDMakananFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormIDMakananFocusLost
+    private void FormSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormSearchFocusLost
         // TODO add your handling code here:
-        if (FormIDMakanan.getText().equals("")) {
-            FormIDMakanan.setText("Masukan ID Makanan");
+        if (FormSearch.getText().equals("")) {
+            FormSearch.setText("Cari");
         }
-    }//GEN-LAST:event_FormIDMakananFocusLost
-
-    private void FormNamaMakananFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormNamaMakananFocusGained
-        // TODO add your handling code here:
-         if (FormNamaMakanan.getText().equals("Masukan Nama Makanan")) {
-            FormNamaMakanan.setText("");
-        }
-    }//GEN-LAST:event_FormNamaMakananFocusGained
-
-    private void FormNamaMakananFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormNamaMakananFocusLost
-        // TODO add your handling code here:
-         if (FormNamaMakanan.getText().equals("")) {
-            FormNamaMakanan.setText("Masukan Nama Makanan");
-        }
-    }//GEN-LAST:event_FormNamaMakananFocusLost
-
-    private void FormHargaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormHargaFocusGained
-        // TODO add your handling code here:
-          if (FormHarga.getText().equals("Masukan Harga Makanan")) {
-            FormHarga.setText("");
-        }
-    }//GEN-LAST:event_FormHargaFocusGained
-
-    private void FormHargaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormHargaFocusLost
-        // TODO add your handling code here:
-          if (FormHarga.getText().equals("")) {
-            FormHarga.setText("Masukan Harga Makanan");
-        }
-    }//GEN-LAST:event_FormHargaFocusLost
-
-    private void FormStokFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormStokFocusGained
-        // TODO add your handling code here:
-          if (FormStok.getText().equals("Masukan Stok Makanan")) {
-            FormStok.setText("");
-        }
-    }//GEN-LAST:event_FormStokFocusGained
-
-    private void FormStokFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormStokFocusLost
-        // TODO add your handling code here:
-          if (FormStok.getText().equals("")) {
-            FormStok.setText("Masukan Stok Makanan");
-        }
-    }//GEN-LAST:event_FormStokFocusLost
-
-    private void MfilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MfilmActionPerformed
-        // TODO add your handling code here:
-        new VFilm().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MfilmActionPerformed
+    }//GEN-LAST:event_FormSearchFocusLost
 
     private void MJadwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MJadwalActionPerformed
         // TODO add your handling code here:
-        new VJadwal().setVisible(true);
-        this.setVisible(false);
     }//GEN-LAST:event_MJadwalActionPerformed
 
     private void MMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MMakananActionPerformed
@@ -527,7 +465,7 @@ public class VTambahMakanan extends javax.swing.JFrame {
 
     private void MMinumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MMinumanActionPerformed
         // TODO add your handling code here:
-         new VMinuman().setVisible(true);
+        new VMinuman().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MMinumanActionPerformed
 
@@ -541,32 +479,23 @@ public class VTambahMakanan extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_MLogoutActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try{
-            Connection conn=(Connection)koneksi.koneksiDB();
-            Statement stt=conn.createStatement();
-            stt.executeUpdate("insert into makanan(ID_MAKANAN,NAMA_MAKANAN,HARGA_MAKANAN,STOK_MAKANAN)"+
-                    "VALUES('"+FormIDMakanan.getText()+"','"+FormNamaMakanan.getText()+"','"+FormHarga.getText()+"','"+FormStok.getText()+"')");
-            conn.close();
-            JOptionPane.showMessageDialog(null, "Berhasil simpan");
-            new VMakanan().setVisible(true);
-            setVisible(false);
-        }catch(Exception exc){
-            System.err.println(exc.getMessage());
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void MfilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MfilmActionPerformed
+        // TODO add your handling code here:
+        new VTiket().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MfilmActionPerformed
+
+    private void ButtonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahActionPerformed
+        // TODO add your handling code here:
+        new VTambahTiket().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_ButtonTambahActionPerformed
 
     private void MStudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MStudioActionPerformed
         // TODO add your handling code here:
         new VStudio().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MStudioActionPerformed
-
-    private void MTiketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MTiketActionPerformed
-        // TODO add your handling code here:
-        new VTiket().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MTiketActionPerformed
 
     /**
      * @param args the command line arguments
@@ -585,14 +514,44 @@ public class VTambahMakanan extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VTambahMakanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VTiket.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VTambahMakanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VTiket.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VTambahMakanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VTiket.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VTambahMakanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VTiket.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -601,19 +560,147 @@ public class VTambahMakanan extends javax.swing.JFrame {
             public void run() {
                 try {
                     UIManager.setLookAndFeel(new AluminiumLookAndFeel());
-                    
+
                 } catch (Exception e) {
                 }
-                new VTambahMakanan().setVisible(true);
+                new VTiket().setVisible(true);
             }
         });
     }
 
+    class ButtonsPanel extends JPanel {
+
+        public final List<JButton> buttons = Arrays.asList(new JButton("edit"), new JButton("hapus"));
+
+        protected ButtonsPanel() {
+
+            setOpaque(true);
+            for (JButton b : buttons) {
+                b.setFocusable(false);
+                b.setRolloverEnabled(false);
+                add(b);
+            }
+        }
+    }
+
+    class ButtonsRenderer implements TableCellRenderer {
+
+        private final ButtonsPanel panel = new ButtonsPanel() {
+
+            @Override
+            public void updateUI() {
+                super.updateUI();
+                setName("Table.cellRenderer");
+            }
+        };
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            panel.setBackground(new Color(255, 255, 255));
+//            panel.setBackground(isSelected ? table.getSelectionBackground() : table.getBackground());
+            return panel;
+        }
+    }
+
+    class EditAction extends AbstractAction {
+
+        private final JTable table;
+
+        protected EditAction(JTable table) {
+            super("edit");
+
+            this.table = table;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            new VEditTiket().setVisible(true);
+            setVisible(false);
+//            this.setVisible(false);
+//            JOptionPane.showMessageDialog(table, "Edit");
+        }
+    }
+
+    class HapusAction extends AbstractAction {
+
+        private final JTable table;
+
+        protected HapusAction(JTable table) {
+            super("hapus");
+            this.table = table;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JOptionPane.showMessageDialog(table, "Data berhadil dihapus !");
+        }
+
+//        @Override
+//        public void actionPerformed(ActionEvent e) {
+//            // Object o = table.getModel().getValueAt(table.getSelectedRow(), 0);
+//            int row = table.convertRowIndexToModel(table.getEditingRow());
+//            Object o = table.getModel().getValueAt(row, 0);
+//            JOptionPane.showMessageDialog(table, "Editing: " + o);
+//        }
+    }
+
+// delegation pattern
+    class ButtonsEditor extends AbstractCellEditor implements TableCellEditor {
+
+        protected final ButtonsPanel panel = new ButtonsPanel();
+        protected final JTable table;
+
+        private class EditingStopHandler extends MouseAdapter implements ActionListener {
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                Object o = e.getSource();
+                if (o instanceof TableCellEditor) {
+                    actionPerformed(null);
+                } else if (o instanceof JButton) {
+                    // DEBUG: view button click -> control key down + edit button(same cell) press -> remain selection color
+                    ButtonModel m = ((JButton) e.getComponent()).getModel();
+                    if (m.isPressed() && table.isRowSelected(table.getEditingRow()) && e.isControlDown()) {
+                        panel.setBackground(table.getBackground());
+                    }
+                }
+            }
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EventQueue.invokeLater(() -> fireEditingStopped());
+            }
+        }
+
+        protected ButtonsEditor(JTable table) {
+            super();
+            this.table = table;
+            panel.buttons.get(0).setAction(new EditAction(table));
+            panel.buttons.get(1).setAction(new HapusAction(table));
+
+            EditingStopHandler handler = new EditingStopHandler();
+            for (JButton b : panel.buttons) {
+                b.addMouseListener(handler);
+                b.addActionListener(handler);
+            }
+            panel.addMouseListener(handler);
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable tbl, Object value, boolean isSelected, int row, int column) {
+            panel.setBackground(tbl.getSelectionBackground());
+            return panel;
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            return "";
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField FormHarga;
-    private javax.swing.JTextField FormIDMakanan;
-    private javax.swing.JTextField FormNamaMakanan;
-    private javax.swing.JTextField FormStok;
+    private javax.swing.JButton ButtonTambah;
+    private javax.swing.JTextField FormSearch;
     private javax.swing.JLabel LMakanan;
     private javax.swing.JButton MJadwal;
     private javax.swing.JLabel MJudul;
@@ -625,14 +712,12 @@ public class VTambahMakanan extends javax.swing.JFrame {
     private javax.swing.JButton MTiket;
     private javax.swing.JButton Mfilm;
     private javax.swing.JPanel bg;
-    private javax.swing.JPanel headpanel;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel iconSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel sidepanel;
+    private javax.swing.JTable tabelJadwal;
     // End of variables declaration//GEN-END:variables
 }
