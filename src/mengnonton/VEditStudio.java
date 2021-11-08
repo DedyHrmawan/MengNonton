@@ -6,6 +6,10 @@
 package mengnonton;
 
 import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 /**
@@ -13,13 +17,32 @@ import javax.swing.UIManager;
  * @author dblenk
  */
 public class VEditStudio extends javax.swing.JFrame {
+    ResultSet RsStudio = null;
+    String id_edit = "";
 
     /**
      * Creates new form VMakanan
      */
-    public VEditStudio() {
-        initComponents();
+    public VEditStudio(String idStudio) {
+         initComponents();
         bg.setFocusable(true);
+        id_edit = idStudio;
+        
+        try{            
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            
+            RsStudio=stt.executeQuery("SELECT * from studio WHERE ID_STUDIO ='"+idStudio+"'");  
+            
+            if(RsStudio.next()){
+                FormIDStudio.setText(RsStudio.getString("ID_STUDIO"));
+                FormNamaStudio.setText(RsStudio.getString("NAMA_STUDIO"));
+                FormKapasitas.setText(RsStudio.getString("KAPASITAS_STUDIO"));
+                FormJenisStudio.setSelectedItem(RsStudio.getString("JENIS_STUDIO"));
+             }            
+        } catch (Exception ex) {
+        System.err.println(ex.getMessage());
+        }
     }
 
     /**
@@ -52,9 +75,9 @@ public class VEditStudio extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         FormKapasitas = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        FormJenis = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        FormJenisStudio = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
@@ -227,7 +250,7 @@ public class VEditStudio extends javax.swing.JFrame {
                 .addGap(72, 72, 72)
                 .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(Mfilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Mfilm, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
                         .addComponent(MTiket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(MStudio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(MJadwal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -237,7 +260,7 @@ public class VEditStudio extends javax.swing.JFrame {
                         .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2)
                     .addComponent(MJudul))
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         sidepanelLayout.setVerticalGroup(
             sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,7 +285,7 @@ public class VEditStudio extends javax.swing.JFrame {
                 .addComponent(MPembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
 
         headpanel.setBackground(new java.awt.Color(12, 33, 193));
@@ -300,7 +323,7 @@ public class VEditStudio extends javax.swing.JFrame {
                 .addComponent(LMakanan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jLabel3.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
@@ -368,22 +391,6 @@ public class VEditStudio extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(153, 153, 153));
         jLabel6.setText("Kapasitas");
 
-        FormJenis.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
-        FormJenis.setForeground(new java.awt.Color(0, 8, 66));
-        FormJenis.setText("Jenis Studio");
-        FormJenis.setToolTipText("");
-        FormJenis.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        FormJenis.setCaretColor(new java.awt.Color(0, 8, 66));
-        FormJenis.setDisabledTextColor(new java.awt.Color(0, 6, 66));
-        FormJenis.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                FormJenisFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                FormJenisFocusLost(evt);
-            }
-        });
-
         jLabel7.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 153, 153));
         jLabel7.setText("Jenis Studio");
@@ -393,6 +400,13 @@ public class VEditStudio extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/simpan.png"))); // NOI18N
         jButton1.setText("SIMPAN");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        FormJenisStudio.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Deluxe", "Dolby Atmos", "Premiere" }));
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -405,16 +419,20 @@ public class VEditStudio extends javax.swing.JFrame {
                     .addGroup(bgLayout.createSequentialGroup()
                         .addGap(65, 65, 65)
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(FormJenis, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(FormIDStudio)
-                            .addComponent(FormNamaStudio, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(FormKapasitas, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE))
-                        .addGap(65, 65, 65))))
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addComponent(FormJenisStudio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7)
+                                    .addComponent(FormIDStudio)
+                                    .addComponent(FormNamaStudio, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                                    .addComponent(FormKapasitas, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE))
+                                .addGap(65, 65, 65))))))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -438,8 +456,8 @@ public class VEditStudio extends javax.swing.JFrame {
                 .addComponent(FormKapasitas, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FormJenis, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(FormJenisStudio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(51, 51, 51))
@@ -492,20 +510,6 @@ public class VEditStudio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_FormKapasitasFocusLost
 
-    private void FormJenisFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormJenisFocusGained
-        // TODO add your handling code here:
-        if (FormJenis.getText().equals("Jenis Studio")) {
-            FormJenis.setText("");
-        }
-    }//GEN-LAST:event_FormJenisFocusGained
-
-    private void FormJenisFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormJenisFocusLost
-        // TODO add your handling code here:
-        if (FormJenis.getText().equals("")) {
-            FormJenis.setText("Jenis Studio");
-        }
-    }//GEN-LAST:event_FormJenisFocusLost
-
     private void MfilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MfilmActionPerformed
         // TODO add your handling code here:
         new VFilm().setVisible(true);
@@ -555,6 +559,23 @@ public class VEditStudio extends javax.swing.JFrame {
         new VTiket().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MTiketActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try{
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            stt.executeUpdate("update studio set NAMA_STUDIO = '"+FormNamaStudio.getText()+"',"
+                    + "KAPASITAS_STUDIO ='"+FormKapasitas.getText()+"', JENIS_STUDIO='"+FormJenisStudio.getSelectedItem().toString()+"', ID_STUDIO = '"+FormIDStudio.getText()+"'"
+                    + "WHERE ID_STUDIO ='"+id_edit+"'");
+            conn.close();
+            JOptionPane.showMessageDialog(null, "Berhasil diubah");
+            new VStudio().setVisible(true);
+            setVisible(false);
+        }catch(Exception exc){
+            System.err.println(exc.getMessage());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -606,14 +627,13 @@ public class VEditStudio extends javax.swing.JFrame {
                     
                 } catch (Exception e) {
                 }
-                new VEditStudio().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField FormIDStudio;
-    private javax.swing.JTextField FormJenis;
+    private javax.swing.JComboBox FormJenisStudio;
     private javax.swing.JTextField FormKapasitas;
     private javax.swing.JTextField FormNamaStudio;
     private javax.swing.JLabel LMakanan;

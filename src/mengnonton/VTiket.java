@@ -6,7 +6,6 @@
 package mengnonton;
 
 import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
-import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
@@ -30,8 +29,6 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
-import mengnonton.VTest.ButtonEditor;
-import mengnonton.VTest.ButtonRenderer;
 
 /**
  *

@@ -6,7 +6,6 @@
 package mengnonton;
 
 import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
-import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
@@ -15,6 +14,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.AbstractAction;
@@ -28,16 +30,17 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
-import mengnonton.VTest.ButtonEditor;
-import mengnonton.VTest.ButtonRenderer;
 
 /**
  *
  * @author dblenk
  */
 public class VStudio extends javax.swing.JFrame {
+    DefaultTableModel tabModel;
+    ResultSet RsStudio=null;
 
     /**
      * Creates new form VMakanan
@@ -58,7 +61,42 @@ public class VStudio extends javax.swing.JFrame {
         tabelStudio.getColumn("Aksi").setCellRenderer(new ButtonsRenderer());
         tabelStudio.getColumn("Aksi").setCellEditor(
                 new ButtonsEditor(new JTable()));
+        
+        tampilData();
 
+    }
+    
+    private void tampilData(){
+        try{
+            Object[] judul_kolom = {"No", "ID Studio", "Nama Studio", "Kapasitas Studio", "Jenis Studio", "Aksi"};
+            tabModel = new DefaultTableModel(null,judul_kolom);
+            tabelStudio.setModel(tabModel);
+            
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            tabModel.getDataVector().removeAllElements();
+            
+            RsStudio=stt.executeQuery("SELECT * from studio");  
+            int no = 0;
+            while(RsStudio.next()){
+                no++;
+                
+                Object[] data={
+                    no,
+                    RsStudio.getString("ID_STUDIO"),
+                    RsStudio.getString("NAMA_STUDIO"),
+                    RsStudio.getString("KAPASITAS_STUDIO"),
+                    RsStudio.getString("JENIS_STUDIO"),
+                };
+               tabModel.addRow(data);
+            }                
+        } catch (Exception ex) {
+        System.err.println(ex.getMessage());
+        }     
+
+        tabelStudio.getColumn("Aksi").setCellRenderer(new VStudio.ButtonsRenderer());
+        tabelStudio.getColumn("Aksi").setCellEditor(
+                new VStudio.ButtonsEditor(tabelStudio)); 
     }
 
     /**
@@ -611,10 +649,8 @@ public class VStudio extends javax.swing.JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            new VEditStudio().setVisible(true);
+            new VEditStudio(tabModel.getValueAt(table.getSelectedRow(),1)+"").setVisible(true);
             setVisible(false);
-//            this.setVisible(false);
-//            JOptionPane.showMessageDialog(table, "Edit");
         }
     }
 
