@@ -34,14 +34,14 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author dblenk
  */
-public class VTiket extends javax.swing.JFrame {
+public class VPembayaran extends javax.swing.JFrame {
 
     /**
      * Creates new form VMakanan
      */
-    public VTiket() {
+    public VPembayaran() {
         initComponents();
-        this.setExtendedState(VTiket.MAXIMIZED_BOTH);
+        this.setExtendedState(VPembayaran.MAXIMIZED_BOTH);
         tabelJadwal.getTableHeader().setFont(new Font("Lato", Font.BOLD, 17));
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -188,13 +188,13 @@ public class VTiket extends javax.swing.JFrame {
         LMakanan.setBackground(new java.awt.Color(255, 255, 255));
         LMakanan.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
         LMakanan.setForeground(new java.awt.Color(255, 255, 255));
-        LMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/tiket.png"))); // NOI18N
-        LMakanan.setText("Tiket");
+        LMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/bayar.png"))); // NOI18N
+        LMakanan.setText("Pembayaran");
 
         jLabel1.setBackground(new java.awt.Color(153, 153, 153));
         jLabel1.setFont(new java.awt.Font("Lato", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel1.setText("Menu Data Tiket");
+        jLabel1.setText("Menu Data Pembayaran");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -251,18 +251,18 @@ public class VTiket extends javax.swing.JFrame {
         tabelJadwal.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
         tabelJadwal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), "M001", "Pizza", null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                { new Integer(1), "M001", "Pizza", null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "No", "ID Tiket", "ID Jadwal", "Harga Tiket", "Aksi"
+                "No", "ID Pembayaran", "ID Tiket", "ID Makanan", "ID Minuman", "Tanggal", "Total", "Aksi"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -275,9 +275,9 @@ public class VTiket extends javax.swing.JFrame {
             tabelJadwal.getColumnModel().getColumn(0).setMinWidth(25);
             tabelJadwal.getColumnModel().getColumn(0).setPreferredWidth(25);
             tabelJadwal.getColumnModel().getColumn(0).setMaxWidth(25);
-            tabelJadwal.getColumnModel().getColumn(4).setMinWidth(120);
-            tabelJadwal.getColumnModel().getColumn(4).setPreferredWidth(120);
-            tabelJadwal.getColumnModel().getColumn(4).setMaxWidth(200);
+            tabelJadwal.getColumnModel().getColumn(7).setMinWidth(120);
+            tabelJadwal.getColumnModel().getColumn(7).setPreferredWidth(120);
+            tabelJadwal.getColumnModel().getColumn(7).setMaxWidth(200);
         }
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
@@ -355,7 +355,7 @@ public class VTiket extends javax.swing.JFrame {
 
     private void ButtonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahActionPerformed
         // TODO add your handling code here:
-        new VTambahTiket().setVisible(true);
+        new VTambahPembayaran().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_ButtonTambahActionPerformed
 
@@ -376,14 +376,46 @@ public class VTiket extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VTiket.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VPembayaran.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VTiket.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VPembayaran.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VTiket.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VPembayaran.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VTiket.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VPembayaran.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -425,7 +457,7 @@ public class VTiket extends javax.swing.JFrame {
 
                 } catch (Exception e) {
                 }
-                new VTiket().setVisible(true);
+                new VPembayaran().setVisible(true);
             }
         });
     }
@@ -476,7 +508,7 @@ public class VTiket extends javax.swing.JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            new VEditTiket().setVisible(true);
+            new VEditPembayaran().setVisible(true);
             setVisible(false);
 //            this.setVisible(false);
 //            JOptionPane.showMessageDialog(table, "Edit");
