@@ -19,6 +19,7 @@ public class VTambahTiket extends javax.swing.JFrame {
      */
     public VTambahTiket() {
         initComponents();
+        this.setExtendedState(VTambahTiket.MAXIMIZED_BOTH);
         bg.setFocusable(true);
     }
 
@@ -35,12 +36,7 @@ public class VTambahTiket extends javax.swing.JFrame {
         sidepanel = new javax.swing.JPanel();
         MJudul = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        Mfilm = new javax.swing.JButton();
         MTiket = new javax.swing.JButton();
-        MStudio = new javax.swing.JButton();
-        MJadwal = new javax.swing.JButton();
-        MMakanan = new javax.swing.JButton();
-        MMinuman = new javax.swing.JButton();
         MPembayaran = new javax.swing.JButton();
         MLogout = new javax.swing.JButton();
         headpanel = new javax.swing.JPanel();
@@ -73,24 +69,6 @@ public class VTambahTiket extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("______________________________");
 
-        Mfilm.setBackground(new java.awt.Color(0, 8, 66));
-        Mfilm.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
-        Mfilm.setForeground(new java.awt.Color(255, 255, 255));
-        Mfilm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/film.png"))); // NOI18N
-        Mfilm.setText("Film");
-        Mfilm.setBorder(null);
-        Mfilm.setBorderPainted(false);
-        Mfilm.setContentAreaFilled(false);
-        Mfilm.setHideActionText(true);
-        Mfilm.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Mfilm.setIconTextGap(10);
-        Mfilm.setPreferredSize(new java.awt.Dimension(97, 32));
-        Mfilm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MfilmActionPerformed(evt);
-            }
-        });
-
         MTiket.setBackground(new java.awt.Color(0, 8, 66));
         MTiket.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
         MTiket.setForeground(new java.awt.Color(255, 255, 255));
@@ -106,78 +84,6 @@ public class VTambahTiket extends javax.swing.JFrame {
         MTiket.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MTiketActionPerformed(evt);
-            }
-        });
-
-        MStudio.setBackground(new java.awt.Color(0, 8, 66));
-        MStudio.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
-        MStudio.setForeground(new java.awt.Color(255, 255, 255));
-        MStudio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/studio.png"))); // NOI18N
-        MStudio.setText("Studio");
-        MStudio.setBorder(null);
-        MStudio.setBorderPainted(false);
-        MStudio.setContentAreaFilled(false);
-        MStudio.setHideActionText(true);
-        MStudio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        MStudio.setIconTextGap(10);
-        MStudio.setPreferredSize(new java.awt.Dimension(97, 32));
-        MStudio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MStudioActionPerformed(evt);
-            }
-        });
-
-        MJadwal.setBackground(new java.awt.Color(0, 8, 66));
-        MJadwal.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
-        MJadwal.setForeground(new java.awt.Color(255, 255, 255));
-        MJadwal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/jadwal.png"))); // NOI18N
-        MJadwal.setText("Jadwal");
-        MJadwal.setBorder(null);
-        MJadwal.setBorderPainted(false);
-        MJadwal.setContentAreaFilled(false);
-        MJadwal.setHideActionText(true);
-        MJadwal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        MJadwal.setIconTextGap(10);
-        MJadwal.setPreferredSize(new java.awt.Dimension(97, 32));
-        MJadwal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MJadwalActionPerformed(evt);
-            }
-        });
-
-        MMakanan.setBackground(new java.awt.Color(0, 8, 66));
-        MMakanan.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
-        MMakanan.setForeground(new java.awt.Color(255, 255, 255));
-        MMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/makanan.png"))); // NOI18N
-        MMakanan.setText("Makanan");
-        MMakanan.setBorder(null);
-        MMakanan.setBorderPainted(false);
-        MMakanan.setContentAreaFilled(false);
-        MMakanan.setHideActionText(true);
-        MMakanan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        MMakanan.setIconTextGap(10);
-        MMakanan.setPreferredSize(new java.awt.Dimension(97, 32));
-        MMakanan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MMakananActionPerformed(evt);
-            }
-        });
-
-        MMinuman.setBackground(new java.awt.Color(0, 8, 66));
-        MMinuman.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
-        MMinuman.setForeground(new java.awt.Color(255, 255, 255));
-        MMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/minuman.png"))); // NOI18N
-        MMinuman.setText("Minuman");
-        MMinuman.setBorder(null);
-        MMinuman.setBorderPainted(false);
-        MMinuman.setContentAreaFilled(false);
-        MMinuman.setHideActionText(true);
-        MMinuman.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        MMinuman.setIconTextGap(10);
-        MMinuman.setPreferredSize(new java.awt.Dimension(97, 32));
-        MMinuman.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MMinumanActionPerformed(evt);
             }
         });
 
@@ -225,17 +131,12 @@ public class VTambahTiket extends javax.swing.JFrame {
                 .addGap(72, 72, 72)
                 .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(Mfilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MTiket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MStudio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MJadwal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MMakanan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MMinuman, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(MTiket, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
                         .addComponent(MPembayaran, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2)
                     .addComponent(MJudul))
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         sidepanelLayout.setVerticalGroup(
             sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,22 +146,12 @@ public class VTambahTiket extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addGap(43, 43, 43)
-                .addComponent(Mfilm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(MTiket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(MStudio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(MJadwal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(MMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(MMinuman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(MPembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(384, Short.MAX_VALUE))
         );
 
         headpanel.setBackground(new java.awt.Color(12, 33, 193));
@@ -298,7 +189,7 @@ public class VTambahTiket extends javax.swing.JFrame {
                 .addComponent(LMakanan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jLabel3.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
@@ -393,9 +284,7 @@ public class VTambahTiket extends javax.swing.JFrame {
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bgLayout.createSequentialGroup()
-                .addComponent(sidepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(sidepanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(bgLayout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addComponent(headpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -435,32 +324,10 @@ public class VTambahTiket extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_FormIDTiketFocusLost
 
-    private void MfilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MfilmActionPerformed
-        // TODO add your handling code here:
-        new VFilm().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MfilmActionPerformed
-
-    private void MJadwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MJadwalActionPerformed
-        // TODO add your handling code here:
-        new VJadwal().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MJadwalActionPerformed
-
-    private void MMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MMakananActionPerformed
-        // TODO add your handling code here:
-        new VMakanan().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MMakananActionPerformed
-
-    private void MMinumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MMinumanActionPerformed
-        // TODO add your handling code here:
-         new VMinuman().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MMinumanActionPerformed
-
     private void MPembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MPembayaranActionPerformed
         // TODO add your handling code here:
+        new VPembayaran().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_MPembayaranActionPerformed
 
     private void MLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLogoutActionPerformed
@@ -468,12 +335,6 @@ public class VTambahTiket extends javax.swing.JFrame {
         new VLogin().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MLogoutActionPerformed
-
-    private void MStudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MStudioActionPerformed
-        // TODO add your handling code here:
-        new VStudio().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MStudioActionPerformed
 
     private void FormIDTiketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FormIDTiketActionPerformed
         // TODO add your handling code here:
@@ -563,15 +424,10 @@ public class VTambahTiket extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> FormIDJadwal;
     private javax.swing.JTextField FormIDTiket;
     private javax.swing.JLabel LMakanan;
-    private javax.swing.JButton MJadwal;
     private javax.swing.JLabel MJudul;
     private javax.swing.JButton MLogout;
-    private javax.swing.JButton MMakanan;
-    private javax.swing.JButton MMinuman;
     private javax.swing.JButton MPembayaran;
-    private javax.swing.JButton MStudio;
     private javax.swing.JButton MTiket;
-    private javax.swing.JButton Mfilm;
     private javax.swing.JPanel bg;
     private javax.swing.JPanel headpanel;
     private javax.swing.JButton jButton1;

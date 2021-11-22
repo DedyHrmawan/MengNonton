@@ -47,6 +47,7 @@ public class VStudio extends javax.swing.JFrame {
      */
     public VStudio() {
         initComponents();
+        this.setExtendedState(VStudio.MAXIMIZED_BOTH);
         tabelStudio.getTableHeader().setFont(new Font("Lato", Font.BOLD, 17));
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -113,12 +114,10 @@ public class VStudio extends javax.swing.JFrame {
         MJudul = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         Mfilm = new javax.swing.JButton();
-        MTiket = new javax.swing.JButton();
         MStudio = new javax.swing.JButton();
         MJadwal = new javax.swing.JButton();
         MMakanan = new javax.swing.JButton();
         MMinuman = new javax.swing.JButton();
-        MPembayaran = new javax.swing.JButton();
         MLogout = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         LMakanan = new javax.swing.JLabel();
@@ -163,24 +162,6 @@ public class VStudio extends javax.swing.JFrame {
         Mfilm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MfilmActionPerformed(evt);
-            }
-        });
-
-        MTiket.setBackground(new java.awt.Color(0, 8, 66));
-        MTiket.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
-        MTiket.setForeground(new java.awt.Color(255, 255, 255));
-        MTiket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/tiket.png"))); // NOI18N
-        MTiket.setText("Tiket");
-        MTiket.setBorder(null);
-        MTiket.setBorderPainted(false);
-        MTiket.setContentAreaFilled(false);
-        MTiket.setHideActionText(true);
-        MTiket.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        MTiket.setIconTextGap(10);
-        MTiket.setPreferredSize(new java.awt.Dimension(97, 32));
-        MTiket.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MTiketActionPerformed(evt);
             }
         });
 
@@ -256,24 +237,6 @@ public class VStudio extends javax.swing.JFrame {
             }
         });
 
-        MPembayaran.setBackground(new java.awt.Color(0, 8, 66));
-        MPembayaran.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
-        MPembayaran.setForeground(new java.awt.Color(255, 255, 255));
-        MPembayaran.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/bayar.png"))); // NOI18N
-        MPembayaran.setText("Pembayaran");
-        MPembayaran.setBorder(null);
-        MPembayaran.setBorderPainted(false);
-        MPembayaran.setContentAreaFilled(false);
-        MPembayaran.setHideActionText(true);
-        MPembayaran.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        MPembayaran.setIconTextGap(10);
-        MPembayaran.setPreferredSize(new java.awt.Dimension(97, 32));
-        MPembayaran.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MPembayaranActionPerformed(evt);
-            }
-        });
-
         MLogout.setBackground(new java.awt.Color(0, 8, 66));
         MLogout.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
         MLogout.setForeground(new java.awt.Color(255, 255, 255));
@@ -302,14 +265,12 @@ public class VStudio extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(MJudul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Mfilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MTiket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(MStudio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(MJadwal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(MMakanan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(MMinuman, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MPembayaran, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(MLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         sidepanelLayout.setVerticalGroup(
             sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -321,8 +282,6 @@ public class VStudio extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addComponent(Mfilm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(MTiket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(MStudio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(MJadwal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -331,10 +290,8 @@ public class VStudio extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(MMinuman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(MPembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(12, 33, 193));
@@ -372,7 +329,7 @@ public class VStudio extends javax.swing.JFrame {
                 .addComponent(LMakanan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         ButtonTambah.setBackground(new java.awt.Color(12, 33, 193));
@@ -458,9 +415,6 @@ public class VStudio extends javax.swing.JFrame {
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
-                .addComponent(sidepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 27, Short.MAX_VALUE))
-            .addGroup(bgLayout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -474,7 +428,8 @@ public class VStudio extends javax.swing.JFrame {
                         .addComponent(iconSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
+            .addComponent(sidepanel, javax.swing.GroupLayout.DEFAULT_SIZE, 727, Short.MAX_VALUE)
         );
 
         getContentPane().add(bg);
@@ -514,10 +469,6 @@ public class VStudio extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_MMinumanActionPerformed
 
-    private void MPembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MPembayaranActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MPembayaranActionPerformed
-
     private void MLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLogoutActionPerformed
         // TODO add your handling code here:
         new VLogin().setVisible(true);
@@ -541,12 +492,6 @@ public class VStudio extends javax.swing.JFrame {
         new VStudio().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MStudioActionPerformed
-
-    private void MTiketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MTiketActionPerformed
-        // TODO add your handling code here:
-        new VTiket().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MTiketActionPerformed
 
     /**
      * @param args the command line arguments
@@ -740,9 +685,7 @@ public class VStudio extends javax.swing.JFrame {
     private javax.swing.JButton MLogout;
     private javax.swing.JButton MMakanan;
     private javax.swing.JButton MMinuman;
-    private javax.swing.JButton MPembayaran;
     private javax.swing.JButton MStudio;
-    private javax.swing.JButton MTiket;
     private javax.swing.JButton Mfilm;
     private javax.swing.JPanel bg;
     private javax.swing.JLabel iconSearch;
