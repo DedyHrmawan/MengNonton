@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package mengnonton;
+
 import java.sql.*;
 import javax.swing.JOptionPane;
 import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
@@ -14,8 +15,10 @@ import javax.swing.UIManager;
  * @author dblenk
  */
 public class VEditMinuman extends javax.swing.JFrame {
+
     ResultSet RsProduk = null;
     String id_edit = "";
+
     /**
      * Creates new form VMakanan
      */
@@ -24,21 +27,21 @@ public class VEditMinuman extends javax.swing.JFrame {
         this.setExtendedState(VEditMinuman.MAXIMIZED_BOTH);
         bg.setFocusable(true);
         id_edit = idminuman;
-        
-        try{            
-            Connection conn=(Connection)koneksi.koneksiDB();
-            Statement stt=conn.createStatement();
-            
-            RsProduk=stt.executeQuery("SELECT * from minuman WHERE ID_MINUMAN ='"+idminuman+"'");  
-            
-            if(RsProduk.next()){
+
+        try {
+            Connection conn = (Connection) koneksi.koneksiDB();
+            Statement stt = conn.createStatement();
+
+            RsProduk = stt.executeQuery("SELECT * from minuman WHERE ID_MINUMAN ='" + idminuman + "'");
+
+            if (RsProduk.next()) {
                 FormIDMinuman.setText(RsProduk.getString("ID_MINUMAN"));
                 FormNamaMinuman.setText(RsProduk.getString("NAMA_MINUMAN"));
                 FormHarga.setText(RsProduk.getString("HARGA_MINUMAN"));
                 FormStok.setText(RsProduk.getString("STOK_MINUMAN"));
-             }            
+            }
         } catch (Exception ex) {
-        System.err.println(ex.getMessage());
+            System.err.println(ex.getMessage());
         }
     }
 
@@ -73,6 +76,7 @@ public class VEditMinuman extends javax.swing.JFrame {
         FormStok = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        back = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
@@ -238,7 +242,7 @@ public class VEditMinuman extends javax.swing.JFrame {
                 .addComponent(MMinuman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(234, Short.MAX_VALUE))
+                .addContainerGap(314, Short.MAX_VALUE))
         );
 
         headpanel.setBackground(new java.awt.Color(12, 33, 193));
@@ -370,6 +374,17 @@ public class VEditMinuman extends javax.swing.JFrame {
             }
         });
 
+        back.setBackground(new java.awt.Color(238, 210, 2));
+        back.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
+        back.setForeground(new java.awt.Color(255, 255, 255));
+        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/back.png"))); // NOI18N
+        back.setText("Kembali");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
@@ -377,24 +392,31 @@ public class VEditMinuman extends javax.swing.JFrame {
             .addGroup(bgLayout.createSequentialGroup()
                 .addComponent(sidepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(headpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                    .addComponent(headpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
                     .addGroup(bgLayout.createSequentialGroup()
                         .addGap(65, 65, 65)
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(FormStok)
                             .addComponent(FormIDMinuman)
                             .addComponent(FormNamaMinuman)
-                            .addComponent(FormHarga))
+                            .addComponent(FormHarga, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(65, 65, 65))))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sidepanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(sidepanel, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
             .addGroup(bgLayout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addComponent(headpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -415,7 +437,9 @@ public class VEditMinuman extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(FormStok, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(51, 51, 51))
         );
 
@@ -440,42 +464,42 @@ public class VEditMinuman extends javax.swing.JFrame {
 
     private void FormNamaMinumanFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormNamaMinumanFocusGained
         // TODO add your handling code here:
-         if (FormNamaMinuman.getText().equals("Nama Minuman")) {
+        if (FormNamaMinuman.getText().equals("Nama Minuman")) {
             FormNamaMinuman.setText("");
         }
     }//GEN-LAST:event_FormNamaMinumanFocusGained
 
     private void FormNamaMinumanFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormNamaMinumanFocusLost
         // TODO add your handling code here:
-         if (FormNamaMinuman.getText().equals("")) {
+        if (FormNamaMinuman.getText().equals("")) {
             FormNamaMinuman.setText("Nama Minuman");
         }
     }//GEN-LAST:event_FormNamaMinumanFocusLost
 
     private void FormHargaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormHargaFocusGained
         // TODO add your handling code here:
-          if (FormHarga.getText().equals("Harga Minuman")) {
+        if (FormHarga.getText().equals("Harga Minuman")) {
             FormHarga.setText("");
         }
     }//GEN-LAST:event_FormHargaFocusGained
 
     private void FormHargaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormHargaFocusLost
         // TODO add your handling code here:
-          if (FormHarga.getText().equals("")) {
+        if (FormHarga.getText().equals("")) {
             FormHarga.setText("Harga Minuman");
         }
     }//GEN-LAST:event_FormHargaFocusLost
 
     private void FormStokFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormStokFocusGained
         // TODO add your handling code here:
-          if (FormStok.getText().equals("Stok Minuman")) {
+        if (FormStok.getText().equals("Stok Minuman")) {
             FormStok.setText("");
         }
     }//GEN-LAST:event_FormStokFocusGained
 
     private void FormStokFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormStokFocusLost
         // TODO add your handling code here:
-          if (FormStok.getText().equals("")) {
+        if (FormStok.getText().equals("")) {
             FormStok.setText("Stok Minuman");
         }
     }//GEN-LAST:event_FormStokFocusLost
@@ -500,7 +524,7 @@ public class VEditMinuman extends javax.swing.JFrame {
 
     private void MMinumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MMinumanActionPerformed
         // TODO add your handling code here:
-         new VMinuman().setVisible(true);
+        new VMinuman().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MMinumanActionPerformed
 
@@ -511,17 +535,17 @@ public class VEditMinuman extends javax.swing.JFrame {
     }//GEN-LAST:event_MLogoutActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try{
-            Connection conn=(Connection)koneksi.koneksiDB();
-            Statement stt=conn.createStatement();
-            stt.executeUpdate("update minuman set NAMA_MINUMAN = '"+FormNamaMinuman.getText()+"',"
-                    + "HARGA_MINUMAN ='"+FormHarga.getText()+"', STOK_MINUMAN='"+FormStok.getText()+"', ID_MINUMAN = '"+FormIDMinuman.getText()+"'"
-                    + "WHERE ID_MINUMAN ='"+id_edit+"'");
+        try {
+            Connection conn = (Connection) koneksi.koneksiDB();
+            Statement stt = conn.createStatement();
+            stt.executeUpdate("update minuman set NAMA_MINUMAN = '" + FormNamaMinuman.getText() + "',"
+                    + "HARGA_MINUMAN ='" + FormHarga.getText() + "', STOK_MINUMAN='" + FormStok.getText() + "', ID_MINUMAN = '" + FormIDMinuman.getText() + "'"
+                    + "WHERE ID_MINUMAN ='" + id_edit + "'");
             conn.close();
             JOptionPane.showMessageDialog(null, "Berhasil diubah");
             new VMinuman().setVisible(true);
             setVisible(false);
-        }catch(Exception exc){
+        } catch (Exception exc) {
             System.err.println(exc.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -531,6 +555,12 @@ public class VEditMinuman extends javax.swing.JFrame {
         new VStudio().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MStudioActionPerformed
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        // TODO add your handling code here:
+        new VMinuman().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_backActionPerformed
 
     /**
      * @param args the command line arguments
@@ -571,7 +601,7 @@ public class VEditMinuman extends javax.swing.JFrame {
             public void run() {
                 try {
                     UIManager.setLookAndFeel(new AluminiumLookAndFeel());
-                    
+
                 } catch (Exception e) {
                 }
             }
@@ -591,6 +621,7 @@ public class VEditMinuman extends javax.swing.JFrame {
     private javax.swing.JButton MMinuman;
     private javax.swing.JButton MStudio;
     private javax.swing.JButton Mfilm;
+    private javax.swing.JButton back;
     private javax.swing.JPanel bg;
     private javax.swing.JPanel headpanel;
     private javax.swing.JButton jButton1;

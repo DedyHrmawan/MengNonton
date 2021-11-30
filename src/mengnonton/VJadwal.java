@@ -436,7 +436,7 @@ public class VJadwal extends javax.swing.JFrame {
 
     private void MfilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MfilmActionPerformed
         // TODO add your handling code here:
-        new VJadwal().setVisible(true);
+        new VFilm().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MfilmActionPerformed
 

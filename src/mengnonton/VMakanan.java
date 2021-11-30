@@ -119,6 +119,7 @@ public class VMakanan extends javax.swing.JFrame {
         tabelMakanan = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(null);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
 
         bg.setBackground(new java.awt.Color(255, 255, 255));
