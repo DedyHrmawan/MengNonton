@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 02 Nov 2021 pada 12.54
--- Versi server: 10.1.38-MariaDB
--- Versi PHP: 7.3.2
+-- Generation Time: Nov 08, 2021 at 05:34 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -25,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `makanan`
+-- Table structure for table `makanan`
 --
 
 CREATE TABLE `makanan` (
@@ -36,17 +35,17 @@ CREATE TABLE `makanan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `makanan`
+-- Dumping data for table `makanan`
 --
 
 INSERT INTO `makanan` (`ID_MAKANAN`, `NAMA_MAKANAN`, `HARGA_MAKANAN`, `STOK_MAKANAN`) VALUES
-('MK001', 'Japanese Cheese Tart', 50000, 5),
+('MK001', 'Japanese Cheese Tart', 50000, 2),
 ('MK002', 'Hokkaido Cheese Tart', 75000, 7);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `minuman`
+-- Table structure for table `minuman`
 --
 
 CREATE TABLE `minuman` (
@@ -57,7 +56,7 @@ CREATE TABLE `minuman` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `minuman`
+-- Dumping data for table `minuman`
 --
 
 INSERT INTO `minuman` (`ID_MINUMAN`, `NAMA_MINUMAN`, `HARGA_MINUMAN`, `STOK_MINUMAN`) VALUES
@@ -65,18 +64,39 @@ INSERT INTO `minuman` (`ID_MINUMAN`, `NAMA_MINUMAN`, `HARGA_MINUMAN`, `STOK_MINU
 ('MI002', 'Caramel Machiato', 55000, 10),
 ('MI003', 'Lemon Ade', 35000, 10);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `studio`
+--
+
+CREATE TABLE `studio` (
+  `ID_STUDIO` varchar(10) NOT NULL,
+  `NAMA_STUDIO` varchar(100) NOT NULL,
+  `KAPASITAS_STUDIO` int(11) NOT NULL,
+  `JENIS_STUDIO` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `studio`
+--
+
+INSERT INTO `studio` (`ID_STUDIO`, `NAMA_STUDIO`, `KAPASITAS_STUDIO`, `JENIS_STUDIO`) VALUES
+('S001', 'SDjkf', 20, 'Premiere'),
+('S002', 'dsf', 20, 'Dolby Atmos');
+
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `makanan`
+-- Indexes for table `makanan`
 --
 ALTER TABLE `makanan`
   ADD PRIMARY KEY (`ID_MAKANAN`);
 
 --
--- Indeks untuk tabel `minuman`
+-- Indexes for table `minuman`
 --
 ALTER TABLE `minuman`
   ADD PRIMARY KEY (`ID_MINUMAN`);

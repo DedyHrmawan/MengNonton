@@ -115,6 +115,11 @@ public class VPembayaran extends javax.swing.JFrame {
         MTiket.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MTiket.setIconTextGap(10);
         MTiket.setPreferredSize(new java.awt.Dimension(97, 32));
+        MTiket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MTiketActionPerformed(evt);
+            }
+        });
 
         MPembayaran.setBackground(new java.awt.Color(0, 8, 66));
         MPembayaran.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
@@ -358,6 +363,12 @@ public class VPembayaran extends javax.swing.JFrame {
         new VTambahPembayaran().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_ButtonTambahActionPerformed
+
+    private void MTiketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MTiketActionPerformed
+        // TODO add your handling code here:
+        new VTiket().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MTiketActionPerformed
 
     /**
      * @param args the command line arguments
