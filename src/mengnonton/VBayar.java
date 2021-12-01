@@ -14,6 +14,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.AbstractAction;
@@ -28,6 +31,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
@@ -36,7 +40,8 @@ import javax.swing.table.TableCellRenderer;
  * @author dblenk
  */
 public class VBayar extends javax.swing.JFrame {
-
+    DefaultTableModel tabMakanan, tabMinuman;
+    ResultSet RsProduk=null, RsMinuman=null;
     /**
      * Creates new form VMakanan
      */
@@ -52,18 +57,11 @@ public class VBayar extends javax.swing.JFrame {
         DefaultTableCellRenderer centerInt = new DefaultTableCellRenderer();
         centerInt.setHorizontalAlignment(JLabel.CENTER);
         tabelMakanan.setDefaultRenderer(Integer.class, centerInt);
-        tabelMakanan.setRowHeight(30);
-
-        tabelMakanan.getColumn("Aksi").setCellRenderer(new ButtonRenderer());
-        tabelMakanan.getColumn("Aksi").setCellEditor(
-                new VBayar.ButtonEditor(new JCheckBox()));
-
+        tabelMakanan.setRowHeight(30);        
+        
         tabelMinuman.getTableHeader().setFont(new Font("Lato", Font.BOLD, 17));
         tabelMinuman.setDefaultRenderer(Integer.class, centerInt);
         tabelMinuman.setRowHeight(30);
-        tabelMinuman.getColumn("Aksi").setCellRenderer(new ButtonRenderer());
-        tabelMinuman.getColumn("Aksi").setCellEditor(
-                new VBayar.ButtonEditor(new JCheckBox()));
 
         tabelTiket.getTableHeader().setFont(new Font("Lato", Font.BOLD, 17));
         tabelTiket.setDefaultRenderer(Integer.class, centerInt);
@@ -71,8 +69,88 @@ public class VBayar extends javax.swing.JFrame {
         tabelTiket.getColumn("Aksi").setCellRenderer(new ButtonRenderer());
         tabelTiket.getColumn("Aksi").setCellEditor(
                 new VBayar.ButtonEditor(new JCheckBox()));
+        
+        tampilMakanan();
+        tampilMinuman();
+        totalbayar();
     }
 
+    
+    private void tampilMakanan(){
+        try{
+            Object[] judul_kolom = {"No", "ID Makanan", "Jumlah", "Total", "Tanggal","Aksi"};
+            tabMakanan = new DefaultTableModel(null,judul_kolom);
+            tabelMakanan.setModel(tabMakanan);
+            
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            tabMakanan.getDataVector().removeAllElements();
+            
+            RsProduk=stt.executeQuery("SELECT * from pemesanan WHERE TIPE_PEMESANAN = 1");  
+            int no = 0;
+            while(RsProduk.next()){
+                no++;
+                Object[] data={
+                    no,
+                    RsProduk.getString("ID_BARANG"),
+                    RsProduk.getString("JUMLAH_PEMESANAN"),
+                    RsProduk.getString("TOTAL_TAGIHAN"),
+                    RsProduk.getString("TANGGAL_PEMESANAN")        
+                };
+               tabMakanan.addRow(data);
+            }                
+        } catch (Exception ex) {
+        System.err.println(ex.getMessage());
+        }     
+        
+        tabelMakanan.getColumn("Aksi").setCellRenderer(new ButtonRenderer());
+        tabelMakanan.getColumn("Aksi").setCellEditor(
+                new VBayar.ButtonEditor(new JCheckBox()));
+    }
+    
+    private void tampilMinuman(){
+        try{
+            Object[] judul_kolom = {"No", "ID Minuman", "Jumlah", "Total", "Tanggal","Aksi"};
+            tabMinuman = new DefaultTableModel(null,judul_kolom);
+            tabelMinuman.setModel(tabMinuman);
+            
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            tabMinuman.getDataVector().removeAllElements();
+            
+            RsMinuman=stt.executeQuery("SELECT * from pemesanan WHERE TIPE_PEMESANAN = 2");  
+            int no = 0;
+            while(RsMinuman.next()){
+                no++;
+                Object[] data={
+                    no,
+                    RsMinuman.getString("ID_BARANG"),
+                    RsMinuman.getString("JUMLAH_PEMESANAN"),
+                    RsMinuman.getString("TOTAL_TAGIHAN"),
+                    RsMinuman.getString("TANGGAL_PEMESANAN")        
+                };
+               tabMinuman.addRow(data);
+            }                
+        } catch (Exception ex) {
+        System.err.println(ex.getMessage());
+        }     
+                
+        tabelMinuman.getColumn("Aksi").setCellRenderer(new ButtonRenderer());
+        tabelMinuman.getColumn("Aksi").setCellEditor(
+                new VBayar.ButtonEditor(new JCheckBox()));
+    }
+    
+    public void totalbayar(){
+        try{
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            ResultSet total = stt.executeQuery("SELECT SUM(TOTAL_TAGIHAN) as bayar from pemesanan"); 
+            total.next();
+            jLabel4.setText(total.getString("bayar"));
+        }catch(Exception exc){
+            System.err.println(exc.getMessage());
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -104,6 +182,8 @@ public class VBayar extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tabelMinuman = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
@@ -403,6 +483,11 @@ public class VBayar extends javax.swing.JFrame {
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/bayar.png"))); // NOI18N
         jButton1.setText("BAYAR");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setText("Total Harus Dibayar : Rp.");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
@@ -416,11 +501,16 @@ public class VBayar extends javax.swing.JFrame {
                             .addGroup(bgLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(bgLayout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bgLayout.createSequentialGroup()
                                 .addGap(60, 60, 60)
-                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(bgLayout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel4)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                                         .addComponent(BtAddMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(BtAddMinuman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -430,8 +520,8 @@ public class VBayar extends javax.swing.JFrame {
                                         .addComponent(iconSearch)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(FormSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
                         .addGap(60, 60, 60))))
         );
         bgLayout.setVerticalGroup(
@@ -458,6 +548,10 @@ public class VBayar extends javax.swing.JFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41))
@@ -806,6 +900,8 @@ public class VBayar extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
