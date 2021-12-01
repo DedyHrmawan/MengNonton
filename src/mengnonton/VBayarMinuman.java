@@ -241,7 +241,7 @@ public class VBayarMinuman extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "No", "ID Makanan", "Jumlah", "Tanggal", "Aksi"
+                "No", "ID Minuman", "Jumlah", "Tanggal", "Aksi"
             }
         ) {
             Class[] types = new Class [] {

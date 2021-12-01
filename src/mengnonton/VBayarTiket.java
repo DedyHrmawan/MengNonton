@@ -239,7 +239,7 @@ public class VBayarTiket extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "No", "ID Makanan", "Tanggal", "Aksi"
+                "No", "ID Tiket", "Tanggal", "Aksi"
             }
         ) {
             Class[] types = new Class [] {
