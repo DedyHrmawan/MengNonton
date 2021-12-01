@@ -14,6 +14,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.AbstractAction;
@@ -28,6 +33,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
@@ -36,7 +42,9 @@ import javax.swing.table.TableCellRenderer;
  * @author dblenk
  */
 public class VBayarMinuman extends javax.swing.JFrame {
-
+    DefaultTableModel tabModel;
+    ResultSet RsProduk=null;
+    ResultSet rs=null;
     /**
      * Creates new form VMakanan
      */
@@ -53,6 +61,52 @@ public class VBayarMinuman extends javax.swing.JFrame {
         centerInt.setHorizontalAlignment(JLabel.CENTER);
         tabelMinuman.setDefaultRenderer(Integer.class, centerInt);
         tabelMinuman.setRowHeight(30);
+
+        fillCombo();
+        tampilData();
+    }
+    
+    private void fillCombo(){
+        try{
+            String sql = "select * from minuman";
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            rs = stt.executeQuery(sql);
+            
+            while(rs.next()){
+                String id = rs.getString("ID_MINUMAN");
+                FormIDMinuman.addItem(id);
+            }
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    private void tampilData(){
+        try{
+            Object[] judul_kolom = {"No", "ID Minuman", "Jumlah", "Tanggal","Aksi"};
+            tabModel = new DefaultTableModel(null,judul_kolom);
+            tabelMinuman.setModel(tabModel);
+            
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            tabModel.getDataVector().removeAllElements();
+            
+            RsProduk=stt.executeQuery("SELECT * from pemesanan WHERE TIPE_PEMESANAN = 2");  
+            int no = 0;
+            while(RsProduk.next()){
+                no++;
+                Object[] data={
+                    no,
+                    RsProduk.getString("ID_BARANG"),
+                    RsProduk.getString("JUMLAH_PEMESANAN"),
+                    RsProduk.getString("TANGGAL_PEMESANAN")        
+                };
+               tabModel.addRow(data);
+            }                
+        } catch (Exception ex) {
+        System.err.println(ex.getMessage());
+        }     
 
         tabelMinuman.getColumn("Aksi").setCellRenderer(new ButtonRenderer());
         tabelMinuman.getColumn("Aksi").setCellEditor(
@@ -266,7 +320,6 @@ public class VBayarMinuman extends javax.swing.JFrame {
         FormIDMinuman.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
         FormIDMinuman.setForeground(new java.awt.Color(0, 6, 66));
         FormIDMinuman.setMaximumRowCount(5);
-        FormIDMinuman.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MF001", "MF002" }));
 
         jLabel7.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 153, 153));
@@ -330,7 +383,7 @@ public class VBayarMinuman extends javax.swing.JFrame {
 
         FormTanggal.setBackground(new java.awt.Color(255, 255, 255));
         FormTanggal.setForeground(new java.awt.Color(0, 8, 66));
-        FormTanggal.setDateFormatString("d MMM , yyyy");
+        FormTanggal.setDateFormatString("yyyy-M-d");
         FormTanggal.setFocusable(false);
         FormTanggal.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
         FormTanggal.setPreferredSize(new java.awt.Dimension(135, 27));
@@ -419,7 +472,7 @@ public class VBayarMinuman extends javax.swing.JFrame {
 
     private void FormJumlahFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormJumlahFocusGained
         // TODO add your handling code here:
-        if (FormJumlah.getText().equals("Masukan Total Bayar")) {
+        if (FormJumlah.getText().equals("Masukan Jumlah")) {
             FormJumlah.setText("");
         }
     }//GEN-LAST:event_FormJumlahFocusGained
@@ -427,7 +480,7 @@ public class VBayarMinuman extends javax.swing.JFrame {
     private void FormJumlahFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormJumlahFocusLost
         // TODO add your handling code here:
         if (FormJumlah.getText().equals("")) {
-            FormJumlah.setText("Masukan Total Bayar");
+            FormJumlah.setText("Masukan Jumlah");
         }
     }//GEN-LAST:event_FormJumlahFocusLost
 
@@ -450,8 +503,23 @@ public class VBayarMinuman extends javax.swing.JFrame {
     }//GEN-LAST:event_backActionPerformed
 
     private void BSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BSimpanActionPerformed
-        // TODO add your handling code here:
-        new VBayar().setVisible(true);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");          
+        String date = dateFormat.format(FormTanggal.getDate()); 
+        int total = 0;
+        try{
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            ResultSet harga = stt.executeQuery("SELECT HARGA_MINUMAN from minuman WHERE ID_MINUMAN = ('"+FormIDMinuman.getSelectedItem()+"')"); 
+            harga.next();
+            total = Integer.parseInt(FormJumlah.getText()) * harga.getInt("HARGA_MINUMAN");
+            stt.executeUpdate("insert into pemesanan(ID_BARANG,JUMLAH_PEMESANAN,TANGGAL_PEMESANAN,TIPE_PEMESANAN, TOTAL_TAGIHAN)"+
+                    "VALUES('"+FormIDMinuman.getSelectedItem()+"','"+FormJumlah.getText()+"','"+date+"','"+"2"+"','"+total+"')");
+            conn.close();
+            JOptionPane.showMessageDialog(null, "Berhasil simpan");
+        }catch(Exception exc){
+            System.err.println(exc.getMessage());
+        }
+        new VBayarMinuman().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BSimpanActionPerformed
 

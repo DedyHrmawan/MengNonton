@@ -57,10 +57,8 @@
                                       <Component id="jScrollPane1" pref="555" max="32767" attributes="0"/>
                                       <Component id="FormJumlah" alignment="1" max="32767" attributes="0"/>
                                       <Component id="FormTanggal" alignment="0" max="32767" attributes="0"/>
-                                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                               </Group>
@@ -423,12 +421,6 @@
               <Color blue="42" green="6" red="0" type="rgb"/>
             </Property>
             <Property name="maximumRowCount" type="int" value="5"/>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
-                <StringItem index="0" value="MF001"/>
-                <StringItem index="1" value="MF002"/>
-              </StringArray>
-            </Property>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -544,7 +536,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="42" green="8" red="0" type="rgb"/>
             </Property>
-            <Property name="dateFormatString" type="java.lang.String" value="d MMM , yyyy"/>
+            <Property name="dateFormatString" type="java.lang.String" value="yyyy-M-d"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Lato" size="17" style="0"/>
