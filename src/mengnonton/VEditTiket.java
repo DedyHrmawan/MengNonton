@@ -301,7 +301,7 @@ public class VEditTiket extends javax.swing.JFrame {
 
     private void MPembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MPembayaranActionPerformed
         // TODO add your handling code here:
-        new VPembayaran().setVisible(true);
+        new VBayar().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MPembayaranActionPerformed
 
