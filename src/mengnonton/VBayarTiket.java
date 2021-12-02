@@ -363,7 +363,7 @@ public class VBayarTiket extends javax.swing.JFrame {
 
     private void MPembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MPembayaranActionPerformed
         // TODO add your handling code here:
-        new VBayarTiket().setVisible(true);
+        new VBayar().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MPembayaranActionPerformed
 
