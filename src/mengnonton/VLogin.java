@@ -6,6 +6,7 @@
 package mengnonton;
 
 import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 /**
@@ -37,11 +38,9 @@ public class VLogin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        FormEmail = new javax.swing.JTextField();
+        FormUsername = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         FormPassword = new javax.swing.JPasswordField();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        ButtonForgot = new javax.swing.JButton();
         ButtonLogin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -66,18 +65,22 @@ public class VLogin extends javax.swing.JFrame {
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel4.setText("Email");
+        jLabel4.setText("Username");
 
-        FormEmail.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
-        FormEmail.setForeground(new java.awt.Color(0, 8, 66));
-        FormEmail.setText("Masukan Email");
-        FormEmail.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        FormEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+        FormUsername.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
+        FormUsername.setForeground(new java.awt.Color(0, 8, 66));
+        FormUsername.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        FormUsername.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                FormEmailFocusGained(evt);
+                FormUsernameFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                FormEmailFocusLost(evt);
+                FormUsernameFocusLost(evt);
+            }
+        });
+        FormUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FormUsernameActionPerformed(evt);
             }
         });
 
@@ -99,14 +102,6 @@ public class VLogin extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
-        jCheckBox1.setText("ingat Saya ?");
-
-        ButtonForgot.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
-        ButtonForgot.setText("Lupa Password ?");
-        ButtonForgot.setBorder(null);
-
         ButtonLogin.setBackground(new java.awt.Color(12, 33, 193));
         ButtonLogin.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
         ButtonLogin.setForeground(new java.awt.Color(255, 255, 255));
@@ -127,16 +122,15 @@ public class VLogin extends javax.swing.JFrame {
                     .addGroup(bgLayout.createSequentialGroup()
                         .addGap(73, 73, 73)
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(bgLayout.createSequentialGroup()
-                                .addComponent(jCheckBox1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ButtonForgot))
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4)
-                            .addComponent(FormEmail)
-                            .addComponent(jLabel5)
-                            .addComponent(FormPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(FormUsername)
+                            .addComponent(FormPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(72, 72, 72))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                         .addGap(117, 117, 117)
@@ -155,16 +149,12 @@ public class VLogin extends javax.swing.JFrame {
                 .addGap(66, 66, 66)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(FormEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(FormUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
                 .addComponent(FormPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(ButtonForgot))
-                .addGap(40, 40, 40)
+                .addGap(91, 91, 91)
                 .addComponent(ButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -174,19 +164,19 @@ public class VLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void FormEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormEmailFocusGained
+    private void FormUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormUsernameFocusGained
         // TODO add your handling code here:
-        if (FormEmail.getText().equals("Masukan Email")) {
-            FormEmail.setText("");
+        if (FormUsername.getText().equals("Masukan Email")) {
+            FormUsername.setText("");
         }
-    }//GEN-LAST:event_FormEmailFocusGained
+    }//GEN-LAST:event_FormUsernameFocusGained
 
-    private void FormEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormEmailFocusLost
+    private void FormUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormUsernameFocusLost
         // TODO add your handling code here:
-        if (FormEmail.getText().equals("")) {
-            FormEmail.setText("Masukan Email");
+        if (FormUsername.getText().equals("")) {
+            FormUsername.setText("Masukan Email");
         }
-    }//GEN-LAST:event_FormEmailFocusLost
+    }//GEN-LAST:event_FormUsernameFocusLost
 
     private void FormPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormPasswordFocusGained
         // TODO add your handling code here:
@@ -204,9 +194,24 @@ public class VLogin extends javax.swing.JFrame {
 
     private void ButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLoginActionPerformed
         // TODO add your handling code here:
-        new VFilm().setVisible(true);
-        this.setVisible(false);
+        String username = FormUsername.getText();
+        String password = FormPassword.getText();
+        if(username.equals("admin") && password.equals("123admin456")){
+            new VFilm().setVisible(true);
+            this.setVisible(false);
+        }else if(username.equals("kasir") && password.equals("123kasir456")){
+            new VBayar().setVisible(true);
+            this.setVisible(false);
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Username atau Password salah !");
+        }
+        
+        
     }//GEN-LAST:event_ButtonLoginActionPerformed
+
+    private void FormUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FormUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FormUsernameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -248,12 +253,10 @@ public class VLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ButtonForgot;
     private javax.swing.JButton ButtonLogin;
-    private javax.swing.JTextField FormEmail;
     private javax.swing.JPasswordField FormPassword;
+    private javax.swing.JTextField FormUsername;
     private javax.swing.JPanel bg;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

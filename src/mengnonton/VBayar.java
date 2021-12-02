@@ -49,26 +49,6 @@ public class VBayar extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(VBayar.MAXIMIZED_BOTH);
         tabelMakanan.getTableHeader().setFont(new Font("Lato", Font.BOLD, 17));
-
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        tabelMakanan.setDefaultRenderer(String.class, centerRenderer);
-
-        DefaultTableCellRenderer centerInt = new DefaultTableCellRenderer();
-        centerInt.setHorizontalAlignment(JLabel.CENTER);
-        tabelMakanan.setDefaultRenderer(Integer.class, centerInt);
-        tabelMakanan.setRowHeight(30);        
-        
-        tabelMinuman.getTableHeader().setFont(new Font("Lato", Font.BOLD, 17));
-        tabelMinuman.setDefaultRenderer(Integer.class, centerInt);
-        tabelMinuman.setRowHeight(30);
-
-        tabelTiket.getTableHeader().setFont(new Font("Lato", Font.BOLD, 17));
-        tabelTiket.setDefaultRenderer(Integer.class, centerInt);
-        tabelTiket.setRowHeight(30);
-        tabelTiket.getColumn("Aksi").setCellRenderer(new ButtonRenderer());
-        tabelTiket.getColumn("Aksi").setCellEditor(
-                new VBayar.ButtonEditor(new JCheckBox()));
         
         tampilMakanan();
         tampilMinuman();
@@ -78,7 +58,7 @@ public class VBayar extends javax.swing.JFrame {
     
     private void tampilMakanan(){
         try{
-            Object[] judul_kolom = {"No", "ID Makanan", "Jumlah", "Total", "Tanggal","Aksi"};
+            Object[] judul_kolom = {"No", "ID Makanan", "Jumlah", "Total", "Tanggal"};
             tabMakanan = new DefaultTableModel(null,judul_kolom);
             tabelMakanan.setModel(tabMakanan);
             
@@ -101,16 +81,12 @@ public class VBayar extends javax.swing.JFrame {
             }                
         } catch (Exception ex) {
         System.err.println(ex.getMessage());
-        }     
-        
-        tabelMakanan.getColumn("Aksi").setCellRenderer(new ButtonRenderer());
-        tabelMakanan.getColumn("Aksi").setCellEditor(
-                new VBayar.ButtonEditor(new JCheckBox()));
+        }
     }
     
     private void tampilMinuman(){
         try{
-            Object[] judul_kolom = {"No", "ID Minuman", "Jumlah", "Total", "Tanggal","Aksi"};
+            Object[] judul_kolom = {"No", "ID Minuman", "Jumlah", "Total", "Tanggal"};
             tabMinuman = new DefaultTableModel(null,judul_kolom);
             tabelMinuman.setModel(tabMinuman);
             
@@ -133,11 +109,7 @@ public class VBayar extends javax.swing.JFrame {
             }                
         } catch (Exception ex) {
         System.err.println(ex.getMessage());
-        }     
-                
-        tabelMinuman.getColumn("Aksi").setCellRenderer(new ButtonRenderer());
-        tabelMinuman.getColumn("Aksi").setCellEditor(
-                new VBayar.ButtonEditor(new JCheckBox()));
+        }
     }
     
     public void totalbayar(){
@@ -171,8 +143,6 @@ public class VBayar extends javax.swing.JFrame {
         LMakanan = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         BtAddMakanan = new javax.swing.JButton();
-        FormSearch = new javax.swing.JTextField();
-        iconSearch = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelMakanan = new javax.swing.JTable();
         BtAddMinuman = new javax.swing.JButton();
@@ -338,37 +308,21 @@ public class VBayar extends javax.swing.JFrame {
             }
         });
 
-        FormSearch.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
-        FormSearch.setForeground(new java.awt.Color(204, 204, 204));
-        FormSearch.setText("Cari");
-        FormSearch.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 8, 66), 1, true));
-        FormSearch.setPreferredSize(new java.awt.Dimension(211, 43));
-        FormSearch.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                FormSearchFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                FormSearchFocusLost(evt);
-            }
-        });
-
-        iconSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/search.png"))); // NOI18N
-
         tabelMakanan.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
         tabelMakanan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                { new Integer(1), null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "No", "ID Makanan", "Total", "Tanggal", "Aksi"
+                "No", "ID Makanan", "Total", "Tanggal"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -382,9 +336,6 @@ public class VBayar extends javax.swing.JFrame {
             tabelMakanan.getColumnModel().getColumn(0).setPreferredWidth(25);
             tabelMakanan.getColumnModel().getColumn(0).setMaxWidth(25);
             tabelMakanan.getColumnModel().getColumn(1).setResizable(false);
-            tabelMakanan.getColumnModel().getColumn(4).setMinWidth(120);
-            tabelMakanan.getColumnModel().getColumn(4).setPreferredWidth(120);
-            tabelMakanan.getColumnModel().getColumn(4).setMaxWidth(200);
         }
 
         BtAddMinuman.setBackground(new java.awt.Color(12, 33, 193));
@@ -414,18 +365,18 @@ public class VBayar extends javax.swing.JFrame {
         tabelTiket.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
         tabelTiket.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), "Pizza", null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                { new Integer(1), "Pizza", null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "No", "ID Tiket", "Total", "Tanggal", "Aksi"
+                "No", "ID Tiket", "Total", "Tanggal"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -439,26 +390,23 @@ public class VBayar extends javax.swing.JFrame {
             tabelTiket.getColumnModel().getColumn(0).setPreferredWidth(25);
             tabelTiket.getColumnModel().getColumn(0).setMaxWidth(25);
             tabelTiket.getColumnModel().getColumn(1).setResizable(false);
-            tabelTiket.getColumnModel().getColumn(4).setMinWidth(120);
-            tabelTiket.getColumnModel().getColumn(4).setPreferredWidth(120);
-            tabelTiket.getColumnModel().getColumn(4).setMaxWidth(200);
         }
 
         tabelMinuman.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
         tabelMinuman.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                { new Integer(1), null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "No", "ID Minuman", "Total", "Tanggal", "Aksi"
+                "No", "ID Minuman", "Total", "Tanggal"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -472,9 +420,6 @@ public class VBayar extends javax.swing.JFrame {
             tabelMinuman.getColumnModel().getColumn(0).setPreferredWidth(25);
             tabelMinuman.getColumnModel().getColumn(0).setMaxWidth(25);
             tabelMinuman.getColumnModel().getColumn(1).setResizable(false);
-            tabelMinuman.getColumnModel().getColumn(4).setMinWidth(120);
-            tabelMinuman.getColumnModel().getColumn(4).setPreferredWidth(120);
-            tabelMinuman.getColumnModel().getColumn(4).setMaxWidth(200);
         }
 
         jButton1.setBackground(new java.awt.Color(12, 33, 193));
@@ -504,24 +449,22 @@ public class VBayar extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bgLayout.createSequentialGroup()
                                 .addGap(60, 60, 60)
                                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(bgLayout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel4)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                                        .addComponent(BtAddMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(BtAddMinuman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(BtAddTiket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                                        .addComponent(iconSearch)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(FormSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                    .addGroup(bgLayout.createSequentialGroup()
+                                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(bgLayout.createSequentialGroup()
+                                                .addComponent(jLabel3)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel4))
+                                            .addGroup(bgLayout.createSequentialGroup()
+                                                .addComponent(BtAddMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(BtAddMinuman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(BtAddTiket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
                         .addGap(60, 60, 60))))
         );
         bgLayout.setVerticalGroup(
@@ -533,15 +476,10 @@ public class VBayar extends javax.swing.JFrame {
                 .addGap(58, 58, 58)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(BtAddMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(BtAddMinuman, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(BtAddTiket, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(FormSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(iconSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BtAddMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtAddMinuman, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtAddTiket, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -561,20 +499,6 @@ public class VBayar extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void FormSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormSearchFocusGained
-        // TODO add your handling code here:
-        if (FormSearch.getText().equals("Cari")) {
-            FormSearch.setText("");
-        }
-    }//GEN-LAST:event_FormSearchFocusGained
-
-    private void FormSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormSearchFocusLost
-        // TODO add your handling code here:
-        if (FormSearch.getText().equals("")) {
-            FormSearch.setText("Cari");
-        }
-    }//GEN-LAST:event_FormSearchFocusLost
 
     private void MPembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MPembayaranActionPerformed
         // TODO add your handling code here:
@@ -779,124 +703,16 @@ public class VBayar extends javax.swing.JFrame {
         });
     }
 
-    class ButtonRenderer extends JButton implements TableCellRenderer {
-
-        public ButtonRenderer() {
-            setOpaque(true);
-            setBackground(new Color(12, 33, 193));
-            setFont(new Font("Lato", 0, 17)); // NOI18N
-            setForeground(new Color(255, 255, 255));
-
-        }
-
-        public Component getTableCellRendererComponent(JTable table, Object value,
-                boolean isSelected, boolean hasFocus, int row, int column) {
-            if (isSelected) {
-                setForeground(new Color(255, 255, 255));
-                setBackground(new Color(12, 33, 193));
-            } else {
-                setForeground(table.getForeground());
-                setBackground(UIManager.getColor("Button.background"));
-            }
-            setText((value == null) ? "Hapus" : value.toString());
-            return this;
-        }
-    }
-
-    /**
-     * @version 1.0 11/09/98
-     */
-    class ButtonEditor extends DefaultCellEditor {
-
-        protected JButton button;
-        protected JButton btnDel;
-
-        private String label;
-
-        private boolean isPushed;
-//    ButtonTambah.setBackground(new java.awt.Color(12, 33, 193));
-//        ButtonTambah.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
-//        ButtonTambah.setForeground(new java.awt.Color(255, 255, 255));
-//        ButtonTambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/tambah.png"))); // NOI18N
-//        ButtonTambah.setText("Tambah");
-//        ButtonTambah.setPreferredSize(new java.awt.Dimension(141, 43));
-//        ButtonTambah.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                ButtonTambahActionPerformed(evt);
-//            }
-//        });
-
-        public ButtonEditor(JCheckBox checkBox) {
-            super(checkBox);
-            button = new JButton();
-            button.setBackground(new Color(12, 33, 193));
-            button.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
-            button.setForeground(new Color(255, 255, 255));
-            button.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    fireEditingStopped();
-                }
-            });
-
-        }
-
-        public Component getTableCellEditorComponent(JTable table, Object value,
-                boolean isSelected, int row, int column) {
-            if (isSelected) {
-                button.setOpaque(true);
-                button.setBackground(new Color(12, 33, 193));
-                button.setFont(new Font("Lato", 0, 17)); // NOI18N
-                button.setBorder(null);
-                button.setBorderPainted(false);
-                button.setContentAreaFilled(false);
-                button.setForeground(new Color(255, 255, 255));
-            } else {
-                button.setOpaque(false);
-                button.setBackground(new Color(12, 33, 193));
-                button.setFont(new Font("Lato", 0, 17)); // NOI18N
-                button.setBorder(null);
-                button.setBorderPainted(false);
-                button.setContentAreaFilled(false);
-                button.setForeground(new Color(255, 255, 255));
-            }
-            label = (value == null) ? "" : value.toString();
-            button.setText(label);
-            isPushed = true;
-            return button;
-        }
-
-        public Object getCellEditorValue() {
-            if (isPushed) {
-//            new VEditFilm().setVisible(true);
-                JOptionPane.showMessageDialog(tabelMakanan, ": Apakah anda ingin menghapus data tersebut ?");
-                // System.out.println(label + ": Ouch!");
-            }
-            isPushed = false;
-            return new String(label);
-        }
-
-        public boolean stopCellEditing() {
-            isPushed = false;
-            return super.stopCellEditing();
-        }
-
-        protected void fireEditingStopped() {
-            super.fireEditingStopped();
-        }
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtAddMakanan;
     private javax.swing.JButton BtAddMinuman;
     private javax.swing.JButton BtAddTiket;
-    private javax.swing.JTextField FormSearch;
     private javax.swing.JLabel LMakanan;
     private javax.swing.JLabel MJudul;
     private javax.swing.JButton MLogout;
     private javax.swing.JButton MPembayaran;
     private javax.swing.JButton MTiket;
     private javax.swing.JPanel bg;
-    private javax.swing.JLabel iconSearch;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
