@@ -166,7 +166,7 @@ public class VLogin extends javax.swing.JFrame {
 
     private void FormUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormUsernameFocusGained
         // TODO add your handling code here:
-        if (FormUsername.getText().equals("Masukan Email")) {
+        if (FormUsername.getText().equals("Masukan Username")) {
             FormUsername.setText("");
         }
     }//GEN-LAST:event_FormUsernameFocusGained
@@ -174,7 +174,7 @@ public class VLogin extends javax.swing.JFrame {
     private void FormUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormUsernameFocusLost
         // TODO add your handling code here:
         if (FormUsername.getText().equals("")) {
-            FormUsername.setText("Masukan Email");
+            FormUsername.setText("Masukan Username");
         }
     }//GEN-LAST:event_FormUsernameFocusLost
 
@@ -197,7 +197,7 @@ public class VLogin extends javax.swing.JFrame {
         String username = FormUsername.getText();
         String password = FormPassword.getText();
         if(username.equals("admin") && password.equals("123admin456")){
-            new VFilm().setVisible(true);
+            new VMakanan().setVisible(true);
             this.setVisible(false);
         }else if(username.equals("kasir") && password.equals("123kasir456")){
             new VBayar().setVisible(true);
