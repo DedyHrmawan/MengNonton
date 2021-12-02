@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2021 at 05:34 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.5
+-- Waktu pembuatan: 01 Des 2021 pada 16.37
+-- Versi server: 10.1.38-MariaDB
+-- Versi PHP: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -24,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `makanan`
+-- Struktur dari tabel `makanan`
 --
 
 CREATE TABLE `makanan` (
@@ -35,7 +36,7 @@ CREATE TABLE `makanan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `makanan`
+-- Dumping data untuk tabel `makanan`
 --
 
 INSERT INTO `makanan` (`ID_MAKANAN`, `NAMA_MAKANAN`, `HARGA_MAKANAN`, `STOK_MAKANAN`) VALUES
@@ -45,7 +46,7 @@ INSERT INTO `makanan` (`ID_MAKANAN`, `NAMA_MAKANAN`, `HARGA_MAKANAN`, `STOK_MAKA
 -- --------------------------------------------------------
 
 --
--- Table structure for table `minuman`
+-- Struktur dari tabel `minuman`
 --
 
 CREATE TABLE `minuman` (
@@ -56,7 +57,7 @@ CREATE TABLE `minuman` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `minuman`
+-- Dumping data untuk tabel `minuman`
 --
 
 INSERT INTO `minuman` (`ID_MINUMAN`, `NAMA_MINUMAN`, `HARGA_MINUMAN`, `STOK_MINUMAN`) VALUES
@@ -67,7 +68,44 @@ INSERT INTO `minuman` (`ID_MINUMAN`, `NAMA_MINUMAN`, `HARGA_MINUMAN`, `STOK_MINU
 -- --------------------------------------------------------
 
 --
--- Table structure for table `studio`
+-- Struktur dari tabel `pembayaran`
+--
+
+CREATE TABLE `pembayaran` (
+  `ID_PEMBAYARAN` int(11) NOT NULL,
+  `TANGGAL_PEMBAYARAN` int(11) NOT NULL,
+  `TOTAL_PEMBAYARAN` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pemesanan`
+--
+
+CREATE TABLE `pemesanan` (
+  `ID_PEMESANAN` int(11) NOT NULL,
+  `ID_BARANG` varchar(50) NOT NULL,
+  `TIPE_PEMESANAN` int(11) NOT NULL,
+  `JUMLAH_PEMESANAN` int(11) NOT NULL,
+  `TANGGAL_PEMESANAN` date NOT NULL,
+  `TOTAL_TAGIHAN` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `pemesanan`
+--
+
+INSERT INTO `pemesanan` (`ID_PEMESANAN`, `ID_BARANG`, `TIPE_PEMESANAN`, `JUMLAH_PEMESANAN`, `TANGGAL_PEMESANAN`, `TOTAL_TAGIHAN`) VALUES
+(10, 'MI001', 2, 2, '2021-12-01', 20000),
+(11, 'MI002', 2, 2, '2021-12-01', 110000),
+(12, 'MK001', 1, 2, '2021-12-01', 100000),
+(13, 'MK002', 1, 2, '2021-12-01', 150000);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `studio`
 --
 
 CREATE TABLE `studio` (
@@ -78,7 +116,7 @@ CREATE TABLE `studio` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `studio`
+-- Dumping data untuk tabel `studio`
 --
 
 INSERT INTO `studio` (`ID_STUDIO`, `NAMA_STUDIO`, `KAPASITAS_STUDIO`, `JENIS_STUDIO`) VALUES
@@ -90,16 +128,44 @@ INSERT INTO `studio` (`ID_STUDIO`, `NAMA_STUDIO`, `KAPASITAS_STUDIO`, `JENIS_STU
 --
 
 --
--- Indexes for table `makanan`
+-- Indeks untuk tabel `makanan`
 --
 ALTER TABLE `makanan`
   ADD PRIMARY KEY (`ID_MAKANAN`);
 
 --
--- Indexes for table `minuman`
+-- Indeks untuk tabel `minuman`
 --
 ALTER TABLE `minuman`
   ADD PRIMARY KEY (`ID_MINUMAN`);
+
+--
+-- Indeks untuk tabel `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  ADD PRIMARY KEY (`ID_PEMBAYARAN`);
+
+--
+-- Indeks untuk tabel `pemesanan`
+--
+ALTER TABLE `pemesanan`
+  ADD PRIMARY KEY (`ID_PEMESANAN`);
+
+--
+-- AUTO_INCREMENT untuk tabel yang dibuang
+--
+
+--
+-- AUTO_INCREMENT untuk tabel `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  MODIFY `ID_PEMBAYARAN` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `pemesanan`
+--
+ALTER TABLE `pemesanan`
+  MODIFY `ID_PEMESANAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
