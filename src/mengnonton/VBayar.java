@@ -136,7 +136,6 @@ public class VBayar extends javax.swing.JFrame {
         sidepanel = new javax.swing.JPanel();
         MJudul = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        MTiket = new javax.swing.JButton();
         MPembayaran = new javax.swing.JButton();
         MLogout = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -173,24 +172,6 @@ public class VBayar extends javax.swing.JFrame {
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("______________________________");
-
-        MTiket.setBackground(new java.awt.Color(0, 8, 66));
-        MTiket.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
-        MTiket.setForeground(new java.awt.Color(255, 255, 255));
-        MTiket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/tiket.png"))); // NOI18N
-        MTiket.setText("Tiket");
-        MTiket.setBorder(null);
-        MTiket.setBorderPainted(false);
-        MTiket.setContentAreaFilled(false);
-        MTiket.setHideActionText(true);
-        MTiket.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        MTiket.setIconTextGap(10);
-        MTiket.setPreferredSize(new java.awt.Dimension(97, 32));
-        MTiket.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MTiketActionPerformed(evt);
-            }
-        });
 
         MPembayaran.setBackground(new java.awt.Color(0, 8, 66));
         MPembayaran.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
@@ -237,7 +218,6 @@ public class VBayar extends javax.swing.JFrame {
                 .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(MJudul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MTiket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(MPembayaran, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(MLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(71, Short.MAX_VALUE))
@@ -250,12 +230,10 @@ public class VBayar extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addGap(43, 43, 43)
-                .addComponent(MTiket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(MPembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(480, Short.MAX_VALUE))
+                .addContainerGap(530, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(12, 33, 193));
@@ -518,12 +496,6 @@ public class VBayar extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_BtAddMakananActionPerformed
 
-    private void MTiketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MTiketActionPerformed
-        // TODO add your handling code here:
-        new VTiket().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MTiketActionPerformed
-
     private void BtAddMinumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtAddMinumanActionPerformed
         // TODO add your handling code here:
         new VBayarMinuman().setVisible(true);
@@ -711,7 +683,6 @@ public class VBayar extends javax.swing.JFrame {
     private javax.swing.JLabel MJudul;
     private javax.swing.JButton MLogout;
     private javax.swing.JButton MPembayaran;
-    private javax.swing.JButton MTiket;
     private javax.swing.JPanel bg;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
