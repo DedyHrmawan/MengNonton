@@ -51,6 +51,7 @@ public class VBayarMakanan extends javax.swing.JFrame {
      */
     public VBayarMakanan() {
         initComponents();
+        waktu();
         this.setExtendedState(VBayarMakanan.MAXIMIZED_BOTH);
         tabelMakanan.getTableHeader().setFont(new Font("Lato", Font.BOLD, 17));
 
@@ -66,6 +67,11 @@ public class VBayarMakanan extends javax.swing.JFrame {
         fillCombo();
         tampilData();
     }
+    
+    public void waktu(){
+        Date tgl = new Date();
+        FormTanggal.setDate(tgl);
+        }
     
     private void fillCombo(){
         try{
@@ -127,7 +133,6 @@ public class VBayarMakanan extends javax.swing.JFrame {
         sidepanel = new javax.swing.JPanel();
         MJudul = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        MTiket = new javax.swing.JButton();
         MPembayaran = new javax.swing.JButton();
         MLogout = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -162,24 +167,6 @@ public class VBayarMakanan extends javax.swing.JFrame {
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("______________________________");
-
-        MTiket.setBackground(new java.awt.Color(0, 8, 66));
-        MTiket.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
-        MTiket.setForeground(new java.awt.Color(255, 255, 255));
-        MTiket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/tiket.png"))); // NOI18N
-        MTiket.setText("Tiket");
-        MTiket.setBorder(null);
-        MTiket.setBorderPainted(false);
-        MTiket.setContentAreaFilled(false);
-        MTiket.setHideActionText(true);
-        MTiket.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        MTiket.setIconTextGap(10);
-        MTiket.setPreferredSize(new java.awt.Dimension(97, 32));
-        MTiket.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MTiketActionPerformed(evt);
-            }
-        });
 
         MPembayaran.setBackground(new java.awt.Color(0, 8, 66));
         MPembayaran.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
@@ -226,7 +213,6 @@ public class VBayarMakanan extends javax.swing.JFrame {
                 .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(MJudul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MTiket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(MPembayaran, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(MLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(71, Short.MAX_VALUE))
@@ -239,8 +225,6 @@ public class VBayarMakanan extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addGap(43, 43, 43)
-                .addComponent(MTiket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(MPembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -463,12 +447,6 @@ public class VBayarMakanan extends javax.swing.JFrame {
         new VLogin().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MLogoutActionPerformed
-
-    private void MTiketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MTiketActionPerformed
-        // TODO add your handling code here:
-        new VTiket().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MTiketActionPerformed
 
     private void FormJumlahFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormJumlahFocusGained
         // TODO add your handling code here:
@@ -694,17 +672,15 @@ public class VBayarMakanan extends javax.swing.JFrame {
 
         public ButtonRenderer() {
             setOpaque(true);
-            setBackground(new Color(12, 33, 193));
             setFont(new Font("Lato", 0, 17)); // NOI18N
-            setForeground(new Color(255, 255, 255));
 
         }
 
         public Component getTableCellRendererComponent(JTable table, Object value,
                 boolean isSelected, boolean hasFocus, int row, int column) {
             if (isSelected) {
-                setForeground(new Color(255, 255, 255));
-                setBackground(new Color(12, 33, 193));
+                setForeground(table.getForeground());
+                setBackground(UIManager.getColor("Button.background"));
             } else {
                 setForeground(table.getForeground());
                 setBackground(UIManager.getColor("Button.background"));
@@ -754,7 +730,6 @@ public class VBayarMakanan extends javax.swing.JFrame {
         public Component getTableCellEditorComponent(JTable table, Object value,
                 boolean isSelected, int row, int column) {
             if (isSelected) {
-                button.setOpaque(true);
                 button.setBackground(new Color(12, 33, 193));
                 button.setFont(new Font("Lato", 0, 17)); // NOI18N
                 button.setBorder(null);
@@ -762,7 +737,6 @@ public class VBayarMakanan extends javax.swing.JFrame {
                 button.setContentAreaFilled(false);
                 button.setForeground(new Color(255, 255, 255));
             } else {
-                button.setOpaque(false);
                 button.setBackground(new Color(12, 33, 193));
                 button.setFont(new Font("Lato", 0, 17)); // NOI18N
                 button.setBorder(null);
@@ -770,7 +744,7 @@ public class VBayarMakanan extends javax.swing.JFrame {
                 button.setContentAreaFilled(false);
                 button.setForeground(new Color(255, 255, 255));
             }
-            label = (value == null) ? "" : value.toString();
+            label = (value == null) ? "Hapus" : value.toString();
             button.setText(label);
             isPushed = true;
             return button;
@@ -779,7 +753,7 @@ public class VBayarMakanan extends javax.swing.JFrame {
         public Object getCellEditorValue() {
             if (isPushed) {
 //            new VEditFilm().setVisible(true);
-                JOptionPane.showMessageDialog(tabelMakanan, ": Apakah anda ingin menghapus data tersebut ?");
+                JOptionPane.showMessageDialog(rootPane, ": Apakah anda ingin menghapus data tersebut ?");
                 // System.out.println(label + ": Ouch!");
             }
             isPushed = false;
@@ -805,7 +779,6 @@ public class VBayarMakanan extends javax.swing.JFrame {
     private javax.swing.JLabel MJudul;
     private javax.swing.JButton MLogout;
     private javax.swing.JButton MPembayaran;
-    private javax.swing.JButton MTiket;
     private javax.swing.JButton back;
     private javax.swing.JPanel bg;
     private javax.swing.JLabel jLabel1;
