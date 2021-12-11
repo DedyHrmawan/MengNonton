@@ -610,7 +610,7 @@ public class VStudio extends javax.swing.JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            JOptionPane.showMessageDialog(table, "Data berhadil dihapus !");
+            JOptionPane.showMessageDialog(rootPane, "Data berhadil dihapus !");
         }
 
 //        @Override

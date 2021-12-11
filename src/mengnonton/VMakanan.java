@@ -599,10 +599,10 @@ public class VMakanan extends javax.swing.JFrame {
             Connection conn=(Connection)koneksi.koneksiDB();
             Statement stt=conn.createStatement();
             stt.executeUpdate("DELETE FROM makanan WHERE ID_MAKANAN='"+id_dihapus+"'");
-            JOptionPane.showMessageDialog(table, "Data berhadil dihapus !");
+            JOptionPane.showMessageDialog(rootPane, "Data berhadil dihapus !");
             tampilData();
             } catch(SQLException a){
-                JOptionPane.showMessageDialog(table,"Delete data gagal\n"+a.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane,"Delete data gagal\n"+a.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
             }            
         }
         

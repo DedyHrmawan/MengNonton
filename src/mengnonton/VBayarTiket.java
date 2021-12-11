@@ -43,7 +43,7 @@ public class VBayarTiket extends javax.swing.JFrame {
      */
     public VBayarTiket() {
         initComponents();
-        waktu();
+      
         
         this.setExtendedState(VBayarTiket.MAXIMIZED_BOTH);
         tabelTiket.getTableHeader().setFont(new Font("Lato", Font.BOLD, 17));
@@ -63,12 +63,6 @@ public class VBayarTiket extends javax.swing.JFrame {
 
     }
     
-    public void waktu(){
-        Date tgl = new Date();
-        FormTanggal.setDate(tgl);
-        }
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -93,8 +87,20 @@ public class VBayarTiket extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         BSimpan = new javax.swing.JButton();
         back = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        FormTanggal = new com.toedter.calendar.JDateChooser();
+        ToggleA1 = new javax.swing.JToggleButton();
+        jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        ToggleA2 = new javax.swing.JToggleButton();
+        ToggleA3 = new javax.swing.JToggleButton();
+        ToggleA4 = new javax.swing.JToggleButton();
+        ToggleB1 = new javax.swing.JToggleButton();
+        ToggleB2 = new javax.swing.JToggleButton();
+        ToggleB3 = new javax.swing.JToggleButton();
+        ToggleB4 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
@@ -219,18 +225,18 @@ public class VBayarTiket extends javax.swing.JFrame {
         tabelTiket.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
         tabelTiket.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                { new Integer(1), null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "No", "ID Tiket", "Tanggal", "Aksi"
+                "No", "Studio", "Film", "", "Aksi"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -243,19 +249,19 @@ public class VBayarTiket extends javax.swing.JFrame {
             tabelTiket.getColumnModel().getColumn(0).setMinWidth(25);
             tabelTiket.getColumnModel().getColumn(0).setPreferredWidth(25);
             tabelTiket.getColumnModel().getColumn(0).setMaxWidth(25);
-            tabelTiket.getColumnModel().getColumn(3).setMinWidth(120);
-            tabelTiket.getColumnModel().getColumn(3).setPreferredWidth(120);
-            tabelTiket.getColumnModel().getColumn(3).setMaxWidth(200);
+            tabelTiket.getColumnModel().getColumn(4).setMinWidth(120);
+            tabelTiket.getColumnModel().getColumn(4).setPreferredWidth(120);
+            tabelTiket.getColumnModel().getColumn(4).setMaxWidth(200);
         }
 
         FormIDTiket.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
         FormIDTiket.setForeground(new java.awt.Color(0, 6, 66));
         FormIDTiket.setMaximumRowCount(5);
-        FormIDTiket.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MF001", "MF002" }));
+        FormIDTiket.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Studio 1 | Doraemon 12.00 - 14.00", "Studio 2 | Doraemon Movie 18.00 - 19.00" }));
 
         jLabel7.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel7.setText("ID Tiket");
+        jLabel7.setText("Jadwal Tiket");
 
         BSimpan.setBackground(new java.awt.Color(12, 33, 193));
         BSimpan.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
@@ -279,16 +285,114 @@ public class VBayarTiket extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel9.setText("Tanggal Bayar");
+        ToggleA1.setBackground(new java.awt.Color(26, 44, 80));
+        ToggleA1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleA1.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleA1.setText("A1");
+        ToggleA1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleA1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleA1ActionPerformed(evt);
+            }
+        });
 
-        FormTanggal.setBackground(new java.awt.Color(255, 255, 255));
-        FormTanggal.setForeground(new java.awt.Color(0, 8, 66));
-        FormTanggal.setDateFormatString("d MMM , yyyy");
-        FormTanggal.setFocusable(false);
-        FormTanggal.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
-        FormTanggal.setPreferredSize(new java.awt.Dimension(135, 27));
+        jButton1.setBackground(new java.awt.Color(26, 44, 80));
+        jButton1.setBorder(null);
+
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel3.setText("Tersedia");
+
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel4.setText("Tidak Tersedia");
+
+        jButton2.setBackground(new java.awt.Color(153, 153, 153));
+        jButton2.setBorder(null);
+
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel5.setText("Pilihanmu");
+
+        jButton3.setBackground(new java.awt.Color(17, 142, 234));
+        jButton3.setBorder(null);
+
+        ToggleA2.setBackground(new java.awt.Color(26, 44, 80));
+        ToggleA2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleA2.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleA2.setText("A2");
+        ToggleA2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleA2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleA2ActionPerformed(evt);
+            }
+        });
+
+        ToggleA3.setBackground(new java.awt.Color(235, 236, 238));
+        ToggleA3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleA3.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleA3.setText("A3");
+        ToggleA3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleA3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleA3ActionPerformed(evt);
+            }
+        });
+
+        ToggleA4.setBackground(new java.awt.Color(235, 236, 238));
+        ToggleA4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleA4.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleA4.setText("B3");
+        ToggleA4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleA4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleA4ActionPerformed(evt);
+            }
+        });
+
+        ToggleB1.setBackground(new java.awt.Color(26, 44, 80));
+        ToggleB1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleB1.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleB1.setText("B1");
+        ToggleB1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleB1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleB1ActionPerformed(evt);
+            }
+        });
+
+        ToggleB2.setBackground(new java.awt.Color(26, 44, 80));
+        ToggleB2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleB2.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleB2.setText("B2");
+        ToggleB2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleB2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleB2ActionPerformed(evt);
+            }
+        });
+
+        ToggleB3.setBackground(new java.awt.Color(235, 236, 238));
+        ToggleB3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleB3.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleB3.setText("B3");
+        ToggleB3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleB3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleB3ActionPerformed(evt);
+            }
+        });
+
+        ToggleB4.setBackground(new java.awt.Color(235, 236, 238));
+        ToggleB4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleB4.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleB4.setText("B4");
+        ToggleB4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleB4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleB4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -299,23 +403,53 @@ public class VBayarTiket extends javax.swing.JFrame {
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
+                        .addGap(66, 66, 66)
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(bgLayout.createSequentialGroup()
-                                .addComponent(jLabel7)
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addGroup(bgLayout.createSequentialGroup()
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel3)
+                                        .addGap(24, 24, 24)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel4)
+                                        .addGap(24, 24, 24)
+                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel5)))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(bgLayout.createSequentialGroup()
+                                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(bgLayout.createSequentialGroup()
+                                                .addComponent(ToggleB1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(ToggleB2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(ToggleB3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(ToggleB4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(bgLayout.createSequentialGroup()
+                                                .addComponent(ToggleA1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(ToggleA2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(ToggleA3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(ToggleA4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                    .addComponent(FormIDTiket, javax.swing.GroupLayout.Alignment.LEADING, 0, 507, Short.MAX_VALUE)
+                                    .addGroup(bgLayout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(BSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(FormIDTiket, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
-                                    .addComponent(FormTanggal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(60, 60, 60))))))
+                                        .addComponent(BSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(102, 102, 102))))))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,18 +462,35 @@ public class VBayarTiket extends javax.swing.JFrame {
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(FormIDTiket, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(FormTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(79, 79, 79)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(sidepanel, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addGap(39, 39, 39)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(ToggleA1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ToggleA2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ToggleA3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ToggleA4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(30, 30, 30)
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(ToggleB1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ToggleB2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ToggleB3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ToggleB4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(295, 295, 295)
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(BSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 14, Short.MAX_VALUE))
+                    .addComponent(sidepanel, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE))
                 .addGap(27, 27, 27))
         );
 
@@ -347,18 +498,6 @@ public class VBayarTiket extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void MPembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MPembayaranActionPerformed
-        // TODO add your handling code here:
-        new VBayar().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MPembayaranActionPerformed
-
-    private void MLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLogoutActionPerformed
-        // TODO add your handling code here:
-        new VLogin().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MLogoutActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
@@ -371,6 +510,72 @@ public class VBayarTiket extends javax.swing.JFrame {
         new VBayar().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BSimpanActionPerformed
+
+    private void MLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLogoutActionPerformed
+        // TODO add your handling code here:
+        new VLogin().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MLogoutActionPerformed
+
+    private void MPembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MPembayaranActionPerformed
+        // TODO add your handling code here:
+        new VBayar().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MPembayaranActionPerformed
+
+    private void ToggleA1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleA1ActionPerformed
+        // TODO add your handling code here:
+        Color SoftBlue = new Color(17,142,234,255)
+;
+        if (ToggleA1.isSelected()) {
+            ToggleA1.setBackground(SoftBlue);
+        }
+    }//GEN-LAST:event_ToggleA1ActionPerformed
+
+    private void ToggleA2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleA2ActionPerformed
+        // TODO add your handling code here:
+         Color SoftBlue = new Color(17,142,234,255)
+;
+        if (ToggleA2.isSelected()) {
+            ToggleA2.setBackground(SoftBlue);
+        }
+    }//GEN-LAST:event_ToggleA2ActionPerformed
+
+    private void ToggleA3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleA3ActionPerformed
+        // TODO add your handling code here:
+         ToggleA3.setEnabled(false);
+    }//GEN-LAST:event_ToggleA3ActionPerformed
+
+    private void ToggleA4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleA4ActionPerformed
+        // TODO add your handling code here:
+         ToggleA3.setEnabled(false);
+    }//GEN-LAST:event_ToggleA4ActionPerformed
+
+    private void ToggleB1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleB1ActionPerformed
+        // TODO add your handling code here:
+          Color SoftBlue = new Color(17,142,234,255)
+;
+        if (ToggleB1.isSelected()) {
+            ToggleB1.setBackground(SoftBlue);
+        }
+    }//GEN-LAST:event_ToggleB1ActionPerformed
+
+    private void ToggleB2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleB2ActionPerformed
+        // TODO add your handling code here:
+          Color SoftBlue = new Color(17,142,234,255)
+;
+        if (ToggleB2.isSelected()) {
+            ToggleB2.setBackground(SoftBlue);
+        }
+    }//GEN-LAST:event_ToggleB2ActionPerformed
+
+    private void ToggleB3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleB3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ToggleB3ActionPerformed
+
+    private void ToggleB4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleB4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ToggleB4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -772,17 +977,29 @@ public class VBayarTiket extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BSimpan;
     private javax.swing.JComboBox<String> FormIDTiket;
-    private com.toedter.calendar.JDateChooser FormTanggal;
     private javax.swing.JLabel LMakanan;
     private javax.swing.JLabel MJudul;
     private javax.swing.JButton MLogout;
     private javax.swing.JButton MPembayaran;
+    private javax.swing.JToggleButton ToggleA1;
+    private javax.swing.JToggleButton ToggleA2;
+    private javax.swing.JToggleButton ToggleA3;
+    private javax.swing.JToggleButton ToggleA4;
+    private javax.swing.JToggleButton ToggleB1;
+    private javax.swing.JToggleButton ToggleB2;
+    private javax.swing.JToggleButton ToggleB3;
+    private javax.swing.JToggleButton ToggleB4;
     private javax.swing.JButton back;
     private javax.swing.JPanel bg;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel sidepanel;
