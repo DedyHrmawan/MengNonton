@@ -66,7 +66,7 @@ public class VBayar extends javax.swing.JFrame {
             Statement stt=conn.createStatement();
             tabMakanan.getDataVector().removeAllElements();
             
-            RsProduk=stt.executeQuery("SELECT * from pemesanan WHERE TIPE_PEMESANAN = 1");  
+            RsProduk=stt.executeQuery("SELECT * from pemesanan WHERE TIPE_PEMESANAN = 1 AND STATUS = 0");  
             int no = 0;
             while(RsProduk.next()){
                 no++;
@@ -94,7 +94,7 @@ public class VBayar extends javax.swing.JFrame {
             Statement stt=conn.createStatement();
             tabMinuman.getDataVector().removeAllElements();
             
-            RsMinuman=stt.executeQuery("SELECT * from pemesanan WHERE TIPE_PEMESANAN = 2");  
+            RsMinuman=stt.executeQuery("SELECT * from pemesanan WHERE TIPE_PEMESANAN = 2 AND STATUS = 0");  
             int no = 0;
             while(RsMinuman.next()){
                 no++;
@@ -116,7 +116,7 @@ public class VBayar extends javax.swing.JFrame {
         try{
             Connection conn=(Connection)koneksi.koneksiDB();
             Statement stt=conn.createStatement();
-            ResultSet total = stt.executeQuery("SELECT SUM(TOTAL_TAGIHAN) as bayar from pemesanan"); 
+            ResultSet total = stt.executeQuery("SELECT SUM(TOTAL_TAGIHAN) as bayar from pemesanan WHERE STATUS = 0"); 
             total.next();
             jLabel4.setText(total.getString("bayar"));
         }catch(Exception exc){
@@ -405,6 +405,11 @@ public class VBayar extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/bayar.png"))); // NOI18N
         jButton1.setText("BAYAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Total Harus Dibayar : Rp.");
@@ -507,6 +512,21 @@ public class VBayar extends javax.swing.JFrame {
         new VBayarTiket().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BtAddTiketActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try{
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            stt.executeUpdate("insert into pembayaran(TOTAL_PEMBAYARAN) VALUES('"+jLabel4.getText()+"')");
+            stt.executeUpdate("UPDATE pemesanan SET STATUS = 1");
+            conn.close();
+            JOptionPane.showMessageDialog(null, "Berhasil Membayar");
+            new VBayar().setVisible(true);
+            setVisible(false);
+        }catch(Exception exc){
+            System.err.println(exc.getMessage());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
