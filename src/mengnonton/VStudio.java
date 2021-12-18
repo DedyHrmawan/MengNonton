@@ -16,6 +16,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
@@ -610,7 +611,17 @@ public class VStudio extends javax.swing.JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            String id_dihapus = "";
+            id_dihapus = tabModel.getValueAt(table.getSelectedRow(),1)+"";
+            try{
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            stt.executeUpdate("DELETE FROM studio WHERE ID_STUDIO='"+id_dihapus+"'");
             JOptionPane.showMessageDialog(rootPane, "Data berhadil dihapus !");
+            tampilData();
+            } catch(SQLException a){
+                JOptionPane.showMessageDialog(rootPane,"Delete data gagal\n"+a.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            }
         }
 
 //        @Override

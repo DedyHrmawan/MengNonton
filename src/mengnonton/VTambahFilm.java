@@ -6,6 +6,9 @@
 package mengnonton;
 
 import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
+import java.sql.Connection;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 /**
@@ -345,6 +348,11 @@ public class VTambahFilm extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/simpan.png"))); // NOI18N
         jButton1.setText("SIMPAN");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         back.setBackground(new java.awt.Color(238, 210, 2));
         back.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
@@ -517,6 +525,22 @@ public class VTambahFilm extends javax.swing.JFrame {
         new VFilm().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_backActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try{
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            stt.executeUpdate("insert into film(ID_FILM, JUDUL_FILM, DURASI_FILM, RATING_FILM)"+
+                    "VALUES('"+FormIDFlm.getText()+"','"+FormJudulFilm.getText()+"','"+FormDurasi.getText()+"','"+FormRating.getText()+"')");
+            conn.close();
+            JOptionPane.showMessageDialog(null, "Berhasil simpan");
+            new VFilm().setVisible(true);
+            setVisible(false);
+        }catch(Exception exc){
+            System.err.println(exc.getMessage());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

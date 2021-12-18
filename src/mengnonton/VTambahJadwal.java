@@ -6,14 +6,23 @@
 package mengnonton;
 
 import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author dblenk
  */
 public class VTambahJadwal extends javax.swing.JFrame {
-
+    DefaultTableModel tabModel;
+    ResultSet RsProduk=null;
+    ResultSet rs=null;
     /**
      * Creates new form VMakanan
      */
@@ -21,6 +30,41 @@ public class VTambahJadwal extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(VTambahJadwal.MAXIMIZED_BOTH);
         bg.setFocusable(true);
+        
+        fillComboFilm();
+        fillComboStudio();
+    }
+    
+    private void fillComboFilm(){
+        try{
+            String sql = "select * from film";
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            rs = stt.executeQuery(sql);
+            
+            while(rs.next()){
+                String id = rs.getString("ID_FILM");
+                FormIDFilm.addItem(id);
+            }
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    private void fillComboStudio(){
+        try{
+            String sql = "select * from studio";
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            rs = stt.executeQuery(sql);
+            
+            while(rs.next()){
+                String id = rs.getString("ID_STUDIO");
+                FormIDStudio.addItem(id);
+            }
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
     }
 
     /**
@@ -220,7 +264,7 @@ public class VTambahJadwal extends javax.swing.JFrame {
                 .addComponent(MMinuman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(298, Short.MAX_VALUE))
+                .addContainerGap(234, Short.MAX_VALUE))
         );
 
         headpanel.setBackground(new java.awt.Color(12, 33, 193));
@@ -303,20 +347,23 @@ public class VTambahJadwal extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/simpan.png"))); // NOI18N
         jButton1.setText("SIMPAN");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         FormIDFilm.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
         FormIDFilm.setForeground(new java.awt.Color(0, 6, 66));
         FormIDFilm.setMaximumRowCount(5);
-        FormIDFilm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MF001", "MF002" }));
 
         FormIDStudio.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
         FormIDStudio.setForeground(new java.awt.Color(0, 6, 66));
         FormIDStudio.setMaximumRowCount(5);
-        FormIDStudio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MS001", "MS002" }));
 
         FormTanggal.setBackground(new java.awt.Color(255, 255, 255));
         FormTanggal.setForeground(new java.awt.Color(0, 8, 66));
-        FormTanggal.setDateFormatString("d MMM , yyyy");
+        FormTanggal.setDateFormatString("d MMM , yyyy HH:mm:ss");
         FormTanggal.setFocusable(false);
         FormTanggal.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
         FormTanggal.setPreferredSize(new java.awt.Dimension(135, 27));
@@ -339,7 +386,7 @@ public class VTambahJadwal extends javax.swing.JFrame {
             .addGroup(bgLayout.createSequentialGroup()
                 .addComponent(sidepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(headpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
+                    .addComponent(headpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(bgLayout.createSequentialGroup()
                         .addGap(65, 65, 65)
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,7 +395,7 @@ public class VTambahJadwal extends javax.swing.JFrame {
                                 .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(FormIDJadwal, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+                            .addComponent(FormIDJadwal)
                             .addComponent(FormIDFilm, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(FormIDStudio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(bgLayout.createSequentialGroup()
@@ -357,13 +404,13 @@ public class VTambahJadwal extends javax.swing.JFrame {
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel7))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 454, Short.MAX_VALUE))
                             .addComponent(FormTanggal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(65, 65, 65))))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sidepanel, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
+            .addComponent(sidepanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(bgLayout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addComponent(headpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -454,6 +501,24 @@ public class VTambahJadwal extends javax.swing.JFrame {
         new VJadwal().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_backActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");          
+        String date = dateFormat.format(FormTanggal.getDate());
+        try{
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            stt.executeUpdate("insert into jadwal(ID_JADWAL, ID_FILM, ID_STUDIO, TGL_JADWAL)"+
+                    "VALUES('"+FormIDJadwal.getText()+"','"+FormIDFilm.getSelectedItem().toString()+"','"+FormIDStudio.getSelectedItem().toString()+"','"+date+"')");
+            conn.close();
+            JOptionPane.showMessageDialog(null, "Berhasil simpan");
+            new VJadwal().setVisible(true);
+            setVisible(false);
+        }catch(Exception exc){
+            System.err.println(exc.getMessage());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

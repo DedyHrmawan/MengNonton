@@ -14,6 +14,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.AbstractAction;
@@ -27,6 +31,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
@@ -35,7 +40,8 @@ import javax.swing.table.TableCellRenderer;
  * @author dblenk
  */
 public class VJadwal extends javax.swing.JFrame {
-
+    DefaultTableModel tabModel;
+    ResultSet RsJadwal=null;
     /**
      * Creates new form VMakanan
      */
@@ -56,7 +62,42 @@ public class VJadwal extends javax.swing.JFrame {
         tabelJadwal.getColumn("Aksi").setCellRenderer(new ButtonsRenderer());
         tabelJadwal.getColumn("Aksi").setCellEditor(
                 new ButtonsEditor(new JTable()));
+        
+        tampilData();
+        
+    }
+    
+        private void tampilData(){
+        try{
+            Object[] judul_kolom = {"No", "ID Jsdwal", "Film", "Studio", "Tanggal", "Aksi"};
+            tabModel = new DefaultTableModel(null,judul_kolom);
+            tabelJadwal.setModel(tabModel);
+            
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            tabModel.getDataVector().removeAllElements();
+            
+            RsJadwal=stt.executeQuery("SELECT * from v_jadwal");  
+            int no = 0;
+            while(RsJadwal.next()){
+                no++;
+                
+                Object[] data={
+                    no,
+                    RsJadwal.getString("ID_JADwAL"),
+                    RsJadwal.getString("JUDUL_FILM"),
+                    RsJadwal.getString("NAMA_STUDIO"),
+                    RsJadwal.getString("TGL_JADWAL"),
+                };
+               tabModel.addRow(data);
+            }                
+        } catch (Exception ex) {
+        System.err.println(ex.getMessage());
+        }     
 
+        tabelJadwal.getColumn("Aksi").setCellRenderer(new VJadwal.ButtonsRenderer());
+        tabelJadwal.getColumn("Aksi").setCellEditor(
+                new VJadwal.ButtonsEditor(tabelJadwal)); 
     }
 
     /**
@@ -553,7 +594,7 @@ public class VJadwal extends javax.swing.JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            new VEditJadwal().setVisible(true);
+            new VEditFilm(tabModel.getValueAt(table.getSelectedRow(),1)+"").setVisible(true);
             setVisible(false);
 //            this.setVisible(false);
 //            JOptionPane.showMessageDialog(table, "Edit");
@@ -571,7 +612,17 @@ public class VJadwal extends javax.swing.JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            String id_dihapus = "";
+            id_dihapus = tabModel.getValueAt(table.getSelectedRow(),1)+"";
+            try{
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            stt.executeUpdate("DELETE FROM jadwal WHERE ID_JADWAL='"+id_dihapus+"'");
             JOptionPane.showMessageDialog(rootPane, "Data berhadil dihapus !");
+            tampilData();
+            } catch(SQLException a){
+                JOptionPane.showMessageDialog(rootPane,"Delete data gagal\n"+a.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            }
         }
 
 //        @Override

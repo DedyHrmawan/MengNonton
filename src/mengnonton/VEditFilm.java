@@ -6,6 +6,10 @@
 package mengnonton;
 
 import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 /**
@@ -13,13 +17,32 @@ import javax.swing.UIManager;
  * @author dblenk
  */
 public class VEditFilm extends javax.swing.JFrame {
-
+    ResultSet RsStudio = null;
+    String id_edit = "";
     /**
      * Creates new form VMakanan
      */
-    public VEditFilm() {
+    public VEditFilm(String idFilm) {
         initComponents();
         this.setExtendedState(VEditFilm.MAXIMIZED_BOTH);
+        bg.setFocusable(true);
+        id_edit = idFilm;
+
+        try {
+            Connection conn = (Connection) koneksi.koneksiDB();
+            Statement stt = conn.createStatement();
+
+            RsStudio = stt.executeQuery("SELECT * from film WHERE ID_FILM ='" + idFilm + "'");
+
+            if (RsStudio.next()) {
+                FormIDFlm.setText(RsStudio.getString("ID_FILM"));
+                FormJudulFilm.setText(RsStudio.getString("JUDUL_FILM"));
+                FormDurasi.setText(RsStudio.getString("DURASI_FILM"));
+                FormRating.setText(RsStudio.getString("RATING_FILM"));
+            }
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
     }
 
     /**
@@ -345,6 +368,11 @@ public class VEditFilm extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/simpan.png"))); // NOI18N
         jButton1.setText("SIMPAN");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         back.setBackground(new java.awt.Color(238, 210, 2));
         back.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
@@ -518,6 +546,24 @@ public class VEditFilm extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_backActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+                // TODO add your handling code here:
+        try {
+            Connection conn = (Connection) koneksi.koneksiDB();
+            Statement stt = conn.createStatement();
+            stt.executeUpdate("update film set JUDUL_FILM = '" + FormJudulFilm.getText() + "',"
+                    + "DURASI_FILM ='" + FormDurasi.getText() + "', RATING_FILM='" + FormRating.getText() + "', ID_FILM = '" + FormIDFlm.getText() + "'"     
+                    + "WHERE ID_FILM ='" + id_edit + "'");
+            conn.close();
+            JOptionPane.showMessageDialog(null, "Berhasil diubah");
+            new VFilm().setVisible(true);
+            setVisible(false);
+        } catch (Exception exc) {
+            System.err.println(exc.getMessage());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -560,8 +606,6 @@ public class VEditFilm extends javax.swing.JFrame {
 
                 } catch (Exception e) {
                 }
-
-                new VEditFilm().setVisible(true);
             }
         });
     }

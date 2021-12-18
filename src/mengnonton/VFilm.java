@@ -14,6 +14,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.AbstractAction;
@@ -27,6 +31,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
@@ -35,7 +40,8 @@ import javax.swing.table.TableCellRenderer;
  * @author dblenk
  */
 public class VFilm extends javax.swing.JFrame {
-
+    DefaultTableModel tabModel;
+    ResultSet RsStudio=null;
     /**
      * Creates new form VMakanan
      */
@@ -56,7 +62,40 @@ public class VFilm extends javax.swing.JFrame {
         tabelFilm.getColumn("Aksi").setCellRenderer(new ButtonsRenderer());
         tabelFilm.getColumn("Aksi").setCellEditor(
                 new ButtonsEditor(new JTable()));
+        tampilData();
+    }
+    
+    private void tampilData(){
+        try{
+            Object[] judul_kolom = {"No", "ID Film", "Judul Film", "Durasi Film", "Rating Film", "Aksi"};
+            tabModel = new DefaultTableModel(null,judul_kolom);
+            tabelFilm.setModel(tabModel);
+            
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            tabModel.getDataVector().removeAllElements();
+            
+            RsStudio=stt.executeQuery("SELECT * from film");  
+            int no = 0;
+            while(RsStudio.next()){
+                no++;
+                
+                Object[] data={
+                    no,
+                    RsStudio.getString("ID_FILM"),
+                    RsStudio.getString("JUDUL_FILM"),
+                    RsStudio.getString("DURASI_FILM"),
+                    RsStudio.getString("RATING_FILM"),
+                };
+               tabModel.addRow(data);
+            }                
+        } catch (Exception ex) {
+        System.err.println(ex.getMessage());
+        }     
 
+        tabelFilm.getColumn("Aksi").setCellRenderer(new VFilm.ButtonsRenderer());
+        tabelFilm.getColumn("Aksi").setCellEditor(
+                new VFilm.ButtonsEditor(tabelFilm)); 
     }
 
     /**
@@ -544,7 +583,7 @@ public class VFilm extends javax.swing.JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            new VEditFilm().setVisible(true);
+            new VEditFilm(tabModel.getValueAt(table.getSelectedRow(),1)+"").setVisible(true);
             setVisible(false);
 //            this.setVisible(false);
 //            JOptionPane.showMessageDialog(table, "Edit");
@@ -562,7 +601,17 @@ public class VFilm extends javax.swing.JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            String id_dihapus = "";
+            id_dihapus = tabModel.getValueAt(table.getSelectedRow(),1)+"";
+            try{
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            stt.executeUpdate("DELETE FROM film WHERE ID_FILM='"+id_dihapus+"'");
             JOptionPane.showMessageDialog(rootPane, "Data berhadil dihapus !");
+            tampilData();
+            } catch(SQLException a){
+                JOptionPane.showMessageDialog(rootPane,"Delete data gagal\n"+a.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            }
         }
 
 //        @Override
