@@ -233,7 +233,7 @@ public class VBayar extends javax.swing.JFrame {
                 .addComponent(MPembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(530, Short.MAX_VALUE))
+                .addContainerGap(547, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(12, 33, 193));
@@ -509,7 +509,7 @@ public class VBayar extends javax.swing.JFrame {
 
     private void BtAddTiketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtAddTiketActionPerformed
         // TODO add your handling code here:
-        new VBayarTiket().setVisible(true);
+        new VBayarCariTiket().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BtAddTiketActionPerformed
 
