@@ -41,6 +41,9 @@ public class VBayarTiket extends javax.swing.JFrame {
     /**
      * Creates new form VMakanan
      */
+     Color SoftBlue = new Color(17,142,234,255);
+     Color HardBlue = new Color(26,44,80);
+        
     public VBayarTiket() {
         initComponents();
       
@@ -62,6 +65,7 @@ public class VBayarTiket extends javax.swing.JFrame {
                 new ButtonEditor(new JCheckBox()));
 
     }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -101,6 +105,22 @@ public class VBayarTiket extends javax.swing.JFrame {
         ToggleB2 = new javax.swing.JToggleButton();
         ToggleB3 = new javax.swing.JToggleButton();
         ToggleB4 = new javax.swing.JToggleButton();
+        ToggleC1 = new javax.swing.JToggleButton();
+        ToggleC2 = new javax.swing.JToggleButton();
+        ToggleC3 = new javax.swing.JToggleButton();
+        ToggleC4 = new javax.swing.JToggleButton();
+        ToggleA5 = new javax.swing.JToggleButton();
+        ToggleA6 = new javax.swing.JToggleButton();
+        ToggleA7 = new javax.swing.JToggleButton();
+        ToggleA8 = new javax.swing.JToggleButton();
+        ToggleB8 = new javax.swing.JToggleButton();
+        ToggleB7 = new javax.swing.JToggleButton();
+        ToggleB6 = new javax.swing.JToggleButton();
+        ToggleB5 = new javax.swing.JToggleButton();
+        ToggleC5 = new javax.swing.JToggleButton();
+        ToggleC6 = new javax.swing.JToggleButton();
+        ToggleB15 = new javax.swing.JToggleButton();
+        ToggleB16 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
@@ -342,7 +362,7 @@ public class VBayarTiket extends javax.swing.JFrame {
         ToggleA4.setBackground(new java.awt.Color(235, 236, 238));
         ToggleA4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         ToggleA4.setForeground(new java.awt.Color(255, 255, 255));
-        ToggleA4.setText("B3");
+        ToggleA4.setText("A4");
         ToggleA4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         ToggleA4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -394,83 +414,301 @@ public class VBayarTiket extends javax.swing.JFrame {
             }
         });
 
+        ToggleC1.setBackground(new java.awt.Color(26, 44, 80));
+        ToggleC1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleC1.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleC1.setText("C1");
+        ToggleC1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleC1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleC1ActionPerformed(evt);
+            }
+        });
+
+        ToggleC2.setBackground(new java.awt.Color(26, 44, 80));
+        ToggleC2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleC2.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleC2.setText("C2");
+        ToggleC2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleC2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleC2ActionPerformed(evt);
+            }
+        });
+
+        ToggleC3.setBackground(new java.awt.Color(235, 236, 238));
+        ToggleC3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleC3.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleC3.setText("C3");
+        ToggleC3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleC3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleC3ActionPerformed(evt);
+            }
+        });
+
+        ToggleC4.setBackground(new java.awt.Color(235, 236, 238));
+        ToggleC4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleC4.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleC4.setText("C4");
+        ToggleC4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleC4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleC4ActionPerformed(evt);
+            }
+        });
+
+        ToggleA5.setBackground(new java.awt.Color(26, 44, 80));
+        ToggleA5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleA5.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleA5.setText("A5");
+        ToggleA5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleA5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleA5ActionPerformed(evt);
+            }
+        });
+
+        ToggleA6.setBackground(new java.awt.Color(26, 44, 80));
+        ToggleA6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleA6.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleA6.setText("A6");
+        ToggleA6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleA6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleA6ActionPerformed(evt);
+            }
+        });
+
+        ToggleA7.setBackground(new java.awt.Color(235, 236, 238));
+        ToggleA7.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleA7.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleA7.setText("A7");
+        ToggleA7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleA7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleA7ActionPerformed(evt);
+            }
+        });
+
+        ToggleA8.setBackground(new java.awt.Color(235, 236, 238));
+        ToggleA8.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleA8.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleA8.setText("A8");
+        ToggleA8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleA8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleA8ActionPerformed(evt);
+            }
+        });
+
+        ToggleB8.setBackground(new java.awt.Color(235, 236, 238));
+        ToggleB8.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleB8.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleB8.setText("B8");
+        ToggleB8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleB8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleB8ActionPerformed(evt);
+            }
+        });
+
+        ToggleB7.setBackground(new java.awt.Color(235, 236, 238));
+        ToggleB7.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleB7.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleB7.setText("B7");
+        ToggleB7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleB7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleB7ActionPerformed(evt);
+            }
+        });
+
+        ToggleB6.setBackground(new java.awt.Color(26, 44, 80));
+        ToggleB6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleB6.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleB6.setText("B6");
+        ToggleB6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleB6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleB6ActionPerformed(evt);
+            }
+        });
+
+        ToggleB5.setBackground(new java.awt.Color(26, 44, 80));
+        ToggleB5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleB5.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleB5.setText("B5");
+        ToggleB5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleB5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleB5ActionPerformed(evt);
+            }
+        });
+
+        ToggleC5.setBackground(new java.awt.Color(26, 44, 80));
+        ToggleC5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleC5.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleC5.setText("C5");
+        ToggleC5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleC5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleC5ActionPerformed(evt);
+            }
+        });
+
+        ToggleC6.setBackground(new java.awt.Color(26, 44, 80));
+        ToggleC6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleC6.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleC6.setText("C2");
+        ToggleC6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleC6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleC6ActionPerformed(evt);
+            }
+        });
+
+        ToggleB15.setBackground(new java.awt.Color(235, 236, 238));
+        ToggleB15.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleB15.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleB15.setText("C3");
+        ToggleB15.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleB15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleB15ActionPerformed(evt);
+            }
+        });
+
+        ToggleB16.setBackground(new java.awt.Color(235, 236, 238));
+        ToggleB16.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        ToggleB16.setForeground(new java.awt.Color(255, 255, 255));
+        ToggleB16.setText("C4");
+        ToggleB16.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        ToggleB16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ToggleB16ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
+                .addGap(325, 325, 325)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(bgLayout.createSequentialGroup()
                 .addComponent(sidepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(bgLayout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addGap(24, 24, 24)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)
+                        .addGap(24, 24, 24)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addContainerGap(538, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(FormIDTiket, javax.swing.GroupLayout.Alignment.LEADING, 0, 507, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bgLayout.createSequentialGroup()
                                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
                                     .addGroup(bgLayout.createSequentialGroup()
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel3)
-                                        .addGap(24, 24, 24)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel4)
-                                        .addGap(24, 24, 24)
-                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel5)))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                                        .addComponent(ToggleB1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(ToggleB2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(bgLayout.createSequentialGroup()
+                                        .addComponent(ToggleA1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(ToggleA2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(bgLayout.createSequentialGroup()
+                                        .addComponent(ToggleC1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(ToggleC2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(80, 80, 80)
                                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(bgLayout.createSequentialGroup()
+                                            .addComponent(ToggleB3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(ToggleB4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(bgLayout.createSequentialGroup()
+                                            .addComponent(ToggleA3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(ToggleA4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bgLayout.createSequentialGroup()
+                                        .addComponent(ToggleC3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(ToggleC4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(bgLayout.createSequentialGroup()
+                                            .addComponent(ToggleB5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(ToggleB6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(bgLayout.createSequentialGroup()
+                                            .addComponent(ToggleA5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(ToggleA6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(bgLayout.createSequentialGroup()
-                                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(bgLayout.createSequentialGroup()
-                                                .addComponent(ToggleB1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(ToggleB2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(ToggleB3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(ToggleB4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(bgLayout.createSequentialGroup()
-                                                .addComponent(ToggleA1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(ToggleA2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(ToggleA3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(ToggleA4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                                    .addComponent(FormIDTiket, javax.swing.GroupLayout.Alignment.LEADING, 0, 507, Short.MAX_VALUE)
-                                    .addGroup(bgLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(BSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(102, 102, 102))))))
+                                        .addComponent(ToggleC5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(ToggleC6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(80, 80, 80)
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                                        .addComponent(ToggleB7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(ToggleB8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                                        .addComponent(ToggleA7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(ToggleA8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                                        .addComponent(ToggleB15, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(ToggleB16, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(BSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(102, 102, 102))))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(sidepanel, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
+                .addGap(27, 27, 27))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(FormIDTiket, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(FormIDTiket, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addGap(39, 39, 39)
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(bgLayout.createSequentialGroup()
                                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -478,20 +716,49 @@ public class VBayarTiket extends javax.swing.JFrame {
                                     .addComponent(ToggleA2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(ToggleA3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(ToggleA4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(30, 30, 30)
+                                .addGap(20, 20, 20)
                                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(ToggleB1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(ToggleB2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(ToggleB3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(ToggleB4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(295, 295, 295)
+                                .addGap(20, 20, 20)
                                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(BSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 14, Short.MAX_VALUE))
-                    .addComponent(sidepanel, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE))
-                .addGap(27, 27, 27))
+                                    .addComponent(ToggleC1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ToggleC2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ToggleC3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ToggleC4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(ToggleA5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ToggleA6, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(20, 20, 20)
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(ToggleB5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ToggleB6, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(20, 20, 20)
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(ToggleC5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ToggleC6, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(36, 36, 36)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ToggleA7, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ToggleA8, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ToggleB7, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ToggleB8, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ToggleB15, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ToggleB16, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43))
         );
 
         getContentPane().add(bg);
@@ -525,19 +792,20 @@ public class VBayarTiket extends javax.swing.JFrame {
 
     private void ToggleA1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleA1ActionPerformed
         // TODO add your handling code here:
-        Color SoftBlue = new Color(17,142,234,255)
-;
+        
         if (ToggleA1.isSelected()) {
             ToggleA1.setBackground(SoftBlue);
+        }else {
+            ToggleA1.setBackground(HardBlue);
         }
     }//GEN-LAST:event_ToggleA1ActionPerformed
 
     private void ToggleA2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleA2ActionPerformed
         // TODO add your handling code here:
-         Color SoftBlue = new Color(17,142,234,255)
-;
         if (ToggleA2.isSelected()) {
             ToggleA2.setBackground(SoftBlue);
+        }else {
+            ToggleA2.setBackground(HardBlue);
         }
     }//GEN-LAST:event_ToggleA2ActionPerformed
 
@@ -553,19 +821,21 @@ public class VBayarTiket extends javax.swing.JFrame {
 
     private void ToggleB1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleB1ActionPerformed
         // TODO add your handling code here:
-          Color SoftBlue = new Color(17,142,234,255)
-;
+         
         if (ToggleB1.isSelected()) {
             ToggleB1.setBackground(SoftBlue);
+        }else {
+            ToggleB1.setBackground(HardBlue);
         }
     }//GEN-LAST:event_ToggleB1ActionPerformed
 
     private void ToggleB2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleB2ActionPerformed
         // TODO add your handling code here:
-          Color SoftBlue = new Color(17,142,234,255)
-;
+
         if (ToggleB2.isSelected()) {
             ToggleB2.setBackground(SoftBlue);
+        }else {
+            ToggleB2.setBackground(HardBlue);
         }
     }//GEN-LAST:event_ToggleB2ActionPerformed
 
@@ -576,6 +846,110 @@ public class VBayarTiket extends javax.swing.JFrame {
     private void ToggleB4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleB4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ToggleB4ActionPerformed
+
+    private void ToggleC1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleC1ActionPerformed
+        // TODO add your handling code here:
+        if (ToggleC1.isSelected()) {
+            ToggleC1.setBackground(SoftBlue);
+        }else {
+            ToggleC1.setBackground(HardBlue);
+        }
+    }//GEN-LAST:event_ToggleC1ActionPerformed
+
+    private void ToggleC2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleC2ActionPerformed
+        // TODO add your handling code here:
+        if (ToggleC2.isSelected()) {
+            ToggleC2.setBackground(SoftBlue);
+        }else {
+            ToggleC2.setBackground(HardBlue);
+        }
+    }//GEN-LAST:event_ToggleC2ActionPerformed
+
+    private void ToggleC3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleC3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ToggleC3ActionPerformed
+
+    private void ToggleC4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleC4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ToggleC4ActionPerformed
+
+    private void ToggleA5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleA5ActionPerformed
+        // TODO add your handling code here:
+        if (ToggleA5.isSelected()) {
+            ToggleA5.setBackground(SoftBlue);
+        }else {
+            ToggleA5.setBackground(HardBlue);
+        }
+    }//GEN-LAST:event_ToggleA5ActionPerformed
+
+    private void ToggleA6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleA6ActionPerformed
+        // TODO add your handling code here:
+        if (ToggleA6.isSelected()) {
+            ToggleA6.setBackground(SoftBlue);
+        }else {
+            ToggleA6.setBackground(HardBlue);
+        }
+    }//GEN-LAST:event_ToggleA6ActionPerformed
+
+    private void ToggleA7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleA7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ToggleA7ActionPerformed
+
+    private void ToggleA8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleA8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ToggleA8ActionPerformed
+
+    private void ToggleB8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleB8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ToggleB8ActionPerformed
+
+    private void ToggleB7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleB7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ToggleB7ActionPerformed
+
+    private void ToggleB6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleB6ActionPerformed
+        // TODO add your handling code here:
+        if (ToggleB6.isSelected()) {
+            ToggleB6.setBackground(SoftBlue);
+        }else {
+            ToggleB6.setBackground(HardBlue);
+        }
+    }//GEN-LAST:event_ToggleB6ActionPerformed
+
+    private void ToggleB5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleB5ActionPerformed
+        // TODO add your handling code here:
+        if (ToggleB5.isSelected()) {
+            ToggleB5.setBackground(SoftBlue);
+        }else {
+            ToggleB5.setBackground(HardBlue);
+        }
+    }//GEN-LAST:event_ToggleB5ActionPerformed
+
+    private void ToggleC5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleC5ActionPerformed
+        // TODO add your handling code here:
+        if (ToggleC5.isSelected()) {
+            ToggleC5.setBackground(SoftBlue);
+        }else {
+            ToggleC5.setBackground(HardBlue);
+        }
+    }//GEN-LAST:event_ToggleC5ActionPerformed
+
+    private void ToggleC6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleC6ActionPerformed
+        // TODO add your handling code here:
+        if (ToggleC6.isSelected()) {
+            ToggleC6.setBackground(SoftBlue);
+        }else {
+            ToggleC6.setBackground(HardBlue);
+        }
+    }//GEN-LAST:event_ToggleC6ActionPerformed
+
+    private void ToggleB15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleB15ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ToggleB15ActionPerformed
+
+    private void ToggleB16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleB16ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ToggleB16ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -985,10 +1359,26 @@ public class VBayarTiket extends javax.swing.JFrame {
     private javax.swing.JToggleButton ToggleA2;
     private javax.swing.JToggleButton ToggleA3;
     private javax.swing.JToggleButton ToggleA4;
+    private javax.swing.JToggleButton ToggleA5;
+    private javax.swing.JToggleButton ToggleA6;
+    private javax.swing.JToggleButton ToggleA7;
+    private javax.swing.JToggleButton ToggleA8;
     private javax.swing.JToggleButton ToggleB1;
+    private javax.swing.JToggleButton ToggleB15;
+    private javax.swing.JToggleButton ToggleB16;
     private javax.swing.JToggleButton ToggleB2;
     private javax.swing.JToggleButton ToggleB3;
     private javax.swing.JToggleButton ToggleB4;
+    private javax.swing.JToggleButton ToggleB5;
+    private javax.swing.JToggleButton ToggleB6;
+    private javax.swing.JToggleButton ToggleB7;
+    private javax.swing.JToggleButton ToggleB8;
+    private javax.swing.JToggleButton ToggleC1;
+    private javax.swing.JToggleButton ToggleC2;
+    private javax.swing.JToggleButton ToggleC3;
+    private javax.swing.JToggleButton ToggleC4;
+    private javax.swing.JToggleButton ToggleC5;
+    private javax.swing.JToggleButton ToggleC6;
     private javax.swing.JButton back;
     private javax.swing.JPanel bg;
     private javax.swing.JButton jButton1;
