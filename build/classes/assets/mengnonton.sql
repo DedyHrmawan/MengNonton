@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 13 Des 2021 pada 04.38
--- Versi server: 10.1.38-MariaDB
--- Versi PHP: 7.3.2
+-- Waktu pembuatan: 20 Des 2021 pada 02.31
+-- Versi server: 10.4.18-MariaDB
+-- Versi PHP: 7.4.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -21,6 +20,46 @@ SET time_zone = "+00:00";
 --
 -- Database: `mengnonton`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `film`
+--
+
+CREATE TABLE `film` (
+  `ID_FILM` varchar(10) NOT NULL,
+  `JUDUL_FILM` varchar(255) DEFAULT NULL,
+  `DURASI_FILM` int(11) DEFAULT NULL,
+  `RATING_FILM` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `film`
+--
+
+INSERT INTO `film` (`ID_FILM`, `JUDUL_FILM`, `DURASI_FILM`, `RATING_FILM`) VALUES
+('For You', 'Girl', 2, 29);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `jadwal`
+--
+
+CREATE TABLE `jadwal` (
+  `ID_JADWAL` varchar(10) NOT NULL,
+  `ID_FILM` varchar(10) DEFAULT NULL,
+  `ID_STUDIO` varchar(10) DEFAULT NULL,
+  `TGL_JADWAL` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `jadwal`
+--
+
+INSERT INTO `jadwal` (`ID_JADWAL`, `ID_FILM`, `ID_STUDIO`, `TGL_JADWAL`) VALUES
+('Jancour', 'For You', 'S002', '2021-12-14 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -73,7 +112,7 @@ INSERT INTO `minuman` (`ID_MINUMAN`, `NAMA_MINUMAN`, `HARGA_MINUMAN`, `STOK_MINU
 
 CREATE TABLE `pembayaran` (
   `ID_PEMBAYARAN` int(11) NOT NULL,
-  `TANGGAL_PEMBAYARAN` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `TANGGAL_PEMBAYARAN` datetime NOT NULL DEFAULT current_timestamp(),
   `TOTAL_PEMBAYARAN` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -97,7 +136,7 @@ CREATE TABLE `pemesanan` (
   `JUMLAH_PEMESANAN` int(11) NOT NULL,
   `TANGGAL_PEMESANAN` date NOT NULL,
   `TOTAL_TAGIHAN` int(11) NOT NULL,
-  `STATUS` int(11) NOT NULL DEFAULT '0'
+  `STATUS` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -128,12 +167,53 @@ CREATE TABLE `studio` (
 --
 
 INSERT INTO `studio` (`ID_STUDIO`, `NAMA_STUDIO`, `KAPASITAS_STUDIO`, `JENIS_STUDIO`) VALUES
-('S001', 'SDjkf', 20, 'Premiere'),
 ('S002', 'dsf', 20, 'Dolby Atmos');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `v_jadwal`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `v_jadwal` (
+`ID_JADWAL` varchar(10)
+,`ID_FILM` varchar(10)
+,`ID_STUDIO` varchar(10)
+,`TGL_JADWAL` datetime
+,`JUDUL_FILM` varchar(255)
+,`DURASI_FILM` int(11)
+,`RATING_FILM` int(11)
+,`NAMA_STUDIO` varchar(100)
+,`JENIS_STUDIO` varchar(50)
+,`KAPASITAS_STUDIO` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `v_jadwal`
+--
+DROP TABLE IF EXISTS `v_jadwal`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_jadwal`  AS SELECT `jadwal`.`ID_JADWAL` AS `ID_JADWAL`, `jadwal`.`ID_FILM` AS `ID_FILM`, `jadwal`.`ID_STUDIO` AS `ID_STUDIO`, `jadwal`.`TGL_JADWAL` AS `TGL_JADWAL`, `film`.`JUDUL_FILM` AS `JUDUL_FILM`, `film`.`DURASI_FILM` AS `DURASI_FILM`, `film`.`RATING_FILM` AS `RATING_FILM`, `studio`.`NAMA_STUDIO` AS `NAMA_STUDIO`, `studio`.`JENIS_STUDIO` AS `JENIS_STUDIO`, `studio`.`KAPASITAS_STUDIO` AS `KAPASITAS_STUDIO` FROM ((`jadwal` join `film` on(`jadwal`.`ID_FILM` = `film`.`ID_FILM`)) join `studio` on(`jadwal`.`ID_STUDIO` = `studio`.`ID_STUDIO`)) ;
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `film`
+--
+ALTER TABLE `film`
+  ADD PRIMARY KEY (`ID_FILM`);
+
+--
+-- Indeks untuk tabel `jadwal`
+--
+ALTER TABLE `jadwal`
+  ADD PRIMARY KEY (`ID_JADWAL`),
+  ADD KEY `fr_jadwal_1` (`ID_FILM`),
+  ADD KEY `fr_jadwal_2` (`ID_STUDIO`);
 
 --
 -- Indeks untuk tabel `makanan`
@@ -160,6 +240,12 @@ ALTER TABLE `pemesanan`
   ADD PRIMARY KEY (`ID_PEMESANAN`);
 
 --
+-- Indeks untuk tabel `studio`
+--
+ALTER TABLE `studio`
+  ADD KEY `ID_STUDIO` (`ID_STUDIO`);
+
+--
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
@@ -174,6 +260,17 @@ ALTER TABLE `pembayaran`
 --
 ALTER TABLE `pemesanan`
   MODIFY `ID_PEMESANAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `jadwal`
+--
+ALTER TABLE `jadwal`
+  ADD CONSTRAINT `fr_jadwal_1` FOREIGN KEY (`ID_FILM`) REFERENCES `film` (`ID_FILM`),
+  ADD CONSTRAINT `fr_jadwal_2` FOREIGN KEY (`ID_STUDIO`) REFERENCES `studio` (`ID_STUDIO`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

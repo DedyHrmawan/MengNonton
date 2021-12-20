@@ -550,7 +550,7 @@ public class VJadwal extends javax.swing.JFrame {
 
     class ButtonsPanel extends JPanel {
 
-        public final List<JButton> buttons = Arrays.asList(new JButton("edit"), new JButton("hapus"));
+        public final List<JButton> buttons = Arrays.asList(new JButton("hapus"));
 
         protected ButtonsPanel() {
 
@@ -579,25 +579,6 @@ public class VJadwal extends javax.swing.JFrame {
             panel.setBackground(new Color(255, 255, 255));
 //            panel.setBackground(isSelected ? table.getSelectionBackground() : table.getBackground());
             return panel;
-        }
-    }
-
-    class EditAction extends AbstractAction {
-
-        private final JTable table;
-
-        protected EditAction(JTable table) {
-            super("edit");
-
-            this.table = table;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            new VEditFilm(tabModel.getValueAt(table.getSelectedRow(),1)+"").setVisible(true);
-            setVisible(false);
-//            this.setVisible(false);
-//            JOptionPane.showMessageDialog(table, "Edit");
         }
     }
 
@@ -665,8 +646,7 @@ public class VJadwal extends javax.swing.JFrame {
         protected ButtonsEditor(JTable table) {
             super();
             this.table = table;
-            panel.buttons.get(0).setAction(new EditAction(table));
-            panel.buttons.get(1).setAction(new HapusAction(table));
+            panel.buttons.get(0).setAction(new HapusAction(table));
 
             EditingStopHandler handler = new EditingStopHandler();
             for (JButton b : panel.buttons) {
