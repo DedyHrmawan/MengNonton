@@ -43,6 +43,7 @@ public class VBayarTiket extends javax.swing.JFrame {
      */
      Color SoftBlue = new Color(17,142,234,255);
      Color HardBlue = new Color(26,44,80);
+     Color Red      = new Color(243, 32, 19);
         
     public VBayarTiket() {
         initComponents();
@@ -348,7 +349,6 @@ public class VBayarTiket extends javax.swing.JFrame {
             }
         });
 
-        ToggleA3.setBackground(new java.awt.Color(235, 236, 238));
         ToggleA3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         ToggleA3.setForeground(new java.awt.Color(255, 255, 255));
         ToggleA3.setText("A3");
@@ -810,13 +810,14 @@ public class VBayarTiket extends javax.swing.JFrame {
     }//GEN-LAST:event_ToggleA2ActionPerformed
 
     private void ToggleA3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleA3ActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:    
          ToggleA3.setEnabled(false);
+         ToggleA3.setBackground(Red);
     }//GEN-LAST:event_ToggleA3ActionPerformed
 
     private void ToggleA4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleA4ActionPerformed
         // TODO add your handling code here:
-         ToggleA3.setEnabled(false);
+         ToggleA4.setEnabled(false);
     }//GEN-LAST:event_ToggleA4ActionPerformed
 
     private void ToggleB1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ToggleB1ActionPerformed
