@@ -363,7 +363,7 @@ public class VTambahJadwal extends javax.swing.JFrame {
 
         FormTanggal.setBackground(new java.awt.Color(255, 255, 255));
         FormTanggal.setForeground(new java.awt.Color(0, 8, 66));
-        FormTanggal.setDateFormatString("d MMM , yyyy HH:mm:ss");
+        FormTanggal.setDateFormatString("d MMM , yyyy HH:mm");
         FormTanggal.setFocusable(false);
         FormTanggal.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
         FormTanggal.setPreferredSize(new java.awt.Dimension(135, 27));
@@ -504,7 +504,7 @@ public class VTambahJadwal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");          
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-M-d hh-mm");          
         String date = dateFormat.format(FormTanggal.getDate());
         try{
             Connection conn=(Connection)koneksi.koneksiDB();
