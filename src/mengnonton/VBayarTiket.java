@@ -14,6 +14,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +33,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
@@ -37,7 +42,13 @@ import javax.swing.table.TableCellRenderer;
  * @author dblenk
  */
 public class VBayarTiket extends javax.swing.JFrame {
-
+    String idjad = "";
+    ResultSet RsProduk=null;
+    ResultSet rs=null;
+    DefaultTableModel tabModel;    
+    Date d = new Date();
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
+    String sk = sdf.format(d);
     /**
      * Creates new form VMakanan
      */
@@ -45,11 +56,12 @@ public class VBayarTiket extends javax.swing.JFrame {
      Color HardBlue = new Color(26,44,80);
      Color Red      = new Color(243, 32, 19);
         
-    public VBayarTiket() {
-        initComponents();
-      
+    public VBayarTiket(String idjadwal) {
+        initComponents(); 
+        this.setExtendedState(VBayarTiket.MAXIMIZED_BOTH);        
         
-        this.setExtendedState(VBayarTiket.MAXIMIZED_BOTH);
+        idjad = idjadwal;
+        
         tabelTiket.getTableHeader().setFont(new Font("Lato", Font.BOLD, 17));
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -61,12 +73,57 @@ public class VBayarTiket extends javax.swing.JFrame {
         tabelTiket.setDefaultRenderer(Integer.class, centerInt);
         tabelTiket.setRowHeight(30);
 
+        fillCombo();
+        tampilData();
+    }
+    
+    private void fillCombo(){
+        try{
+            String sql = "SELECT * FROM kursi WHERE ID_JADWAL ='"+idjad+"' AND STATUS_KURSI = 0";
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            rs = stt.executeQuery(sql);
+            
+            while(rs.next()){
+                String id = rs.getString("NAMA_KURSI");
+                FormIDTiket.addItem(id);
+            }
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    private void tampilData(){
+        try{
+            Object[] judul_kolom = {"No", "ID Jadwal", "Nama Film", "Kursi","Aksi"};
+            tabModel = new DefaultTableModel(null,judul_kolom);
+            tabelTiket.setModel(tabModel);
+            
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            tabModel.getDataVector().removeAllElements();
+            
+            RsProduk=stt.executeQuery("SELECT k.*, f.JUDUL_FILM from kursi k, jadwal j, film f "
+                    + "WHERE k.STATUS_KURSI = 1 AND k.ID_JADWAL = j.ID_JADWAL AND j.ID_FILM = f.ID_FILM");  
+            int no = 0;
+            while(RsProduk.next()){
+                no++;
+                Object[] data={
+                    no,
+                    RsProduk.getString("ID_JADWAL"),
+                    RsProduk.getString("JUDUL_FILM"),
+                    RsProduk.getString("NAMA_KURSI")        
+                };
+               tabModel.addRow(data);
+            }                
+        } catch (Exception ex) {
+        System.err.println(ex.getMessage());
+        }     
+
         tabelTiket.getColumn("Aksi").setCellRenderer(new ButtonRenderer());
         tabelTiket.getColumn("Aksi").setCellEditor(
                 new ButtonEditor(new JCheckBox()));
-
     }
-    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -159,7 +216,7 @@ public class VBayarTiket extends javax.swing.JFrame {
                     .addComponent(MJudul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(MPembayaran, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(MLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         sidepanelLayout.setVerticalGroup(
             sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,7 +267,7 @@ public class VBayarTiket extends javax.swing.JFrame {
                 .addComponent(LMakanan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         tabelTiket.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
@@ -248,7 +305,11 @@ public class VBayarTiket extends javax.swing.JFrame {
         FormIDTiket.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
         FormIDTiket.setForeground(new java.awt.Color(0, 6, 66));
         FormIDTiket.setMaximumRowCount(5);
-        FormIDTiket.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Studio 1 | Doraemon 12.00 - 14.00", "Studio 2 | Doraemon Movie 18.00 - 19.00" }));
+        FormIDTiket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FormIDTiketActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 153, 153));
@@ -334,8 +395,19 @@ public class VBayarTiket extends javax.swing.JFrame {
     }//GEN-LAST:event_backActionPerformed
 
     private void BSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BSimpanActionPerformed
-        // TODO add your handling code here:
-        new VBayar().setVisible(true);
+        int total = 35000;
+        try{
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            stt.executeUpdate("insert into pemesanan(ID_BARANG,JUMLAH_PEMESANAN,TANGGAL_PEMESANAN,TIPE_PEMESANAN,TOTAL_TAGIHAN)"+
+                    "VALUES('"+idjad+"-"+FormIDTiket.getSelectedItem()+"','"+1+"','"+sk+"','"+"3"+"','"+total+"')");
+            stt.executeUpdate("UPDATE kursi SET STATUS_KURSI = 1 WHERE ID_JADWAL ='"+idjad+"' AND NAMA_KURSI = '"+FormIDTiket.getSelectedItem()+"'");
+            conn.close();
+            JOptionPane.showMessageDialog(null, "Berhasil simpan");
+        }catch(Exception exc){
+            System.err.println(exc.getMessage());
+        }
+        new VBayarTiket(idjad).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BSimpanActionPerformed
 
@@ -350,6 +422,10 @@ public class VBayarTiket extends javax.swing.JFrame {
         new VBayar().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MPembayaranActionPerformed
+
+    private void FormIDTiketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FormIDTiketActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FormIDTiketActionPerformed
 
     /**
      * @param args the command line arguments
@@ -641,7 +717,6 @@ public class VBayarTiket extends javax.swing.JFrame {
 
                 } catch (Exception e) {
                 }
-                new VBayarTiket().setVisible(true);
             }
         });
     }
