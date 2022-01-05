@@ -538,6 +538,43 @@ public class VTambahJadwal extends javax.swing.JFrame {
         }catch(Exception exc){
             System.err.println(exc.getMessage());
         }
+        try{            
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            
+            RsItem=stt.executeQuery("SELECT KAPASITAS_STUDIO from studio where ID_STUDIO = '"+FormIDStudio.getSelectedItem().toString()+"'");  
+            
+            if(RsItem.next()){
+                int jmlKursi = Integer.parseInt(RsItem.getString("KAPASITAS_STUDIO"));
+                String[] abjadKursi = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
+                int iAbjad = 0;
+                int countKursi = 1;
+                for(int i = 1; i <= jmlKursi; i++){
+                    
+                    try{
+                        conn=(Connection)koneksi.koneksiDB();
+                        stt=conn.createStatement();
+                        stt.executeUpdate("insert into kursi(ID_JADWAL, NAMA_KURSI)"+
+                                "VALUES('"+FormIDJadwal.getText()+"','"+abjadKursi[iAbjad]+countKursi+"')");
+                        conn.close();
+                    }catch(Exception exc){
+                        System.err.println(exc.getMessage());
+                    }
+                    countKursi++;
+                    if(countKursi > 5){
+                        iAbjad++;
+                        countKursi = 1;
+                    }
+                }
+             }else{
+                
+             }
+            FormIDJadwal.disable();
+        } catch (Exception ex) {
+        System.err.println(ex.getMessage());
+        }
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
