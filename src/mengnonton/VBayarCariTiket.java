@@ -14,6 +14,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -37,6 +40,7 @@ import javax.swing.table.TableCellRenderer;
  * @author dblenk
  */
 public class VBayarCariTiket extends javax.swing.JFrame {
+    ResultSet rs=null;
 
     /**
      * Creates new form VMakanan
@@ -45,7 +49,24 @@ public class VBayarCariTiket extends javax.swing.JFrame {
         initComponents();
       
         this.setExtendedState(VBayarCariTiket.MAXIMIZED_BOTH);
+        fillCombo();
         
+    }
+    
+    private void fillCombo(){
+        try{
+            String sql = "SELECT j.TGL_JADWAL, j.ID_JADWAL, f.JUDUL_FILM, s.NAMA_STUDIO FROM jadwal j , film f, studio s WHERE j.ID_FILM = f.ID_FILM AND j.ID_STUDIO = s.ID_STUDIO";
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            rs = stt.executeQuery(sql);
+            
+            while(rs.next()){
+                String id = rs.getString("ID_JADWAL")+" | "+rs.getString("NAMA_STUDIO")+" | "+rs.getString("JUDUL_FILM")+" | "+rs.getString("TGL_JADWAL");
+                FormIDTiket.addItem(id);
+            }
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
     }
 
     /**
@@ -194,7 +215,11 @@ public class VBayarCariTiket extends javax.swing.JFrame {
         FormIDTiket.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
         FormIDTiket.setForeground(new java.awt.Color(0, 6, 66));
         FormIDTiket.setMaximumRowCount(5);
-        FormIDTiket.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Studio 1 | Doraemon 12.00 - 14.00", "Studio 2 | Doraemon Movie 18.00 - 19.00" }));
+        FormIDTiket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FormIDTiketActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 153, 153));
@@ -275,8 +300,11 @@ public class VBayarCariTiket extends javax.swing.JFrame {
     }//GEN-LAST:event_backActionPerformed
 
     private void BtnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCariActionPerformed
-        // TODO add your handling code here:
-        new VBayarTiket().setVisible(true);
+        String idselect = "";
+        String pilihan = FormIDTiket.getSelectedItem().toString();
+        String[] strs = pilihan.split("[ | ]");
+        idselect = strs[0].toString();
+        new VBayarTiket(idselect).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BtnCariActionPerformed
 
@@ -291,6 +319,10 @@ public class VBayarCariTiket extends javax.swing.JFrame {
         new VBayar().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MPembayaranActionPerformed
+
+    private void FormIDTiketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FormIDTiketActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FormIDTiketActionPerformed
 
     /**
      * @param args the command line arguments
