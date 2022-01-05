@@ -44,7 +44,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="538" max="32767" attributes="0"/>
+                          <EmptySpace pref="468" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
@@ -116,7 +116,7 @@
                           <Component id="MPembayaran" alignment="0" max="32767" attributes="0"/>
                           <Component id="MLogout" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="71" max="32767" attributes="0"/>
+                      <EmptySpace pref="73" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -258,7 +258,7 @@
                       <Component id="LMakanan" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="29" max="32767" attributes="0"/>
+                      <EmptySpace pref="31" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -292,7 +292,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="99" green="99" red="99" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Menu Pembayaran Tiket"/>
+                <Property name="text" type="java.lang.String" value="Menu Pilih Kursi"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -318,9 +318,9 @@
                       <Data value="null"/>
                       <Data value="null"/>
                     </Column>
-                    <Column editable="true" title="Studio" type="java.lang.String"/>
-                    <Column editable="true" title="Film" type="java.lang.Object"/>
-                    <Column editable="true" title="" type="java.lang.Object"/>
+                    <Column editable="true" title="ID Jadwal" type="java.lang.String"/>
+                    <Column editable="true" title="Nama Film" type="java.lang.Object"/>
+                    <Column editable="true" title="Kursi" type="java.lang.Object"/>
                     <Column editable="true" title="Aksi" type="java.lang.Object"/>
                   </Table>
                 </Property>
@@ -391,7 +391,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="99" green="99" red="99" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Jadwal Tiket"/>
+            <Property name="text" type="java.lang.String" value="List Daftar Kursi Kosong"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="BSimpan">

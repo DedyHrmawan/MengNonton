@@ -14,7 +14,7 @@ import javax.swing.UIManager;
  * @author dblenk
  */
 public class VTambahMakanan extends javax.swing.JFrame {
-
+    ResultSet RsItem = null;
     /**
      * Creates new form VMakanan
      */
@@ -22,6 +22,26 @@ public class VTambahMakanan extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(VTambahMakanan.MAXIMIZED_BOTH);
         bg.setFocusable(true);
+        try{            
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            
+            RsItem=stt.executeQuery("SELECT ID_MAKANAN from makanan order by ID_MAKANAN DESC");  
+            
+            if(RsItem.next()){
+                String id = RsItem.getString("ID_MAKANAN");
+                id = id.substring(2, id.length());
+                
+                int newId = Integer.parseInt(id)+1;
+                FormIDMakanan.setText("MK"+String.format("%03d", newId));
+//                FormIDMakanan.setText(String.format("%3d", "4"));
+             }else{
+                
+             }
+            FormIDMakanan.disable();
+        } catch (Exception ex) {
+        System.err.println(ex.getMessage());
+        }
     }
 
     /**

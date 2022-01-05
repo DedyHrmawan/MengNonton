@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
  * @author dblenk
  */
 public class VTambahJadwal extends javax.swing.JFrame {
+    ResultSet RsItem = null;
     DefaultTableModel tabModel;
     ResultSet RsProduk=null;
     ResultSet rs=null;
@@ -30,7 +31,26 @@ public class VTambahJadwal extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(VTambahJadwal.MAXIMIZED_BOTH);
         bg.setFocusable(true);
-        
+           try{            
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            
+            RsItem=stt.executeQuery("SELECT ID_JADWAL from jadwal order by ID_JADWAL DESC");  
+            
+            if(RsItem.next()){
+                String id = RsItem.getString("ID_JADWAL");
+                id = id.substring(2, id.length());
+                
+                int newId = Integer.parseInt(id)+1;
+                FormIDJadwal.setText("JD"+String.format("%03d", newId));
+                //                FormIDMakanan.setText(String.format("%3d", "4"));
+             }else{
+                FormIDJadwal.setText("JD001");
+             }
+            FormIDJadwal.disable();
+        } catch (Exception ex) {
+        System.err.println(ex.getMessage());
+        }
         fillComboFilm();
         fillComboStudio();
     }

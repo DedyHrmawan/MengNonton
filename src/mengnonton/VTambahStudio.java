@@ -7,6 +7,7 @@ package mengnonton;
 
 import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -16,7 +17,7 @@ import javax.swing.UIManager;
  * @author dblenk
  */
 public class VTambahStudio extends javax.swing.JFrame {
-
+ResultSet RsItem = null;
     /**
      * Creates new form VMakanan
      */
@@ -24,6 +25,26 @@ public class VTambahStudio extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(VTambahStudio.MAXIMIZED_BOTH);
         bg.setFocusable(true);
+        try{            
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            
+            RsItem=stt.executeQuery("SELECT ID_STUDIO from studio order by ID_STUDIO DESC");  
+            
+            if(RsItem.next()){
+                String id = RsItem.getString("ID_STUDIO");
+                id = id.substring(2, id.length());
+                
+                int newId = Integer.parseInt(id)+1;
+                FormIDStudio.setText("ST"+String.format("%03d", newId));
+//                FormIDMakanan.setText(String.format("%3d", "4"));
+             }else{
+                
+             }
+            FormIDStudio.disable();
+        } catch (Exception ex) {
+        System.err.println(ex.getMessage());
+        }
     }
 
     /**

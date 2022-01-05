@@ -133,7 +133,7 @@
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <Component id="MJudul" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="71" max="32767" attributes="0"/>
+                      <EmptySpace pref="73" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -407,7 +407,7 @@
                       <Component id="LMakanan" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="29" max="32767" attributes="0"/>
+                      <EmptySpace pref="31" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -482,6 +482,7 @@
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="FormIDMinumanFocusGained"/>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="FormIDMinumanFocusLost"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FormIDMinumanActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="FormNamaMinuman">

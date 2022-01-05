@@ -7,6 +7,7 @@ package mengnonton;
 
 import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -16,13 +17,34 @@ import javax.swing.UIManager;
  * @author dblenk
  */
 public class VTambahFilm extends javax.swing.JFrame {
-
+ ResultSet RsItem = null;
     /**
      * Creates new form VMakanan
      */
     public VTambahFilm() {
         initComponents();
         this.setExtendedState(VTambahFilm.MAXIMIZED_BOTH);
+        bg.setFocusable(true);
+            try{            
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            
+            RsItem=stt.executeQuery("SELECT ID_FILM from film order by ID_FILM DESC");  
+            
+            if(RsItem.next()){
+                String id = RsItem.getString("ID_FILM");
+                id = id.substring(2, id.length());
+                
+                int newId = Integer.parseInt(id)+1;
+                FormIDFlm.setText("FM"+String.format("%03d", newId));
+                //                FormIDMakanan.setText(String.format("%3d", "4"));
+             }else{
+                FormIDFlm.setText("FM001");
+             }
+            FormIDFlm.disable();
+        } catch (Exception ex) {
+        System.err.println(ex.getMessage());
+        }
     }
 
     /**

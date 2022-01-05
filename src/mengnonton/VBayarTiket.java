@@ -159,7 +159,7 @@ public class VBayarTiket extends javax.swing.JFrame {
                     .addComponent(MJudul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(MPembayaran, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(MLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         sidepanelLayout.setVerticalGroup(
             sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,7 +187,7 @@ public class VBayarTiket extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(153, 153, 153));
         jLabel1.setFont(new java.awt.Font("Lato", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel1.setText("Menu Pembayaran Tiket");
+        jLabel1.setText("Menu Pilih Kursi");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -210,7 +210,7 @@ public class VBayarTiket extends javax.swing.JFrame {
                 .addComponent(LMakanan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         tabelTiket.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
@@ -223,7 +223,7 @@ public class VBayarTiket extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "No", "Studio", "Film", "", "Aksi"
+                "No", "ID Jadwal", "Nama Film", "Kursi", "Aksi"
             }
         ) {
             Class[] types = new Class [] {
@@ -252,7 +252,7 @@ public class VBayarTiket extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel7.setText("Jadwal Tiket");
+        jLabel7.setText("List Daftar Kursi Kosong");
 
         BSimpan.setBackground(new java.awt.Color(12, 33, 193));
         BSimpan.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
@@ -289,7 +289,7 @@ public class VBayarTiket extends javax.swing.JFrame {
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bgLayout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addContainerGap(538, Short.MAX_VALUE))
+                        .addContainerGap(468, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(FormIDTiket, javax.swing.GroupLayout.Alignment.LEADING, 0, 507, Short.MAX_VALUE)

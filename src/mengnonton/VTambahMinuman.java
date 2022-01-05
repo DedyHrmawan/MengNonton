@@ -14,7 +14,7 @@ import javax.swing.UIManager;
  * @author dblenk
  */
 public class VTambahMinuman extends javax.swing.JFrame {
-
+ ResultSet RsItem = null;
     /**
      * Creates new form VMakanan
      */
@@ -22,6 +22,26 @@ public class VTambahMinuman extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(VTambahMinuman.MAXIMIZED_BOTH);
         bg.setFocusable(true);
+           try{            
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            
+            RsItem=stt.executeQuery("SELECT ID_MINUMAN from minuman order by ID_MINUMAN DESC");  
+            
+            if(RsItem.next()){
+                String id = RsItem.getString("ID_MINUMAN");
+                id = id.substring(2, id.length());
+                
+                int newId = Integer.parseInt(id)+1;
+                FormIDMinuman.setText("MI"+String.format("%03d", newId));
+//                FormIDMakanan.setText(String.format("%3d", "4"));
+             }else{
+                
+             }
+            FormIDMinuman.disable();
+        } catch (Exception ex) {
+        System.err.println(ex.getMessage());
+        }
     }
 
     /**
@@ -200,7 +220,7 @@ public class VTambahMinuman extends javax.swing.JFrame {
                         .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2)
                     .addComponent(MJudul))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         sidepanelLayout.setVerticalGroup(
             sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,7 +279,7 @@ public class VTambahMinuman extends javax.swing.JFrame {
                 .addComponent(LMakanan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jLabel3.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
@@ -279,6 +299,11 @@ public class VTambahMinuman extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 FormIDMinumanFocusLost(evt);
+            }
+        });
+        FormIDMinuman.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FormIDMinumanActionPerformed(evt);
             }
         });
 
@@ -539,6 +564,10 @@ public class VTambahMinuman extends javax.swing.JFrame {
         new VMinuman().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_backActionPerformed
+
+    private void FormIDMinumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FormIDMinumanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FormIDMinumanActionPerformed
 
     /**
      * @param args the command line arguments
