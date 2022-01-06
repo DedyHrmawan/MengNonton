@@ -9,44 +9,31 @@ import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author dblenk
  */
-public class VEditStudio extends javax.swing.JFrame {
-
-    ResultSet RsStudio = null;
-    String id_edit = "";
-
+public class VLaporanMakanMinum extends javax.swing.JFrame {
+    ResultSet RsItem = null;
+    DefaultTableModel tabModel;
+    ResultSet RsProduk=null;
+    ResultSet rs=null;
     /**
      * Creates new form VMakanan
      */
-    public VEditStudio(String idStudio) {
+    public VLaporanMakanMinum() {
         initComponents();
-        this.setExtendedState(VEditStudio.MAXIMIZED_BOTH);
+        this.setExtendedState(VLaporanMakanMinum.MAXIMIZED_BOTH);
         bg.setFocusable(true);
-        id_edit = idStudio;
-
-        try {
-            Connection conn = (Connection) koneksi.koneksiDB();
-            Statement stt = conn.createStatement();
-
-            RsStudio = stt.executeQuery("SELECT * from studio WHERE ID_STUDIO ='" + idStudio + "'");
-
-            if (RsStudio.next()) {
-                FormIDStudio.setText(RsStudio.getString("ID_STUDIO"));
-                FormNamaStudio.setText(RsStudio.getString("NAMA_STUDIO"));
-                FormKapasitas.setText(RsStudio.getString("KAPASITAS_STUDIO"));
-                FormJenisStudio.setSelectedItem(RsStudio.getString("JENIS_STUDIO"));
-            }
-        } catch (Exception ex) {
-            System.err.println(ex.getMessage());
-        }
     }
-
+    
+ 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,16 +59,19 @@ public class VEditStudio extends javax.swing.JFrame {
         headpanel = new javax.swing.JPanel();
         LMakanan = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        FormIDStudio = new javax.swing.JTextField();
-        FormNamaStudio = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        FormKapasitas = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        FormJenisStudio = new javax.swing.JComboBox();
+        BtnCetak = new javax.swing.JButton();
+        FormTanggalSampai = new com.toedter.calendar.JDateChooser();
         back = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        FormTanggalDari = new com.toedter.calendar.JDateChooser();
+        jButton2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelLaporanMakan = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabelLaporanMinum = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
@@ -276,7 +266,7 @@ public class VEditStudio extends javax.swing.JFrame {
                         .addComponent(MLaporanPembayaran, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
                         .addComponent(MLaporanTiket, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(Mfilm, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                        .addComponent(Mfilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(MStudio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(MJadwal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(MMakanan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -311,7 +301,7 @@ public class VEditStudio extends javax.swing.JFrame {
                 .addComponent(MLaporanMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         headpanel.setBackground(new java.awt.Color(12, 33, 193));
@@ -320,13 +310,13 @@ public class VEditStudio extends javax.swing.JFrame {
         LMakanan.setBackground(new java.awt.Color(255, 255, 255));
         LMakanan.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
         LMakanan.setForeground(new java.awt.Color(255, 255, 255));
-        LMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/studio.png"))); // NOI18N
-        LMakanan.setText("Studio");
+        LMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/food-report.png"))); // NOI18N
+        LMakanan.setText("Laporan Makanan & Minuman");
 
         jLabel1.setBackground(new java.awt.Color(153, 153, 153));
         jLabel1.setFont(new java.awt.Font("Lato", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel1.setText("Edit Data Studio");
+        jLabel1.setText("Menu Laporan Makanan & Minuman");
 
         javax.swing.GroupLayout headpanelLayout = new javax.swing.GroupLayout(headpanel);
         headpanel.setLayout(headpanelLayout);
@@ -352,87 +342,27 @@ public class VEditStudio extends javax.swing.JFrame {
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        jLabel3.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel3.setText("ID Studio");
-
-        FormIDStudio.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
-        FormIDStudio.setForeground(new java.awt.Color(0, 8, 66));
-        FormIDStudio.setText("ID Studio");
-        FormIDStudio.setToolTipText("");
-        FormIDStudio.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        FormIDStudio.setCaretColor(new java.awt.Color(0, 8, 66));
-        FormIDStudio.setDisabledTextColor(new java.awt.Color(0, 6, 66));
-        FormIDStudio.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                FormIDStudioFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                FormIDStudioFocusLost(evt);
-            }
-        });
-        FormIDStudio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FormIDStudioActionPerformed(evt);
-            }
-        });
-
-        FormNamaStudio.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
-        FormNamaStudio.setForeground(new java.awt.Color(0, 8, 66));
-        FormNamaStudio.setText("Nama Studio");
-        FormNamaStudio.setToolTipText("");
-        FormNamaStudio.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        FormNamaStudio.setCaretColor(new java.awt.Color(0, 8, 66));
-        FormNamaStudio.setDisabledTextColor(new java.awt.Color(0, 6, 66));
-        FormNamaStudio.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                FormNamaStudioFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                FormNamaStudioFocusLost(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel5.setText("Nama Studio");
-
-        FormKapasitas.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
-        FormKapasitas.setForeground(new java.awt.Color(0, 8, 66));
-        FormKapasitas.setText("Kapasitas");
-        FormKapasitas.setToolTipText("");
-        FormKapasitas.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        FormKapasitas.setCaretColor(new java.awt.Color(0, 8, 66));
-        FormKapasitas.setDisabledTextColor(new java.awt.Color(0, 6, 66));
-        FormKapasitas.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                FormKapasitasFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                FormKapasitasFocusLost(evt);
-            }
-        });
-
-        jLabel6.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel6.setText("Kapasitas");
-
         jLabel7.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel7.setText("Jenis Studio");
+        jLabel7.setText("Dari Tanggal");
 
-        jButton1.setBackground(new java.awt.Color(12, 33, 193));
-        jButton1.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/simpan.png"))); // NOI18N
-        jButton1.setText("SIMPAN");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BtnCetak.setBackground(new java.awt.Color(12, 33, 193));
+        BtnCetak.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
+        BtnCetak.setForeground(new java.awt.Color(255, 255, 255));
+        BtnCetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/print.png"))); // NOI18N
+        BtnCetak.setText("Cetak");
+        BtnCetak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BtnCetakActionPerformed(evt);
             }
         });
 
-        FormJenisStudio.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Deluxe", "Dolby Atmos", "Premiere" }));
+        FormTanggalSampai.setBackground(new java.awt.Color(255, 255, 255));
+        FormTanggalSampai.setForeground(new java.awt.Color(0, 8, 66));
+        FormTanggalSampai.setDateFormatString("d MMM , yyyy");
+        FormTanggalSampai.setFocusable(false);
+        FormTanggalSampai.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
+        FormTanggalSampai.setPreferredSize(new java.awt.Dimension(135, 27));
 
         back.setBackground(new java.awt.Color(238, 210, 2));
         back.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
@@ -444,6 +374,80 @@ public class VEditStudio extends javax.swing.JFrame {
                 backActionPerformed(evt);
             }
         });
+
+        jLabel8.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel8.setText("Sampai Tanggal");
+
+        FormTanggalDari.setBackground(new java.awt.Color(255, 255, 255));
+        FormTanggalDari.setForeground(new java.awt.Color(0, 8, 66));
+        FormTanggalDari.setDateFormatString("d MMM , yyyy");
+        FormTanggalDari.setFocusable(false);
+        FormTanggalDari.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
+        FormTanggalDari.setPreferredSize(new java.awt.Dimension(135, 27));
+
+        jButton2.setBackground(new java.awt.Color(12, 33, 193));
+        jButton2.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/search.png"))); // NOI18N
+        jButton2.setText("Cari");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        tabelLaporanMakan.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
+        tabelLaporanMakan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, "", null, ""},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "No", "Nama Makanan", "Harga Makanan", "Stok Makanan"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tabelLaporanMakan.setGridColor(new java.awt.Color(153, 153, 153));
+        jScrollPane1.setViewportView(tabelLaporanMakan);
+
+        tabelLaporanMinum.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
+        tabelLaporanMinum.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, "", null, ""},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "No", "Nama Minuman", "", "Stok Minuman"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tabelLaporanMinum.setGridColor(new java.awt.Color(153, 153, 153));
+        jScrollPane2.setViewportView(tabelLaporanMinum);
+
+        jLabel5.setText("Laporan Minuman");
+
+        jLabel6.setText("Laporan Makanan");
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -457,53 +461,67 @@ public class VEditStudio extends javax.swing.JFrame {
                         .addGap(65, 65, 65)
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(bgLayout.createSequentialGroup()
-                                .addComponent(FormJenisStudio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BtnCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(130, 130, 130))
                             .addGroup(bgLayout.createSequentialGroup()
                                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(FormIDStudio)
-                                    .addComponent(FormNamaStudio, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-                                    .addComponent(FormKapasitas, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
+                                    .addComponent(jLabel7)
+                                    .addComponent(FormTanggalDari, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(30, 30, 30)
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
                                     .addGroup(bgLayout.createSequentialGroup()
-                                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jLabel6)
-                                            .addComponent(jLabel7))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(65, 65, 65))))))
+                                        .addComponent(FormTanggalSampai, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(32, 32, 32)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(117, Short.MAX_VALUE))
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(bgLayout.createSequentialGroup()
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                        .addGap(26, 26, 26))
+                                    .addGroup(bgLayout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(bgLayout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(bgLayout.createSequentialGroup()
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                        .addGap(65, 65, 65))))))))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sidepanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(sidepanel, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE)
             .addGroup(bgLayout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addComponent(headpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FormIDStudio, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FormNamaStudio, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FormKapasitas, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(FormJenisStudio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
+                .addGap(18, 18, 18)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(FormTanggalSampai, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FormTanggalDari, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addGap(23, 23, 23)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BtnCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(51, 51, 51))
         );
 
@@ -512,71 +530,17 @@ public class VEditStudio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void FormIDStudioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormIDStudioFocusGained
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if (FormIDStudio.getText().equals("ID Studio")) {
-            FormIDStudio.setText("");
-        }
-    }//GEN-LAST:event_FormIDStudioFocusGained
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void FormIDStudioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormIDStudioFocusLost
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
-        if (FormIDStudio.getText().equals("")) {
-            FormIDStudio.setText("ID Studio");
-        }
-    }//GEN-LAST:event_FormIDStudioFocusLost
+    }//GEN-LAST:event_backActionPerformed
 
-    private void FormNamaStudioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormNamaStudioFocusGained
+    private void BtnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCetakActionPerformed
         // TODO add your handling code here:
-        if (FormNamaStudio.getText().equals("Nama Studio")) {
-            FormNamaStudio.setText("");
-        }
-    }//GEN-LAST:event_FormNamaStudioFocusGained
-
-    private void FormNamaStudioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormNamaStudioFocusLost
-        // TODO add your handling code here:
-        if (FormNamaStudio.getText().equals("")) {
-            FormNamaStudio.setText("Nama Studio");
-        }
-    }//GEN-LAST:event_FormNamaStudioFocusLost
-
-    private void FormKapasitasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormKapasitasFocusGained
-        // TODO add your handling code here:
-        if (FormKapasitas.getText().equals("Kapasitas")) {
-            FormKapasitas.setText("");
-        }
-    }//GEN-LAST:event_FormKapasitasFocusGained
-
-    private void FormKapasitasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormKapasitasFocusLost
-        // TODO add your handling code here:
-        if (FormKapasitas.getText().equals("")) {
-            FormKapasitas.setText("Kapasitas");
-        }
-    }//GEN-LAST:event_FormKapasitasFocusLost
-
-    private void MfilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MfilmActionPerformed
-        // TODO add your handling code here:
-        new VFilm().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MfilmActionPerformed
-
-    private void MJadwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MJadwalActionPerformed
-        // TODO add your handling code here:
-        new VJadwal().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MJadwalActionPerformed
-
-    private void MMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MMakananActionPerformed
-        // TODO add your handling code here:
-        new VMakanan().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MMakananActionPerformed
-
-    private void MMinumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MMinumanActionPerformed
-        // TODO add your handling code here:
-        new VMinuman().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MMinumanActionPerformed
+    }//GEN-LAST:event_BtnCetakActionPerformed
 
     private void MLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLogoutActionPerformed
         // TODO add your handling code here:
@@ -584,9 +548,23 @@ public class VEditStudio extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_MLogoutActionPerformed
 
-    private void FormIDStudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FormIDStudioActionPerformed
+    private void MMinumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MMinumanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_FormIDStudioActionPerformed
+        new VMinuman().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MMinumanActionPerformed
+
+    private void MMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MMakananActionPerformed
+        // TODO add your handling code here:
+        new VMakanan().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MMakananActionPerformed
+
+    private void MJadwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MJadwalActionPerformed
+        // TODO add your handling code here:
+        new VJadwal().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MJadwalActionPerformed
 
     private void MStudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MStudioActionPerformed
         // TODO add your handling code here:
@@ -594,28 +572,11 @@ public class VEditStudio extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_MStudioActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void MfilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MfilmActionPerformed
         // TODO add your handling code here:
-        try {
-            Connection conn = (Connection) koneksi.koneksiDB();
-            Statement stt = conn.createStatement();
-            stt.executeUpdate("update studio set NAMA_STUDIO = '" + FormNamaStudio.getText() + "',"
-                    + "KAPASITAS_STUDIO ='" + FormKapasitas.getText() + "', JENIS_STUDIO='" + FormJenisStudio.getSelectedItem().toString() + "', ID_STUDIO = '" + FormIDStudio.getText() + "'"
-                    + "WHERE ID_STUDIO ='" + id_edit + "'");
-            conn.close();
-            JOptionPane.showMessageDialog(null, "Berhasil diubah");
-            new VStudio().setVisible(true);
-            setVisible(false);
-        } catch (Exception exc) {
-            System.err.println(exc.getMessage());
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        // TODO add your handling code here:
-        new VStudio().setVisible(true);
+        new VFilm().setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_backActionPerformed
+    }//GEN-LAST:event_MfilmActionPerformed
 
     private void MLaporanPembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLaporanPembayaranActionPerformed
         // TODO add your handling code here:
@@ -652,14 +613,62 @@ public class VEditStudio extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VEditStudio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VLaporanMakanMinum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VEditStudio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VLaporanMakanMinum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VEditStudio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VLaporanMakanMinum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VEditStudio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VLaporanMakanMinum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -682,18 +691,18 @@ public class VEditStudio extends javax.swing.JFrame {
             public void run() {
                 try {
                     UIManager.setLookAndFeel(new AluminiumLookAndFeel());
-
+                    
                 } catch (Exception e) {
                 }
+                new VLaporanMakanMinum().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField FormIDStudio;
-    private javax.swing.JComboBox FormJenisStudio;
-    private javax.swing.JTextField FormKapasitas;
-    private javax.swing.JTextField FormNamaStudio;
+    private javax.swing.JButton BtnCetak;
+    private com.toedter.calendar.JDateChooser FormTanggalDari;
+    private com.toedter.calendar.JDateChooser FormTanggalSampai;
     private javax.swing.JLabel LMakanan;
     private javax.swing.JButton MJadwal;
     private javax.swing.JLabel MJudul;
@@ -708,13 +717,17 @@ public class VEditStudio extends javax.swing.JFrame {
     private javax.swing.JButton back;
     private javax.swing.JPanel bg;
     private javax.swing.JPanel headpanel;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel sidepanel;
+    private javax.swing.JTable tabelLaporanMakan;
+    private javax.swing.JTable tabelLaporanMinum;
     // End of variables declaration//GEN-END:variables
 }

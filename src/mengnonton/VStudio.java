@@ -120,6 +120,9 @@ public class VStudio extends javax.swing.JFrame {
         MMakanan = new javax.swing.JButton();
         MMinuman = new javax.swing.JButton();
         MLogout = new javax.swing.JButton();
+        MLaporanPembayaran = new javax.swing.JButton();
+        MLaporanTiket = new javax.swing.JButton();
+        MLaporanMakanan = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         LMakanan = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -256,22 +259,81 @@ public class VStudio extends javax.swing.JFrame {
             }
         });
 
+        MLaporanPembayaran.setBackground(new java.awt.Color(0, 8, 66));
+        MLaporanPembayaran.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
+        MLaporanPembayaran.setForeground(new java.awt.Color(255, 255, 255));
+        MLaporanPembayaran.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pay-report.png"))); // NOI18N
+        MLaporanPembayaran.setText("Laporan Pembayaran");
+        MLaporanPembayaran.setBorder(null);
+        MLaporanPembayaran.setBorderPainted(false);
+        MLaporanPembayaran.setContentAreaFilled(false);
+        MLaporanPembayaran.setHideActionText(true);
+        MLaporanPembayaran.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MLaporanPembayaran.setIconTextGap(10);
+        MLaporanPembayaran.setPreferredSize(new java.awt.Dimension(97, 32));
+        MLaporanPembayaran.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MLaporanPembayaranActionPerformed(evt);
+            }
+        });
+
+        MLaporanTiket.setBackground(new java.awt.Color(0, 8, 66));
+        MLaporanTiket.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
+        MLaporanTiket.setForeground(new java.awt.Color(255, 255, 255));
+        MLaporanTiket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/tiket-report.png"))); // NOI18N
+        MLaporanTiket.setText("Laporan Tiket");
+        MLaporanTiket.setBorder(null);
+        MLaporanTiket.setBorderPainted(false);
+        MLaporanTiket.setContentAreaFilled(false);
+        MLaporanTiket.setHideActionText(true);
+        MLaporanTiket.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MLaporanTiket.setIconTextGap(10);
+        MLaporanTiket.setPreferredSize(new java.awt.Dimension(97, 32));
+        MLaporanTiket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MLaporanTiketActionPerformed(evt);
+            }
+        });
+
+        MLaporanMakanan.setBackground(new java.awt.Color(0, 8, 66));
+        MLaporanMakanan.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
+        MLaporanMakanan.setForeground(new java.awt.Color(255, 255, 255));
+        MLaporanMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/food-report.png"))); // NOI18N
+        MLaporanMakanan.setText("Laporan Makanan");
+        MLaporanMakanan.setBorder(null);
+        MLaporanMakanan.setBorderPainted(false);
+        MLaporanMakanan.setContentAreaFilled(false);
+        MLaporanMakanan.setHideActionText(true);
+        MLaporanMakanan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MLaporanMakanan.setIconTextGap(10);
+        MLaporanMakanan.setPreferredSize(new java.awt.Dimension(97, 32));
+        MLaporanMakanan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MLaporanMakananActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout sidepanelLayout = new javax.swing.GroupLayout(sidepanel);
         sidepanel.setLayout(sidepanelLayout);
         sidepanelLayout.setHorizontalGroup(
             sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidepanelLayout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MJudul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Mfilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MStudio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MJadwal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MMakanan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MMinuman, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(MLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addGap(45, 45, 45)
+                .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(MLaporanMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(MLaporanPembayaran, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+                        .addComponent(MLaporanTiket, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(MJudul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Mfilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(MStudio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(MJadwal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(MMakanan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(MMinuman, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(MLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         sidepanelLayout.setVerticalGroup(
             sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,8 +353,14 @@ public class VStudio extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(MMinuman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(MLaporanPembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(MLaporanTiket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(MLaporanMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(57, 57, 57))
         );
 
         jPanel2.setBackground(new java.awt.Color(12, 33, 193));
@@ -400,14 +468,14 @@ public class VStudio extends javax.swing.JFrame {
             .addGroup(bgLayout.createSequentialGroup()
                 .addComponent(sidepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                         .addGap(60, 60, 60)
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(bgLayout.createSequentialGroup()
                                 .addComponent(ButtonTambah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 223, Short.MAX_VALUE)
                                 .addComponent(iconSearch)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(FormSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -429,8 +497,8 @@ public class VStudio extends javax.swing.JFrame {
                         .addComponent(iconSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(90, Short.MAX_VALUE))
-            .addComponent(sidepanel, javax.swing.GroupLayout.DEFAULT_SIZE, 727, Short.MAX_VALUE)
+                .addContainerGap(63, Short.MAX_VALUE))
+            .addComponent(sidepanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         getContentPane().add(bg);
@@ -493,6 +561,24 @@ public class VStudio extends javax.swing.JFrame {
         new VStudio().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MStudioActionPerformed
+
+    private void MLaporanPembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLaporanPembayaranActionPerformed
+        // TODO add your handling code here:
+        new VLaporanPembayaran().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MLaporanPembayaranActionPerformed
+
+    private void MLaporanTiketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLaporanTiketActionPerformed
+        // TODO add your handling code here:
+        new VLaporanTiket().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MLaporanTiketActionPerformed
+
+    private void MLaporanMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLaporanMakananActionPerformed
+        // TODO add your handling code here:
+        new VLaporanMakanMinum().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MLaporanMakananActionPerformed
 
     /**
      * @param args the command line arguments
@@ -693,6 +779,9 @@ public class VStudio extends javax.swing.JFrame {
     private javax.swing.JLabel LMakanan;
     private javax.swing.JButton MJadwal;
     private javax.swing.JLabel MJudul;
+    private javax.swing.JButton MLaporanMakanan;
+    private javax.swing.JButton MLaporanPembayaran;
+    private javax.swing.JButton MLaporanTiket;
     private javax.swing.JButton MLogout;
     private javax.swing.JButton MMakanan;
     private javax.swing.JButton MMinuman;
