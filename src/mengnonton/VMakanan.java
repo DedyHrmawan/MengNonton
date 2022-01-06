@@ -307,7 +307,7 @@ public class VMakanan extends javax.swing.JFrame {
         sidepanelLayout.setHorizontalGroup(
             sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidepanelLayout.createSequentialGroup()
-                .addGap(72, 72, 72)
+                .addGap(45, 45, 45)
                 .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(MLaporanMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
