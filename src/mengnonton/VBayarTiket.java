@@ -16,6 +16,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -91,6 +92,11 @@ public class VBayarTiket extends javax.swing.JFrame {
         }catch(Exception e){
             System.err.println(e.getMessage());
         }
+    }
+    
+    private void refresh(){
+        new VBayarTiket(idjad).setVisible(true);
+        this.setVisible(false);
     }
     
     private void tampilData(){
@@ -775,6 +781,23 @@ public class VBayarTiket extends javax.swing.JFrame {
             button.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     fireEditingStopped();
+                    
+                    String id_dihapus = "";
+                    String nama_kursi = "";
+                    String combi = "";
+                    id_dihapus = tabModel.getValueAt(tabelTiket.getSelectedRow(),1)+"";
+                    nama_kursi = tabModel.getValueAt(tabelTiket.getSelectedRow(),3)+"";
+                    combi = id_dihapus+"-"+nama_kursi;
+                    try{
+                    Connection conn=(Connection)koneksi.koneksiDB();
+                    Statement stt=conn.createStatement();
+                    stt.executeUpdate("DELETE FROM pemesanan WHERE ID_BARANG='"+combi+"' AND STATUS = 0");
+                    stt.executeUpdate("UPDATE kursi SET STATUS_KURSI = 0 WHERE ID_JADWAL ='"+id_dihapus+"' AND NAMA_KURSI = '"+nama_kursi+"'");
+                    JOptionPane.showMessageDialog(rootPane, "Data berhadil dihapus !");
+                    refresh();
+                    } catch(SQLException a){
+                        JOptionPane.showMessageDialog(rootPane,"Delete data gagal\n"+a.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+                    } 
                 }
             });
 
