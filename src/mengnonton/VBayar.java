@@ -40,8 +40,8 @@ import javax.swing.table.TableCellRenderer;
  * @author dblenk
  */
 public class VBayar extends javax.swing.JFrame {
-    DefaultTableModel tabMakanan, tabMinuman;
-    ResultSet RsProduk=null, RsMinuman=null;
+    DefaultTableModel tabMakanan, tabMinuman, tabTiket;
+    ResultSet RsProduk=null, RsMinuman=null, RsTiket=null;
     /**
      * Creates new form VMakanan
      */
@@ -52,6 +52,7 @@ public class VBayar extends javax.swing.JFrame {
         
         tampilMakanan();
         tampilMinuman();
+        tampilTiket();
         totalbayar();
     }
 
@@ -78,6 +79,34 @@ public class VBayar extends javax.swing.JFrame {
                     RsProduk.getString("TANGGAL_PEMESANAN")        
                 };
                tabMakanan.addRow(data);
+            }                
+        } catch (Exception ex) {
+        System.err.println(ex.getMessage());
+        }
+    }
+    
+    private void tampilTiket(){
+        try{
+            Object[] judul_kolom = {"No", "ID Tiket", "Total", "Tanggal"};
+            tabTiket = new DefaultTableModel(null,judul_kolom);
+            tabelTiket.setModel(tabTiket);
+            
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            tabTiket.getDataVector().removeAllElements();
+            
+            RsTiket=stt.executeQuery("SELECT * from pemesanan WHERE TIPE_PEMESANAN = 3 AND STATUS = 0");  
+            int no = 0;
+            while(RsTiket.next()){
+                no++;
+                Object[] data={
+                    no,
+                    RsTiket.getString("ID_BARANG"),
+                    RsTiket.getString("JUMLAH_PEMESANAN"),
+                    RsTiket.getString("TOTAL_TAGIHAN"),
+                    RsTiket.getString("TANGGAL_PEMESANAN")        
+                };
+               tabTiket.addRow(data);
             }                
         } catch (Exception ex) {
         System.err.println(ex.getMessage());
@@ -519,6 +548,7 @@ public class VBayar extends javax.swing.JFrame {
             Statement stt=conn.createStatement();
             stt.executeUpdate("insert into pembayaran(TOTAL_PEMBAYARAN) VALUES('"+jLabel4.getText()+"')");
             stt.executeUpdate("UPDATE pemesanan SET STATUS = 1");
+            stt.executeUpdate("UPDATE kursi SET STATUS_KURSI = 2 WHERE STATUS_KURSI = 1");
             conn.close();
             JOptionPane.showMessageDialog(null, "Berhasil Membayar");
             new VBayar().setVisible(true);
