@@ -4,91 +4,69 @@
  * and open the template in the editor.
  */
 package mengnonton;
-import java.sql.*;
+
 import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.Arrays;
-import java.util.List;
-import javax.swing.AbstractAction;
-import javax.swing.AbstractCellEditor;
-import javax.swing.ButtonModel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.UIManager;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author dblenk
  */
-public class VMinuman extends javax.swing.JFrame {
+public class VLaporanMinum extends javax.swing.JFrame {
+    ResultSet RsItem = null;
     DefaultTableModel tabModel;
     ResultSet RsProduk=null;
+    ResultSet rs=null;
     /**
      * Creates new form VMakanan
      */
-    public VMinuman() {
+    public VLaporanMinum() {
         initComponents();
-        this.setExtendedState(VMinuman.MAXIMIZED_BOTH);
-        tabelMinuman.getTableHeader().setFont(new Font("Lato", Font.BOLD, 17));
-
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        tabelMinuman.setDefaultRenderer(String.class, centerRenderer);
-
-        DefaultTableCellRenderer centerInt = new DefaultTableCellRenderer();
-        centerInt.setHorizontalAlignment(JLabel.CENTER);
-        tabelMinuman.setDefaultRenderer(Integer.class, centerInt);
-        tabelMinuman.setRowHeight(30);
-        
-        tampilData();
+        this.setExtendedState(VLaporanMinum.MAXIMIZED_BOTH);
+        bg.setFocusable(true);
     }
-
-    private void tampilData(){
+    
+    private void tampilData(String tglDari, String tglSampai){
         try{
-            Object[] judul_kolom = {"No", "ID Minuman", "Nama Minuman", "Harga", "Stok", "Aksi"};
+            Object[] judul_kolom = {"No", "Nama Minuman", "Harga Minuman", "Tanggal Pemesanan", "Jumlah Pemesanan", "Total"};
             tabModel = new DefaultTableModel(null,judul_kolom);
-            tabelMinuman.setModel(tabModel);
+            tabelLaporanMakan.setModel(tabModel);
             
             Connection conn=(Connection)koneksi.koneksiDB();
             Statement stt=conn.createStatement();
             tabModel.getDataVector().removeAllElements();
             
-            RsProduk=stt.executeQuery("SELECT * from minuman ");  
+            RsItem=stt.executeQuery("SELECT * from v_laporan_minuman WHERE TANGGAL_PEMESANAN BETWEEN '"+tglDari+"' AND '"+tglSampai+"' ORDER BY TANGGAL_PEMESANAN DESC");  
             int no = 0;
-            while(RsProduk.next()){
+            int total = 0;
+            while(RsItem.next()){
                 no++;
+                
                 Object[] data={
                     no,
-                    RsProduk.getString("ID_MINUMAN"),
-                    RsProduk.getString("NAMA_MINUMAN"),
-                    RsProduk.getString("HARGA_MINUMAN"),
-                    RsProduk.getString("STOK_MINUMAN")         
+                    RsItem.getString("NAMA_MINUMAN"),
+                    RsItem.getString("HARGA_MINUMAN"),
+                    RsItem.getString("TANGGAL_PEMESANAN"),
+                    RsItem.getString("JUMLAH_PEMESANAN"),
+                    RsItem.getString("TOTAL_TAGIHAN"),
                 };
+                total+= Integer.parseInt(RsItem.getString("TOTAL_TAGIHAN"));
                tabModel.addRow(data);
-            }                
+            }
+            labelTotal.setText("Total : Rp."+total);
         } catch (Exception ex) {
         System.err.println(ex.getMessage());
-        } 
-        
-        tabelMinuman.getColumn("Aksi").setCellRenderer(new ButtonsRenderer());
-        tabelMinuman.getColumn("Aksi").setCellEditor(
-                new ButtonsEditor(tabelMinuman));
+        }
     }
+    
+ 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -112,14 +90,20 @@ public class VMinuman extends javax.swing.JFrame {
         MLaporanTiket = new javax.swing.JButton();
         MLaporanMakanan = new javax.swing.JButton();
         MLaporanMinuman = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        headpanel = new javax.swing.JPanel();
         LMakanan = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        ButtonTambah = new javax.swing.JButton();
-        FormSearch = new javax.swing.JTextField();
-        iconSearch = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        BtnCetak = new javax.swing.JButton();
+        FormTanggalSampai = new com.toedter.calendar.JDateChooser();
+        back = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        FormTanggalDari = new com.toedter.calendar.JDateChooser();
+        jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelMinuman = new javax.swing.JTable();
+        tabelLaporanMakan = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
+        labelTotal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
@@ -328,19 +312,19 @@ public class VMinuman extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(MLaporanMinuman, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(MLaporanMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(MLaporanPembayaran, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
                         .addComponent(MLaporanTiket, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MJudul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Mfilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(MStudio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(MJadwal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(MMakanan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MMinuman, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(MMinuman, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2)
+                    .addComponent(MJudul))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         sidepanelLayout.setVerticalGroup(
@@ -370,40 +354,40 @@ public class VMinuman extends javax.swing.JFrame {
                 .addComponent(MLaporanMinuman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addGap(72, 72, 72))
         );
 
-        jPanel2.setBackground(new java.awt.Color(12, 33, 193));
-        jPanel2.setPreferredSize(new java.awt.Dimension(675, 102));
+        headpanel.setBackground(new java.awt.Color(12, 33, 193));
+        headpanel.setPreferredSize(new java.awt.Dimension(675, 102));
 
         LMakanan.setBackground(new java.awt.Color(255, 255, 255));
         LMakanan.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
         LMakanan.setForeground(new java.awt.Color(255, 255, 255));
-        LMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/minuman.png"))); // NOI18N
-        LMakanan.setText("Minuman");
+        LMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/drink.png"))); // NOI18N
+        LMakanan.setText("Laporan Minuman");
 
         jLabel1.setBackground(new java.awt.Color(153, 153, 153));
         jLabel1.setFont(new java.awt.Font("Lato", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel1.setText("Menu Data Minuman");
+        jLabel1.setText("Menu Laporan Minuman");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout headpanelLayout = new javax.swing.GroupLayout(headpanel);
+        headpanel.setLayout(headpanelLayout);
+        headpanelLayout.setHorizontalGroup(
+            headpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headpanelLayout.createSequentialGroup()
+                .addGroup(headpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(headpanelLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(LMakanan))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(headpanelLayout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addComponent(jLabel1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        headpanelLayout.setVerticalGroup(
+            headpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headpanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(LMakanan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -411,65 +395,90 @@ public class VMinuman extends javax.swing.JFrame {
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        ButtonTambah.setBackground(new java.awt.Color(12, 33, 193));
-        ButtonTambah.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
-        ButtonTambah.setForeground(new java.awt.Color(255, 255, 255));
-        ButtonTambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/tambah.png"))); // NOI18N
-        ButtonTambah.setText("Tambah");
-        ButtonTambah.setPreferredSize(new java.awt.Dimension(141, 43));
-        ButtonTambah.addActionListener(new java.awt.event.ActionListener() {
+        jLabel7.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel7.setText("Dari Tanggal");
+
+        BtnCetak.setBackground(new java.awt.Color(12, 33, 193));
+        BtnCetak.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
+        BtnCetak.setForeground(new java.awt.Color(255, 255, 255));
+        BtnCetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/print.png"))); // NOI18N
+        BtnCetak.setText("Cetak");
+        BtnCetak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonTambahActionPerformed(evt);
+                BtnCetakActionPerformed(evt);
             }
         });
 
-        FormSearch.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
-        FormSearch.setForeground(new java.awt.Color(204, 204, 204));
-        FormSearch.setText("Cari");
-        FormSearch.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 8, 66), 1, true));
-        FormSearch.setPreferredSize(new java.awt.Dimension(211, 43));
-        FormSearch.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                FormSearchFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                FormSearchFocusLost(evt);
+        FormTanggalSampai.setBackground(new java.awt.Color(255, 255, 255));
+        FormTanggalSampai.setForeground(new java.awt.Color(0, 8, 66));
+        FormTanggalSampai.setDateFormatString("d MMM , yyyy");
+        FormTanggalSampai.setFocusable(false);
+        FormTanggalSampai.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
+        FormTanggalSampai.setPreferredSize(new java.awt.Dimension(135, 27));
+
+        back.setBackground(new java.awt.Color(238, 210, 2));
+        back.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
+        back.setForeground(new java.awt.Color(255, 255, 255));
+        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/back.png"))); // NOI18N
+        back.setText("Kembali");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
             }
         });
 
-        iconSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/search.png"))); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Lato", 0, 13)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel8.setText("Sampai Tanggal");
 
-        tabelMinuman.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
-        tabelMinuman.setModel(new javax.swing.table.DefaultTableModel(
+        FormTanggalDari.setBackground(new java.awt.Color(255, 255, 255));
+        FormTanggalDari.setForeground(new java.awt.Color(0, 8, 66));
+        FormTanggalDari.setDateFormatString("d MMM , yyyy");
+        FormTanggalDari.setFocusable(false);
+        FormTanggalDari.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
+        FormTanggalDari.setPreferredSize(new java.awt.Dimension(135, 27));
+
+        jButton2.setBackground(new java.awt.Color(12, 33, 193));
+        jButton2.setFont(new java.awt.Font("Lato", 0, 16)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/search.png"))); // NOI18N
+        jButton2.setText("Cari");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        tabelLaporanMakan.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
+        tabelLaporanMakan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), "M001", "Pizza",  new Integer(10000),  new Integer(10), null},
+                {null, "", null, null, "", null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "No", "ID Minuman", "Nama Minuman", "Harga", "Stok", "Aksi"
+                "No", "Nama Minuman", "Harga Minuman", "Tanggal Pemesanan", "Jumlah Pemesanan", "Total"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        tabelMinuman.setGridColor(new java.awt.Color(153, 153, 153));
-        jScrollPane1.setViewportView(tabelMinuman);
-        if (tabelMinuman.getColumnModel().getColumnCount() > 0) {
-            tabelMinuman.getColumnModel().getColumn(0).setMinWidth(25);
-            tabelMinuman.getColumnModel().getColumn(0).setPreferredWidth(25);
-            tabelMinuman.getColumnModel().getColumn(0).setMaxWidth(25);
-            tabelMinuman.getColumnModel().getColumn(5).setMinWidth(120);
-            tabelMinuman.getColumnModel().getColumn(5).setPreferredWidth(120);
-            tabelMinuman.getColumnModel().getColumn(5).setMaxWidth(200);
-        }
+        tabelLaporanMakan.setGridColor(new java.awt.Color(153, 153, 153));
+        jScrollPane1.setViewportView(tabelLaporanMakan);
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel6.setText("Laporan Minuman");
+
+        labelTotal.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        labelTotal.setText("Total : ");
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -478,37 +487,60 @@ public class VMinuman extends javax.swing.JFrame {
             .addGroup(bgLayout.createSequentialGroup()
                 .addComponent(sidepanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(headpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(bgLayout.createSequentialGroup()
-                                .addComponent(ButtonTambah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 223, Short.MAX_VALUE)
-                                .addComponent(iconSearch)
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(FormSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(60, 60, 60))))
+                                .addComponent(BtnCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(130, 130, 130))
+                            .addGroup(bgLayout.createSequentialGroup()
+                                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(bgLayout.createSequentialGroup()
+                                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel7)
+                                            .addComponent(FormTanggalDari, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(30, 30, 30)
+                                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel8)
+                                            .addGroup(bgLayout.createSequentialGroup()
+                                                .addComponent(FormTanggalSampai, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(32, 32, 32)
+                                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jLabel6)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
+                                    .addComponent(labelTotal))
+                                .addGap(61, 61, 61))))))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sidepanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(sidepanel, javax.swing.GroupLayout.DEFAULT_SIZE, 771, Short.MAX_VALUE)
             .addGroup(bgLayout.createSequentialGroup()
                 .addGap(58, 58, 58)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ButtonTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(FormSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(iconSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(headpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(FormTanggalSampai, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FormTanggalDari, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addGap(23, 23, 23)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(labelTotal)
+                .addGap(21, 21, 21)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BtnCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(51, 51, 51))
         );
 
         getContentPane().add(bg);
@@ -516,37 +548,21 @@ public class VMinuman extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void FormSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormSearchFocusGained
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if (FormSearch.getText().equals("Cari")) {
-            FormSearch.setText("");
-        }
-    }//GEN-LAST:event_FormSearchFocusGained
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");          
+        String tglDari = dateFormat.format(FormTanggalDari.getDate());
+        String tglSampai = dateFormat.format(FormTanggalSampai.getDate());
+        tampilData(tglDari, tglSampai);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void FormSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormSearchFocusLost
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
-        if (FormSearch.getText().equals("")) {
-            FormSearch.setText("Cari");
-        }
-    }//GEN-LAST:event_FormSearchFocusLost
+    }//GEN-LAST:event_backActionPerformed
 
-    private void MJadwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MJadwalActionPerformed
+    private void BtnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCetakActionPerformed
         // TODO add your handling code here:
-        new VJadwal().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MJadwalActionPerformed
-
-    private void MMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MMakananActionPerformed
-        // TODO add your handling code here:
-        new VMakanan().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MMakananActionPerformed
-
-    private void MMinumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MMinumanActionPerformed
-        // TODO add your handling code here:
-        new VMinuman().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MMinumanActionPerformed
+    }//GEN-LAST:event_BtnCetakActionPerformed
 
     private void MLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLogoutActionPerformed
         // TODO add your handling code here:
@@ -554,23 +570,35 @@ public class VMinuman extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_MLogoutActionPerformed
 
-    private void MfilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MfilmActionPerformed
+    private void MMinumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MMinumanActionPerformed
         // TODO add your handling code here:
-        new VFilm().setVisible(true);
+        new VMinuman().setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_MfilmActionPerformed
+    }//GEN-LAST:event_MMinumanActionPerformed
 
-    private void ButtonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahActionPerformed
+    private void MMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MMakananActionPerformed
         // TODO add your handling code here:
-        new VTambahMinuman().setVisible(true);
+        new VMakanan().setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_ButtonTambahActionPerformed
+    }//GEN-LAST:event_MMakananActionPerformed
+
+    private void MJadwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MJadwalActionPerformed
+        // TODO add your handling code here:
+        new VJadwal().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MJadwalActionPerformed
 
     private void MStudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MStudioActionPerformed
         // TODO add your handling code here:
         new VStudio().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MStudioActionPerformed
+
+    private void MfilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MfilmActionPerformed
+        // TODO add your handling code here:
+        new VFilm().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MfilmActionPerformed
 
     private void MLaporanPembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLaporanPembayaranActionPerformed
         // TODO add your handling code here:
@@ -586,7 +614,7 @@ public class VMinuman extends javax.swing.JFrame {
 
     private void MLaporanMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLaporanMakananActionPerformed
         // TODO add your handling code here:
-        new VLaporanMakan().setVisible(true);
+        new VLaporanMinum().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MLaporanMakananActionPerformed
 
@@ -613,14 +641,262 @@ public class VMinuman extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VMinuman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VLaporanMinum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VMinuman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VLaporanMinum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VMinuman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VLaporanMinum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VMinuman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VLaporanMinum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -635,155 +911,18 @@ public class VMinuman extends javax.swing.JFrame {
             public void run() {
                 try {
                     UIManager.setLookAndFeel(new AluminiumLookAndFeel());
-
+                    
                 } catch (Exception e) {
                 }
-                new VMinuman().setVisible(true);
+                new VLaporanMinum().setVisible(true);
             }
         });
     }
-    
-
-    class ButtonsPanel extends JPanel {
-        public final List <JButton> buttons = Arrays.asList(new JButton("edit"), new JButton("hapus"));
-        protected ButtonsPanel() {
-           
-            setOpaque(true);
-            for (JButton b : buttons) {
-                b.setFocusable(false);
-                b.setRolloverEnabled(false);
-                add(b);
-            }
-        }
-    }
-
-    class ButtonsRenderer implements TableCellRenderer {
-
-        private final ButtonsPanel panel = new ButtonsPanel() {
-            
-            @Override
-            public void updateUI() {
-                super.updateUI();
-                setName("Table.cellRenderer");
-            }
-        };
-        
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            panel.setBackground(new Color(255, 255, 255));
-//            panel.setBackground(isSelected ? table.getSelectionBackground() : table.getBackground());
-            return panel;
-        }
-    }
-            
-    class EditAction extends AbstractAction {
-
-        private final JTable table;
-
-        protected EditAction(JTable table) {
-            super("edit");
-           
-            this.table = table;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            new VEditMinuman(tabModel.getValueAt(table.getSelectedRow(),1)+"").setVisible(true);
-            setVisible(false);
-//            JOptionPane.showMessageDialog(table, "Edit");
-        }
-    }
-
-    class HapusAction extends AbstractAction {
-
-        private final JTable table;
-
-        protected HapusAction(JTable table) {
-            super("hapus");
-            this.table = table;
-        }
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String id_dihapus = "";
-            id_dihapus = tabModel.getValueAt(table.getSelectedRow(),1)+"";
-            try{
-            Connection conn=(Connection)koneksi.koneksiDB();
-            Statement stt=conn.createStatement();
-            stt.executeUpdate("DELETE FROM minuman WHERE ID_MINUMAN='"+id_dihapus+"'");
-            JOptionPane.showMessageDialog(rootPane, "Data berhadil dihapus !");
-            tampilData();
-            } catch(SQLException a){
-                JOptionPane.showMessageDialog(rootPane,"Delete data gagal\n"+a.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
-            }
-        }
-        
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//            // Object o = table.getModel().getValueAt(table.getSelectedRow(), 0);
-//            int row = table.convertRowIndexToModel(table.getEditingRow());
-//            Object o = table.getModel().getValueAt(row, 0);
-//            JOptionPane.showMessageDialog(table, "Editing: " + o);
-//        }
-    }
-
-// delegation pattern
-    class ButtonsEditor extends AbstractCellEditor implements TableCellEditor {
-
-        protected final ButtonsPanel panel = new ButtonsPanel();
-        protected final JTable table;
-            
-          
-        private class EditingStopHandler extends MouseAdapter implements ActionListener {
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                Object o = e.getSource();
-                if (o instanceof TableCellEditor) {
-                    actionPerformed(null);
-                } else if (o instanceof JButton) {
-                    // DEBUG: view button click -> control key down + edit button(same cell) press -> remain selection color
-                    ButtonModel m = ((JButton) e.getComponent()).getModel();
-                    if (m.isPressed() && table.isRowSelected(table.getEditingRow()) && e.isControlDown()) {
-                        panel.setBackground(table.getBackground());
-                    }
-                }
-            }
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                EventQueue.invokeLater(() -> fireEditingStopped());
-            }
-        }
-
-        protected ButtonsEditor(JTable table) {
-            super();
-            this.table = table;
-            panel.buttons.get(0).setAction(new EditAction(table));
-            panel.buttons.get(1).setAction(new HapusAction(table));
-
-            EditingStopHandler handler = new EditingStopHandler();
-            for (JButton b : panel.buttons) {
-                b.addMouseListener(handler);
-                b.addActionListener(handler);
-            }
-            panel.addMouseListener(handler);
-        }
-
-        @Override
-        public Component getTableCellEditorComponent(JTable tbl, Object value, boolean isSelected, int row, int column) {
-            panel.setBackground(tbl.getSelectionBackground());
-            return panel;
-        }
-
-        @Override
-        public Object getCellEditorValue() {
-            return "";
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ButtonTambah;
-    private javax.swing.JTextField FormSearch;
+    private javax.swing.JButton BtnCetak;
+    private com.toedter.calendar.JDateChooser FormTanggalDari;
+    private com.toedter.calendar.JDateChooser FormTanggalSampai;
     private javax.swing.JLabel LMakanan;
     private javax.swing.JButton MJadwal;
     private javax.swing.JLabel MJudul;
@@ -796,13 +935,18 @@ public class VMinuman extends javax.swing.JFrame {
     private javax.swing.JButton MMinuman;
     private javax.swing.JButton MStudio;
     private javax.swing.JButton Mfilm;
+    private javax.swing.JButton back;
     private javax.swing.JPanel bg;
-    private javax.swing.JLabel iconSearch;
+    private javax.swing.JPanel headpanel;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelTotal;
     private javax.swing.JPanel sidepanel;
-    private javax.swing.JTable tabelMinuman;
+    private javax.swing.JTable tabelLaporanMakan;
     // End of variables declaration//GEN-END:variables
 }

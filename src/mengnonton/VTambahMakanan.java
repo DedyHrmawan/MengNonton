@@ -66,6 +66,7 @@ public class VTambahMakanan extends javax.swing.JFrame {
         MLaporanPembayaran = new javax.swing.JButton();
         MLaporanTiket = new javax.swing.JButton();
         MLaporanMakanan = new javax.swing.JButton();
+        MLaporanMinuman = new javax.swing.JButton();
         headpanel = new javax.swing.JPanel();
         LMakanan = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -229,7 +230,7 @@ public class VTambahMakanan extends javax.swing.JFrame {
         MLaporanTiket.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
         MLaporanTiket.setForeground(new java.awt.Color(255, 255, 255));
         MLaporanTiket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/tiket-report.png"))); // NOI18N
-        MLaporanTiket.setText("Laporan Tiket");
+        MLaporanTiket.setText("Laporan Film");
         MLaporanTiket.setBorder(null);
         MLaporanTiket.setBorderPainted(false);
         MLaporanTiket.setContentAreaFilled(false);
@@ -261,6 +262,24 @@ public class VTambahMakanan extends javax.swing.JFrame {
             }
         });
 
+        MLaporanMinuman.setBackground(new java.awt.Color(0, 8, 66));
+        MLaporanMinuman.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
+        MLaporanMinuman.setForeground(new java.awt.Color(255, 255, 255));
+        MLaporanMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/drink.png"))); // NOI18N
+        MLaporanMinuman.setText("Laporan Minuman");
+        MLaporanMinuman.setBorder(null);
+        MLaporanMinuman.setBorderPainted(false);
+        MLaporanMinuman.setContentAreaFilled(false);
+        MLaporanMinuman.setHideActionText(true);
+        MLaporanMinuman.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MLaporanMinuman.setIconTextGap(10);
+        MLaporanMinuman.setPreferredSize(new java.awt.Dimension(97, 32));
+        MLaporanMinuman.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MLaporanMinumanActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout sidepanelLayout = new javax.swing.GroupLayout(sidepanel);
         sidepanel.setLayout(sidepanelLayout);
         sidepanelLayout.setHorizontalGroup(
@@ -268,6 +287,7 @@ public class VTambahMakanan extends javax.swing.JFrame {
             .addGroup(sidepanelLayout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(MLaporanMinuman, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(MLaporanMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(MLaporanPembayaran, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
@@ -307,8 +327,10 @@ public class VTambahMakanan extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(MLaporanMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(MLaporanMinuman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(38, 38, 38))
         );
 
         headpanel.setBackground(new java.awt.Color(12, 33, 193));
@@ -482,7 +504,7 @@ public class VTambahMakanan extends javax.swing.JFrame {
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sidepanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(sidepanel, javax.swing.GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)
             .addGroup(bgLayout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addComponent(headpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -502,7 +524,7 @@ public class VTambahMakanan extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(FormStok, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -635,15 +657,21 @@ public class VTambahMakanan extends javax.swing.JFrame {
 
     private void MLaporanTiketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLaporanTiketActionPerformed
         // TODO add your handling code here:
-        new VLaporanTiket().setVisible(true);
+        new VLaporanFilm().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MLaporanTiketActionPerformed
 
     private void MLaporanMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLaporanMakananActionPerformed
         // TODO add your handling code here:
-        new VLaporanMakanMinum().setVisible(true);
+        new VLaporanMakan().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MLaporanMakananActionPerformed
+
+    private void MLaporanMinumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLaporanMinumanActionPerformed
+        // TODO add your handling code here:
+        new VLaporanMinum().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MLaporanMinumanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -695,6 +723,7 @@ public class VTambahMakanan extends javax.swing.JFrame {
     private javax.swing.JButton MJadwal;
     private javax.swing.JLabel MJudul;
     private javax.swing.JButton MLaporanMakanan;
+    private javax.swing.JButton MLaporanMinuman;
     private javax.swing.JButton MLaporanPembayaran;
     private javax.swing.JButton MLaporanTiket;
     private javax.swing.JButton MLogout;

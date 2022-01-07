@@ -19,18 +19,46 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author dblenk
  */
-public class VLaporanTiket extends javax.swing.JFrame {
+public class VLaporanMakan extends javax.swing.JFrame {
     ResultSet RsItem = null;
     DefaultTableModel tabModel;
-    ResultSet RsProduk=null;
     ResultSet rs=null;
     /**
      * Creates new form VMakanan
      */
-    public VLaporanTiket() {
+    public VLaporanMakan() {
         initComponents();
-        this.setExtendedState(VLaporanTiket.MAXIMIZED_BOTH);
+        this.setExtendedState(VLaporanMakan.MAXIMIZED_BOTH);
         bg.setFocusable(true);
+    }
+    
+    private void tampilData(){
+        try{
+            Object[] judul_kolom = {"No", "Nama Makanan", "Harga Makanan", "Tanggal Pemesanan", "Jumlah Pemesanan", "Total"};
+            tabModel = new DefaultTableModel(null,judul_kolom);
+            tabelLaporanMakan.setModel(tabModel);
+            
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            tabModel.getDataVector().removeAllElements();
+            
+            RsItem=stt.executeQuery("SELECT * from film");  
+            int no = 0;
+            while(RsItem.next()){
+                no++;
+                
+                Object[] data={
+                    no,
+                    RsItem.getString("ID_FILM"),
+                    RsItem.getString("JUDUL_FILM"),
+                    RsItem.getString("DURASI_FILM"),
+                    RsItem.getString("RATING_FILM"),
+                };
+               tabModel.addRow(data);
+            }                
+        } catch (Exception ex) {
+        System.err.println(ex.getMessage());
+        }
     }
     
  
@@ -56,6 +84,7 @@ public class VLaporanTiket extends javax.swing.JFrame {
         MLaporanPembayaran = new javax.swing.JButton();
         MLaporanTiket = new javax.swing.JButton();
         MLaporanMakanan = new javax.swing.JButton();
+        MLaporanMinuman = new javax.swing.JButton();
         headpanel = new javax.swing.JPanel();
         LMakanan = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -67,7 +96,9 @@ public class VLaporanTiket extends javax.swing.JFrame {
         FormTanggalDari = new com.toedter.calendar.JDateChooser();
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelLaporanTiket = new javax.swing.JTable();
+        tabelLaporanMakan = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
@@ -218,7 +249,7 @@ public class VLaporanTiket extends javax.swing.JFrame {
         MLaporanTiket.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
         MLaporanTiket.setForeground(new java.awt.Color(255, 255, 255));
         MLaporanTiket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/tiket-report.png"))); // NOI18N
-        MLaporanTiket.setText("Laporan Tiket");
+        MLaporanTiket.setText("Laporan Film");
         MLaporanTiket.setBorder(null);
         MLaporanTiket.setBorderPainted(false);
         MLaporanTiket.setContentAreaFilled(false);
@@ -250,6 +281,24 @@ public class VLaporanTiket extends javax.swing.JFrame {
             }
         });
 
+        MLaporanMinuman.setBackground(new java.awt.Color(0, 8, 66));
+        MLaporanMinuman.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
+        MLaporanMinuman.setForeground(new java.awt.Color(255, 255, 255));
+        MLaporanMinuman.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/drink.png"))); // NOI18N
+        MLaporanMinuman.setText("Laporan Minuman");
+        MLaporanMinuman.setBorder(null);
+        MLaporanMinuman.setBorderPainted(false);
+        MLaporanMinuman.setContentAreaFilled(false);
+        MLaporanMinuman.setHideActionText(true);
+        MLaporanMinuman.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MLaporanMinuman.setIconTextGap(10);
+        MLaporanMinuman.setPreferredSize(new java.awt.Dimension(97, 32));
+        MLaporanMinuman.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MLaporanMinumanActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout sidepanelLayout = new javax.swing.GroupLayout(sidepanel);
         sidepanel.setLayout(sidepanelLayout);
         sidepanelLayout.setHorizontalGroup(
@@ -257,6 +306,7 @@ public class VLaporanTiket extends javax.swing.JFrame {
             .addGroup(sidepanelLayout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(MLaporanMinuman, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(MLaporanMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(MLaporanPembayaran, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
@@ -267,7 +317,7 @@ public class VLaporanTiket extends javax.swing.JFrame {
                         .addComponent(MJadwal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(MMakanan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(MMinuman, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MLogout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2)
                     .addComponent(MJudul))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -296,8 +346,10 @@ public class VLaporanTiket extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(MLaporanMakanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(MLaporanMinuman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(MLogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53))
+                .addGap(62, 62, 62))
         );
 
         headpanel.setBackground(new java.awt.Color(12, 33, 193));
@@ -306,13 +358,13 @@ public class VLaporanTiket extends javax.swing.JFrame {
         LMakanan.setBackground(new java.awt.Color(255, 255, 255));
         LMakanan.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
         LMakanan.setForeground(new java.awt.Color(255, 255, 255));
-        LMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/tiket-report.png"))); // NOI18N
-        LMakanan.setText("Laporan Tiket");
+        LMakanan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/food-report.png"))); // NOI18N
+        LMakanan.setText("Laporan Makanan");
 
         jLabel1.setBackground(new java.awt.Color(153, 153, 153));
         jLabel1.setFont(new java.awt.Font("Lato", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel1.setText("Menu Laporan Tiket");
+        jLabel1.setText("Menu Laporan Makanan");
 
         javax.swing.GroupLayout headpanelLayout = new javax.swing.GroupLayout(headpanel);
         headpanel.setLayout(headpanelLayout);
@@ -393,29 +445,35 @@ public class VLaporanTiket extends javax.swing.JFrame {
             }
         });
 
-        tabelLaporanTiket.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
-        tabelLaporanTiket.setModel(new javax.swing.table.DefaultTableModel(
+        tabelLaporanMakan.setFont(new java.awt.Font("Lato", 0, 17)); // NOI18N
+        tabelLaporanMakan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, "", ""},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, "", null, null, "", null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "No", "", "Tanggal Pembayaran", "Total Pembayaran"
+                "No", "Nama Makanan", "Harga Makanan", "Tanggal Pemesanan", "Jumlah Pemesanan", "Total"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        tabelLaporanTiket.setGridColor(new java.awt.Color(153, 153, 153));
-        jScrollPane1.setViewportView(tabelLaporanTiket);
+        tabelLaporanMakan.setGridColor(new java.awt.Color(153, 153, 153));
+        jScrollPane1.setViewportView(tabelLaporanMakan);
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel6.setText("Laporan Makanan");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel3.setText("Total : ");
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -447,12 +505,14 @@ public class VLaporanTiket extends javax.swing.JFrame {
                                                 .addComponent(FormTanggalSampai, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(32, 32, 32)
                                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE))
-                                .addGap(65, 65, 65))))))
+                                    .addComponent(jLabel6)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3))
+                                .addContainerGap(61, Short.MAX_VALUE))))))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sidepanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(sidepanel, javax.swing.GroupLayout.DEFAULT_SIZE, 771, Short.MAX_VALUE)
             .addGroup(bgLayout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addComponent(headpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -460,14 +520,18 @@ public class VLaporanTiket extends javax.swing.JFrame {
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(FormTanggalSampai, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FormTanggalDari, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FormTanggalDari, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(23, 23, 23)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(jLabel3)
+                .addGap(21, 21, 21)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -479,29 +543,17 @@ public class VLaporanTiket extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void MfilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MfilmActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        new VFilm().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MfilmActionPerformed
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void MJadwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MJadwalActionPerformed
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
-        new VJadwal().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MJadwalActionPerformed
+    }//GEN-LAST:event_backActionPerformed
 
-    private void MMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MMakananActionPerformed
+    private void BtnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCetakActionPerformed
         // TODO add your handling code here:
-        new VMakanan().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MMakananActionPerformed
-
-    private void MMinumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MMinumanActionPerformed
-        // TODO add your handling code here:
-         new VMinuman().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_MMinumanActionPerformed
+    }//GEN-LAST:event_BtnCetakActionPerformed
 
     private void MLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLogoutActionPerformed
         // TODO add your handling code here:
@@ -509,27 +561,35 @@ public class VLaporanTiket extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_MLogoutActionPerformed
 
+    private void MMinumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MMinumanActionPerformed
+        // TODO add your handling code here:
+        new VMinuman().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MMinumanActionPerformed
+
+    private void MMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MMakananActionPerformed
+        // TODO add your handling code here:
+        new VMakanan().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MMakananActionPerformed
+
+    private void MJadwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MJadwalActionPerformed
+        // TODO add your handling code here:
+        new VJadwal().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MJadwalActionPerformed
+
     private void MStudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MStudioActionPerformed
         // TODO add your handling code here:
         new VStudio().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MStudioActionPerformed
 
-    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+    private void MfilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MfilmActionPerformed
         // TODO add your handling code here:
         new VFilm().setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_backActionPerformed
-
-    private void BtnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCetakActionPerformed
-        // TODO add your handling code here:
- 
-        
-    }//GEN-LAST:event_BtnCetakActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_MfilmActionPerformed
 
     private void MLaporanPembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLaporanPembayaranActionPerformed
         // TODO add your handling code here:
@@ -539,15 +599,21 @@ public class VLaporanTiket extends javax.swing.JFrame {
 
     private void MLaporanTiketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLaporanTiketActionPerformed
         // TODO add your handling code here:
-        new VLaporanTiket().setVisible(true);
+        new VLaporanFilm().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MLaporanTiketActionPerformed
 
     private void MLaporanMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLaporanMakananActionPerformed
         // TODO add your handling code here:
-        new VLaporanMakanMinum().setVisible(true);
+        new VLaporanMakan().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MLaporanMakananActionPerformed
+
+    private void MLaporanMinumanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLaporanMinumanActionPerformed
+        // TODO add your handling code here:
+        new VLaporanMinum().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_MLaporanMinumanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -566,14 +632,110 @@ public class VLaporanTiket extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VLaporanTiket.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VLaporanMakan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VLaporanTiket.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VLaporanMakan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VLaporanTiket.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VLaporanMakan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VLaporanTiket.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VLaporanMakan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -615,7 +777,7 @@ public class VLaporanTiket extends javax.swing.JFrame {
                     
                 } catch (Exception e) {
                 }
-                new VLaporanTiket().setVisible(true);
+                new VLaporanMakan().setVisible(true);
             }
         });
     }
@@ -628,6 +790,7 @@ public class VLaporanTiket extends javax.swing.JFrame {
     private javax.swing.JButton MJadwal;
     private javax.swing.JLabel MJudul;
     private javax.swing.JButton MLaporanMakanan;
+    private javax.swing.JButton MLaporanMinuman;
     private javax.swing.JButton MLaporanPembayaran;
     private javax.swing.JButton MLaporanTiket;
     private javax.swing.JButton MLogout;
@@ -641,10 +804,12 @@ public class VLaporanTiket extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel sidepanel;
-    private javax.swing.JTable tabelLaporanTiket;
+    private javax.swing.JTable tabelLaporanMakan;
     // End of variables declaration//GEN-END:variables
 }

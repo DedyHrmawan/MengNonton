@@ -3,16 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/meded/OneDrive/Documents/NetBeansProjects/MengNonton/src/mengnonton/VTambahJadwal.java</file>
-            <file>file:/C:/Users/meded/OneDrive/Documents/NetBeansProjects/MengNonton/src/mengnonton/VLaporanPembayaran.java</file>
-            <file>file:/C:/Users/meded/OneDrive/Documents/NetBeansProjects/MengNonton/src/mengnonton/VMakanan.java</file>
-            <file>file:/C:/Users/meded/OneDrive/Documents/NetBeansProjects/MengNonton/src/mengnonton/VTambahMinuman.java</file>
-            <file>file:/C:/Users/meded/OneDrive/Documents/NetBeansProjects/MengNonton/src/mengnonton/VTambahStudio.java</file>
-            <file>file:/C:/Users/meded/OneDrive/Documents/NetBeansProjects/MengNonton/src/mengnonton/VLaporanMakaMinum.java</file>
-            <file>file:/C:/Users/meded/OneDrive/Documents/NetBeansProjects/MengNonton/src/mengnonton/VBayar.java</file>
-            <file>file:/C:/Users/meded/OneDrive/Documents/NetBeansProjects/MengNonton/src/mengnonton/VEditJadwal.java</file>
-            <file>file:/C:/Users/meded/OneDrive/Documents/NetBeansProjects/MengNonton/src/mengnonton/VLaporanTiket.java</file>
-            <file>file:/C:/Users/meded/OneDrive/Documents/NetBeansProjects/MengNonton/src/mengnonton/VJadwal.java</file>
+            <file>file:/C:/Users/meded/OneDrive/Documents/NetBeansProjects/MengNonton/src/mengnonton/VLaporanMinum.java</file>
+            <file>file:/C:/Users/meded/OneDrive/Documents/NetBeansProjects/MengNonton/src/mengnonton/VFilm.java</file>
+            <file>file:/C:/Users/meded/OneDrive/Documents/NetBeansProjects/MengNonton/src/mengnonton/VLaporanMakan.java</file>
+            <file>file:/C:/Users/meded/OneDrive/Documents/NetBeansProjects/MengNonton/src/mengnonton/VBayarMakanan.java</file>
         </group>
     </open-files>
 </project-private>
