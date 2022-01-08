@@ -33,6 +33,45 @@ public class VLaporanFilm extends javax.swing.JFrame {
         bg.setFocusable(true);
     }
     
+    private void tampilData(String tglDari, String tglSampai){
+        try{
+            Object[] judul_kolom = {"No", "Nama Film", "Jumlah Penonton"};
+            tabModel = new DefaultTableModel(null,judul_kolom);
+            tabelLaporanFilm.setModel(tabModel);
+            
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            tabModel.getDataVector().removeAllElements();
+            
+            RsItem=stt.executeQuery("SELECT \n" +
+                "f.JUDUL_FILM,\n" +
+                "	count(p.ID_PEMESANAN) as JUMLAH\n" +
+                "FROM pemesanan p, jadwal j , film f \n" +
+                "WHERE TIPE_PEMESANAN = \"3\" \n" +
+                "	AND p.TANGGAL_PEMESANAN BETWEEN '"+tglDari+"' AND '"+tglSampai+"' \n" +
+                "	AND p.STATUS = 1\n" +
+                "	and SUBSTRING_INDEX(p.ID_BARANG,'-', 1) = j.ID_JADWAL \n" +
+                "	and j.ID_FILM = f.ID_FILM\n" +
+                "group by f.ID_FILM   ");  
+            int no = 0;
+            int total = 0;
+            while(RsItem.next()){
+                no++;
+                
+                Object[] data={
+                    no,
+                    RsItem.getString("JUDUL_FILM"),
+                    RsItem.getString("JUMLAH"),
+                };
+                total+= Integer.parseInt(RsItem.getString("JUMLAH"));
+               tabModel.addRow(data);
+            }
+            labelTotal.setText("Total : "+total+" Penonton");
+        } catch (Exception ex) {
+        System.err.println(ex.getMessage());
+        }
+    }
+    
  
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,7 +108,7 @@ public class VLaporanFilm extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelLaporanFilm = new javax.swing.JTable();
-        jLabel3 = new javax.swing.JLabel();
+        labelTotal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
@@ -440,8 +479,8 @@ public class VLaporanFilm extends javax.swing.JFrame {
         tabelLaporanFilm.setGridColor(new java.awt.Color(153, 153, 153));
         jScrollPane1.setViewportView(tabelLaporanFilm);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jLabel3.setText("Total : ");
+        labelTotal.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        labelTotal.setText("Total : ");
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -464,7 +503,7 @@ public class VLaporanFilm extends javax.swing.JFrame {
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
                                     .addGroup(bgLayout.createSequentialGroup()
                                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3)
+                                            .addComponent(labelTotal)
                                             .addGroup(bgLayout.createSequentialGroup()
                                                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addComponent(jLabel7)
@@ -474,9 +513,9 @@ public class VLaporanFilm extends javax.swing.JFrame {
                                                     .addComponent(jLabel8)
                                                     .addGroup(bgLayout.createSequentialGroup()
                                                         .addComponent(FormTanggalSampai, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGap(32, 32, 32)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                                        .addGap(0, 78, Short.MAX_VALUE)))))
                         .addGap(65, 65, 65))))
         );
         bgLayout.setVerticalGroup(
@@ -490,14 +529,15 @@ public class VLaporanFilm extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(FormTanggalSampai, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FormTanggalDari, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(FormTanggalSampai, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(FormTanggalDari, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(19, 19, 19)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
+                .addComponent(labelTotal)
                 .addGap(16, 16, 16)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -554,12 +594,23 @@ public class VLaporanFilm extends javax.swing.JFrame {
 
     private void BtnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCetakActionPerformed
         // TODO add your handling code here:
- 
+        DateFormat dateFormat = new SimpleDateFormat("d MMMM yyyy");      
+        String title    = "Laporan Jumlah Penonton Film";
+        String subTitle = "Periode: "+dateFormat.format(FormTanggalDari.getDate())+" - "+dateFormat.format(FormTanggalSampai.getDate()); 
+        String total = labelTotal.getText().toString();
+        
+        PdfGenerator pdfGenerate = new PdfGenerator();
+        pdfGenerate.printLaporan(tabelLaporanFilm, title, subTitle, total);
+        JOptionPane.showMessageDialog(null, "Laporan berhasil disimpan!");
         
     }//GEN-LAST:event_BtnCetakActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");          
+        String tglDari = dateFormat.format(FormTanggalDari.getDate());
+        String tglSampai = dateFormat.format(FormTanggalSampai.getDate());
+        tampilData(tglDari, tglSampai);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void MLaporanPembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLaporanPembayaranActionPerformed
@@ -711,10 +762,10 @@ public class VLaporanFilm extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelTotal;
     private javax.swing.JPanel sidepanel;
     private javax.swing.JTable tabelLaporanFilm;
     // End of variables declaration//GEN-END:variables

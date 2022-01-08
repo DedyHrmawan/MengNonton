@@ -28,9 +28,12 @@ import com.itextpdf.text.Section;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import javax.swing.JTable;
 
 public class PdfGenerator {
-    private static String FILE = "c:/temp/FirstPdf.pdf";
+    private static String FILE = "e:/Downloads/FirstPdf.pdf";
     private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
     private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
@@ -49,6 +52,52 @@ public class PdfGenerator {
             addTitlePage(document);
             addContent(document);
             document.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static void printLaporan(JTable table, String title, String subTitle, String total){
+        Date dicetak = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("d MMMM yyyy k:mm"); 
+        DateFormat dateFormat2 = new SimpleDateFormat("YYYYMMdkmm");      
+        try {
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream("e:/Downloads/"+title+"_"+dateFormat2.format(dicetak)+".pdf"));
+            document.open();
+            
+            PdfPTable pdfTable = new PdfPTable(table.getColumnCount());
+            Paragraph preface = new Paragraph();
+            Paragraph postface = new Paragraph();
+            PdfPCell cell;
+            
+            preface.add(new Paragraph(title, catFont));
+            preface.add(new Paragraph(subTitle, smallBold));
+            addEmptyLine(preface, 1);
+            
+            addEmptyLine(postface, 1);
+            postface.add(new Paragraph("Dicetak pada: "+dateFormat.format(dicetak), smallBold));
+            
+            for (int i = 0; i < table.getColumnCount(); i++) {
+                pdfTable.addCell(table.getColumnName(i));
+            }
+            
+            for (int rows = 0; rows < table.getRowCount(); rows++) {
+                for (int cols = 0; cols < table.getColumnCount(); cols++) {
+                    System.out.println(table.getModel().getValueAt(rows, cols).toString());
+                    pdfTable.addCell(table.getModel().getValueAt(rows, cols).toString());
+                }
+            }
+            
+            cell = new PdfPCell(new Paragraph(total, smallBold));
+            cell.setColspan(table.getColumnCount());
+            pdfTable.addCell(cell);
+            
+            document.add(preface);
+            document.add(pdfTable);
+            document.add(postface);
+            document.close();
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

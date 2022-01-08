@@ -32,7 +32,7 @@ public class VLaporanMakan extends javax.swing.JFrame {
         bg.setFocusable(true);
     }
     
-    private void tampilData(){
+    private void tampilData(String tglDari, String tglSampai){
         try{
             Object[] judul_kolom = {"No", "Nama Makanan", "Harga Makanan", "Tanggal Pemesanan", "Jumlah Pemesanan", "Total"};
             tabModel = new DefaultTableModel(null,judul_kolom);
@@ -42,26 +42,30 @@ public class VLaporanMakan extends javax.swing.JFrame {
             Statement stt=conn.createStatement();
             tabModel.getDataVector().removeAllElements();
             
-            RsItem=stt.executeQuery("SELECT * from film");  
+            RsItem=stt.executeQuery("SELECT * from v_laporan_makanan WHERE TANGGAL_PEMESANAN BETWEEN '"+tglDari+"' AND '"+tglSampai+"' ORDER BY TANGGAL_PEMESANAN DESC");  
             int no = 0;
+            int total = 0;
             while(RsItem.next()){
                 no++;
                 
                 Object[] data={
                     no,
-                    RsItem.getString("ID_FILM"),
-                    RsItem.getString("JUDUL_FILM"),
-                    RsItem.getString("DURASI_FILM"),
-                    RsItem.getString("RATING_FILM"),
+                    RsItem.getString("NAMA_MAKANAN"),
+                    RsItem.getString("HARGA_MAKANAN"),
+                    RsItem.getString("TANGGAL_PEMESANAN"),
+                    RsItem.getString("JUMLAH_PEMESANAN"),
+                    RsItem.getString("TOTAL_TAGIHAN"),
                 };
+                total+= Integer.parseInt(RsItem.getString("TOTAL_TAGIHAN"));
                tabModel.addRow(data);
-            }                
+            }
+            labelTotal.setText("Total : Rp."+total);
         } catch (Exception ex) {
         System.err.println(ex.getMessage());
         }
     }
     
- 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -98,7 +102,7 @@ public class VLaporanMakan extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelLaporanMakan = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        labelTotal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
@@ -472,8 +476,8 @@ public class VLaporanMakan extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jLabel6.setText("Laporan Makanan");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jLabel3.setText("Total : ");
+        labelTotal.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        labelTotal.setText("Total : ");
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
@@ -507,7 +511,7 @@ public class VLaporanMakan extends javax.swing.JFrame {
                                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addComponent(jLabel6)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3))
+                                    .addComponent(labelTotal))
                                 .addContainerGap(61, Short.MAX_VALUE))))))
         );
         bgLayout.setVerticalGroup(
@@ -530,7 +534,7 @@ public class VLaporanMakan extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
-                .addComponent(jLabel3)
+                .addComponent(labelTotal)
                 .addGap(21, 21, 21)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -545,6 +549,10 @@ public class VLaporanMakan extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");          
+        String tglDari = dateFormat.format(FormTanggalDari.getDate());
+        String tglSampai = dateFormat.format(FormTanggalSampai.getDate());
+        tampilData(tglDari, tglSampai);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
@@ -553,6 +561,14 @@ public class VLaporanMakan extends javax.swing.JFrame {
 
     private void BtnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCetakActionPerformed
         // TODO add your handling code here:
+        DateFormat dateFormat = new SimpleDateFormat("d MMMM yyyy");      
+        String title    = "Laporan Makanan";
+        String subTitle = "Periode: "+dateFormat.format(FormTanggalDari.getDate())+" - "+dateFormat.format(FormTanggalSampai.getDate()); 
+        String total = labelTotal.getText().toString();
+        
+        PdfGenerator pdfGenerate = new PdfGenerator();
+        pdfGenerate.printLaporan(tabelLaporanMakan, title, subTitle, total);
+        JOptionPane.showMessageDialog(null, "Laporan berhasil disimpan!");
     }//GEN-LAST:event_BtnCetakActionPerformed
 
     private void MLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLogoutActionPerformed
@@ -804,11 +820,11 @@ public class VLaporanMakan extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelTotal;
     private javax.swing.JPanel sidepanel;
     private javax.swing.JTable tabelLaporanMakan;
     // End of variables declaration//GEN-END:variables

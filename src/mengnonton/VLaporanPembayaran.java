@@ -33,6 +33,99 @@ public class VLaporanPembayaran extends javax.swing.JFrame {
         bg.setFocusable(true);
     }
     
+    private void tampilData(String tglDari, String tglSampai){
+        Object[] judul_kolom = {"No", "Judul Film", "Nama Makanan", "Nama Minuman", "Tanggal Pembayaran", "Total Pembayaran"};
+        tabModel = new DefaultTableModel(null,judul_kolom);
+        tabelLaporanBayar.setModel(tabModel);
+        
+        tabModel.getDataVector().removeAllElements();
+        int no = 0;
+        int total = 0;
+        
+        try{   
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            
+            RsItem=stt.executeQuery("SELECT \n" +
+            "	f.JUDUL_FILM,\n" +
+            "	sum(p.TOTAL_TAGIHAN) as TOTAL,\n" +
+            "	p.TANGGAL_PEMESANAN \n" +
+            "FROM pemesanan p, jadwal j , film f \n" +
+            "WHERE TIPE_PEMESANAN = \"3\" \n" +
+            "	AND p.TANGGAL_PEMESANAN BETWEEN '"+tglDari+"' AND '"+tglSampai+"' \n" +
+            "	AND p.STATUS = 1\n" +
+            "	and SUBSTRING_INDEX(p.ID_BARANG,'-', 1) = j.ID_JADWAL \n" +
+            "	and j.ID_FILM = f.ID_FILM\n" +
+            "group by p.TANGGAL_PEMESANAN \n" +
+            "order by TANGGAL_PEMESANAN desc");  
+            while(RsItem.next()){
+                no++;
+                Object[] data={
+                    no,
+                    RsItem.getString("JUDUL_FILM"),
+                    "-",
+                    "-",
+                    RsItem.getString("TANGGAL_PEMESANAN"),
+                    RsItem.getString("TOTAL"),
+                };
+                total+= Integer.parseInt(RsItem.getString("TOTAL"));
+               tabModel.addRow(data);
+            }
+            
+            
+        } catch (Exception ex) {
+        System.err.println(ex.getMessage());
+        }
+        
+        try{   
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            RsItem=stt.executeQuery("SELECT * from v_laporan_makanan WHERE TANGGAL_PEMESANAN BETWEEN '"+tglDari+"' AND '"+tglSampai+"' ORDER BY TANGGAL_PEMESANAN DESC");  
+            while(RsItem.next()){
+                no++;
+                Object[] data={
+                    no,
+                    "-",
+                    RsItem.getString("NAMA_MAKANAN"),
+                    "-",
+                    RsItem.getString("TANGGAL_PEMESANAN"),
+                    RsItem.getString("TOTAL_TAGIHAN"),
+                };
+                total+= Integer.parseInt(RsItem.getString("TOTAL_TAGIHAN"));
+               tabModel.addRow(data);
+            }
+            
+            
+        } catch (Exception ex) {
+        System.err.println(ex.getMessage());
+        }
+        
+        try{   
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            RsItem=stt.executeQuery("SELECT * from v_laporan_minuman WHERE TANGGAL_PEMESANAN BETWEEN '"+tglDari+"' AND '"+tglSampai+"' ORDER BY TANGGAL_PEMESANAN DESC");  
+            while(RsItem.next()){
+                no++;
+                Object[] data={
+                    no,
+                    "-",
+                    "-",
+                    RsItem.getString("NAMA_MINUMAN"),
+                    RsItem.getString("TANGGAL_PEMESANAN"),
+                    RsItem.getString("TOTAL_TAGIHAN"),
+                };
+                total+= Integer.parseInt(RsItem.getString("TOTAL_TAGIHAN"));
+               tabModel.addRow(data);
+            }
+            
+            
+        } catch (Exception ex) {
+        System.err.println(ex.getMessage());
+        }
+        
+        labelTotal.setText("Total : Rp."+total);
+    }
+    
  
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,6 +162,7 @@ public class VLaporanPembayaran extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelLaporanBayar = new javax.swing.JTable();
+        labelTotal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
@@ -425,7 +519,7 @@ public class VLaporanPembayaran extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "No", "Nama Makanan", "Nama Minuman", "Judul Film", "Tanggal Pembayaran", "Total Pembayaran"
+                "No", "Judul Film", "Nama Makanan", "Nama Minuman", "Tanggal Pembayaran", "Total Pembayaran"
             }
         ) {
             Class[] types = new Class [] {
@@ -439,6 +533,9 @@ public class VLaporanPembayaran extends javax.swing.JFrame {
         tabelLaporanBayar.setGridColor(new java.awt.Color(153, 153, 153));
         jScrollPane1.setViewportView(tabelLaporanBayar);
 
+        labelTotal.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        labelTotal.setText("Total: ");
+
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
@@ -451,7 +548,8 @@ public class VLaporanPembayaran extends javax.swing.JFrame {
                         .addGap(65, 65, 65)
                         .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(bgLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(labelTotal)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(BtnCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -489,11 +587,17 @@ public class VLaporanPembayaran extends javax.swing.JFrame {
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51))
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BtnCetak, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(51, 51, 51))
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(labelTotal)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         getContentPane().add(bg);
@@ -543,12 +647,24 @@ public class VLaporanPembayaran extends javax.swing.JFrame {
 
     private void BtnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCetakActionPerformed
         // TODO add your handling code here:
+        DateFormat dateFormat = new SimpleDateFormat("d MMMM yyyy");      
+        String title    = "Laporan Pembayaran";
+        String subTitle = "Periode: "+dateFormat.format(FormTanggalDari.getDate())+" - "+dateFormat.format(FormTanggalSampai.getDate()); 
+        String total = labelTotal.getText().toString();
+        
+        PdfGenerator pdfGenerate = new PdfGenerator();
+        pdfGenerate.printLaporan(tabelLaporanBayar, title, subTitle, total);
+        JOptionPane.showMessageDialog(null, "Laporan berhasil disimpan!");
  
         
     }//GEN-LAST:event_BtnCetakActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");          
+        String tglDari = dateFormat.format(FormTanggalDari.getDate());
+        String tglSampai = dateFormat.format(FormTanggalSampai.getDate());
+        tampilData(tglDari, tglSampai);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void MLaporanPembayaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLaporanPembayaranActionPerformed
@@ -655,6 +771,7 @@ public class VLaporanPembayaran extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelTotal;
     private javax.swing.JPanel sidepanel;
     private javax.swing.JTable tabelLaporanBayar;
     // End of variables declaration//GEN-END:variables

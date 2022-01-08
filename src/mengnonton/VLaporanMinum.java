@@ -562,6 +562,14 @@ public class VLaporanMinum extends javax.swing.JFrame {
 
     private void BtnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCetakActionPerformed
         // TODO add your handling code here:
+        DateFormat dateFormat = new SimpleDateFormat("d MMMM yyyy");      
+        String title    = "Laporan Minuman";
+        String subTitle = "Periode: "+dateFormat.format(FormTanggalDari.getDate())+" - "+dateFormat.format(FormTanggalSampai.getDate()); 
+        String total = labelTotal.getText().toString();
+        
+        PdfGenerator pdfGenerate = new PdfGenerator();
+        pdfGenerate.printLaporan(tabelLaporanMakan, title, subTitle, total);
+        JOptionPane.showMessageDialog(null, "Laporan berhasil disimpan!");
     }//GEN-LAST:event_BtnCetakActionPerformed
 
     private void MLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLogoutActionPerformed
