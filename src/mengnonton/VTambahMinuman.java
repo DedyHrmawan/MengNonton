@@ -36,7 +36,7 @@ public class VTambahMinuman extends javax.swing.JFrame {
                 FormIDMinuman.setText("MI"+String.format("%03d", newId));
 //                FormIDMakanan.setText(String.format("%3d", "4"));
              }else{
-                
+                FormIDMinuman.setText("FM001");
              }
             FormIDMinuman.disable();
         } catch (Exception ex) {

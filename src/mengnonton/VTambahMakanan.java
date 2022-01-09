@@ -36,7 +36,7 @@ public class VTambahMakanan extends javax.swing.JFrame {
                 FormIDMakanan.setText("MK"+String.format("%03d", newId));
 //                FormIDMakanan.setText(String.format("%3d", "4"));
              }else{
-                
+                FormIDMakanan.setText("MK001");
              }
             FormIDMakanan.disable();
         } catch (Exception ex) {

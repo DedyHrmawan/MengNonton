@@ -67,7 +67,7 @@ public class PdfGenerator {
         DateFormat dateFormat2 = new SimpleDateFormat("YYYYMMdkmm");      
         try {
             Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream("e:/Downloads/"+title+"_"+dateFormat2.format(dicetak)+".pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream("C://Users/meded/Downloads/"+title+"_"+dateFormat2.format(dicetak)+".pdf"));
             document.open();
             
             PdfPTable pdfTable = new PdfPTable(table.getColumnCount());
@@ -114,7 +114,7 @@ public class PdfGenerator {
         DateFormat dateFormat2 = new SimpleDateFormat("YYYYMMdkmm");      
         try {
             Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream("e:/Downloads/"+title+"_"+dateFormat2.format(dicetak)+".pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream("C://Users/meded/Downloads/"+title+"_"+dateFormat2.format(dicetak)+".pdf"));
             document.open();
             
             PdfPTable pdfTable = new PdfPTable(3);

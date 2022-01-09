@@ -510,9 +510,9 @@ public class VLaporanMakan extends javax.swing.JFrame {
                                                 .addGap(32, 32, 32)
                                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addComponent(jLabel6)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
                                     .addComponent(labelTotal))
-                                .addContainerGap(61, Short.MAX_VALUE))))))
+                                .addGap(61, 61, 61))))))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

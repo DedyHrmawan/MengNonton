@@ -622,7 +622,7 @@ public class VLaporanMinum extends javax.swing.JFrame {
 
     private void MLaporanMakananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MLaporanMakananActionPerformed
         // TODO add your handling code here:
-        new VLaporanMinum().setVisible(true);
+        new VLaporanMakan().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MLaporanMakananActionPerformed
 
