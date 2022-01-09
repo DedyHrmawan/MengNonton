@@ -16,6 +16,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -75,18 +76,23 @@ public class VBayarMakanan extends javax.swing.JFrame {
     
     private void fillCombo(){
         try{
-            String sql = "select * from makanan";
+            String sql = "select * from makanan where STOK_MAKANAN != 0";
             Connection conn=(Connection)koneksi.koneksiDB();
             Statement stt=conn.createStatement();
             rs = stt.executeQuery(sql);
             
             while(rs.next()){
-                String id = rs.getString("ID_MAKANAN");
+                String id = rs.getString("ID_MAKANAN")+" - "+rs.getString("NAMA_MAKANAN")+" - Stok "+rs.getString("STOK_MAKANAN");
                 FormIDMakanan.addItem(id);
             }
         }catch(Exception e){
             System.err.println(e.getMessage());
         }
+    }
+    
+    private void refresh(){
+        new VBayarMakanan().setVisible(true);
+        this.setVisible(false);
     }
     
     private void tampilData(){
@@ -483,14 +489,19 @@ public class VBayarMakanan extends javax.swing.JFrame {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");          
         String date = dateFormat.format(FormTanggal.getDate());  
         int total = 0;
+        String idselect = "";
+        String pilihan = FormIDMakanan.getSelectedItem().toString();
+        String[] strs = pilihan.split("[ - ]");
+        idselect = strs[0].toString();
         try{
             Connection conn=(Connection)koneksi.koneksiDB();
             Statement stt=conn.createStatement();
-            ResultSet harga = stt.executeQuery("SELECT HARGA_MAKANAN from makanan WHERE ID_MAKANAN = ('"+FormIDMakanan.getSelectedItem()+"')"); 
+            ResultSet harga = stt.executeQuery("SELECT HARGA_MAKANAN from makanan WHERE ID_MAKANAN = ('"+idselect+"')"); 
             harga.next();
             total = Integer.parseInt(FormJumlah.getText()) * harga.getInt("HARGA_MAKANAN");
             stt.executeUpdate("insert into pemesanan(ID_BARANG,JUMLAH_PEMESANAN,TANGGAL_PEMESANAN,TIPE_PEMESANAN,TOTAL_TAGIHAN)"+
-                    "VALUES('"+FormIDMakanan.getSelectedItem()+"','"+FormJumlah.getText()+"','"+date+"','"+"1"+"','"+total+"')");
+                    "VALUES('"+idselect+"','"+FormJumlah.getText()+"','"+date+"','"+"1"+"','"+total+"')");
+            stt.executeUpdate("UPDATE makanan SET STOK_MAKANAN = STOK_MAKANAN-'"+FormJumlah.getText()+"' WHERE ID_MAKANAN ='"+idselect+"'");
             conn.close();
             JOptionPane.showMessageDialog(null, "Berhasil simpan");
         }catch(Exception exc){
@@ -721,6 +732,22 @@ public class VBayarMakanan extends javax.swing.JFrame {
             button.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     fireEditingStopped();
+                    String id_dihapus = "";
+                    String jml = "";
+                    id_dihapus = tabModel.getValueAt(tabelMakanan.getSelectedRow(),1)+"";
+                    jml        = tabModel.getValueAt(tabelMakanan.getSelectedRow(),2)+"";
+                    int jumlah = Integer.parseInt(jml);
+                    try{
+                    Connection conn=(Connection)koneksi.koneksiDB();
+                    Statement stt=conn.createStatement();
+                    stt.executeUpdate("DELETE FROM pemesanan WHERE ID_BARANG='"+id_dihapus+"' AND STATUS = 0");
+                    stt.executeUpdate("update makanan SET STOK_MAKANAN = STOK_MAKANAN+'"+jumlah+"' WHERE ID_MAKANAN='"+id_dihapus+"'");
+                    JOptionPane.showMessageDialog(rootPane, "Data berhadil dihapus !");
+                    tampilData();
+                    refresh();
+                    } catch(SQLException a){
+                        JOptionPane.showMessageDialog(rootPane,"Delete data gagal\n"+a.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+                    }   
                 }
             });
 
