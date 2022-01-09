@@ -524,20 +524,6 @@ public class VFilm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void FormSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormSearchFocusGained
-        // TODO add your handling code here:
-        if (FormSearch.getText().equals("Cari")) {
-            FormSearch.setText("");
-        }
-    }//GEN-LAST:event_FormSearchFocusGained
-
-    private void FormSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormSearchFocusLost
-        // TODO add your handling code here:
-        if (FormSearch.getText().equals("")) {
-            FormSearch.setText("Cari");
-        }
-    }//GEN-LAST:event_FormSearchFocusLost
-
     private void MJadwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MJadwalActionPerformed
         // TODO add your handling code here:
         new VJadwal().setVisible(true);
@@ -603,6 +589,20 @@ public class VFilm extends javax.swing.JFrame {
         new VLaporanMinum().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_MLaporanMinumanActionPerformed
+
+    private void FormSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormSearchFocusLost
+        // TODO add your handling code here:
+        if (FormSearch.getText().equals("")) {
+            FormSearch.setText("Cari");
+        }
+    }//GEN-LAST:event_FormSearchFocusLost
+
+    private void FormSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FormSearchFocusGained
+        // TODO add your handling code here:
+        if (FormSearch.getText().equals("Cari")) {
+            FormSearch.setText("");
+        }
+    }//GEN-LAST:event_FormSearchFocusGained
 
     /**
      * @param args the command line arguments

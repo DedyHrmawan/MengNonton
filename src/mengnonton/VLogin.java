@@ -197,7 +197,7 @@ public class VLogin extends javax.swing.JFrame {
         String username = FormUsername.getText();
         String password = FormPassword.getText();
         if(username.equals("admin") && password.equals("123admin456")){
-            new VMakanan().setVisible(true);
+            new VFilm().setVisible(true);
             this.setVisible(false);
         }else if(username.equals("kasir") && password.equals("123kasir456")){
             new VBayar().setVisible(true);
