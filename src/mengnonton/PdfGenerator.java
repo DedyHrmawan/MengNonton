@@ -24,10 +24,14 @@ import com.itextpdf.text.List;
 import com.itextpdf.text.ListItem;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.Section;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import javax.swing.JTable;
@@ -92,6 +96,87 @@ public class PdfGenerator {
             cell = new PdfPCell(new Paragraph(total, smallBold));
             cell.setColspan(table.getColumnCount());
             pdfTable.addCell(cell);
+            
+            document.add(preface);
+            document.add(pdfTable);
+            document.add(postface);
+            document.close();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static void printStruk(String title, String total){
+        ResultSet RsProduk=null;
+        Date dicetak = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("d MMMM yyyy k:mm"); 
+        DateFormat dateFormat2 = new SimpleDateFormat("YYYYMMdkmm");      
+        try {
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream("e:/Downloads/"+title+"_"+dateFormat2.format(dicetak)+".pdf"));
+            document.open();
+            
+            PdfPTable pdfTable = new PdfPTable(3);
+            Paragraph preface = new Paragraph();
+            Paragraph postface = new Paragraph();
+            PdfPCell cell = new PdfPCell();
+            
+            pdfTable.getDefaultCell().setBorder(0);            
+            pdfTable.setHorizontalAlignment(Element.ALIGN_LEFT);
+            
+            preface.add(new Paragraph("PEMBAYARAN MENGNONTON CINEMA", smallBold));
+            preface.add(new Paragraph("Indonesia, Malang 65125", smallBold));
+            preface.add(new Paragraph("(415) 861-321", smallBold));
+            addEmptyLine(preface, 1);            
+            preface.add(new Paragraph(""+dateFormat.format(dicetak), smallBold));
+            preface.add(new Paragraph("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", smallBold));
+            addEmptyLine(preface, 1);  
+            
+            Connection conn=(Connection)koneksi.koneksiDB();
+            Statement stt=conn.createStatement();
+            RsProduk=stt.executeQuery("SELECT p.*, m.NAMA_MAKANAN from pemesanan p, "
+                    + "makanan m WHERE STATUS = 0 AND p.ID_BARANG = m.ID_MAKANAN");
+            
+            while(RsProduk.next()){
+                pdfTable.addCell(RsProduk.getString("NAMA_MAKANAN"));
+                pdfTable.addCell(RsProduk.getString("JUMLAH_PEMESANAN"));
+                pdfTable.addCell(RsProduk.getString("TOTAL_TAGIHAN"));
+            } 
+            
+            while(RsProduk.next()){
+                pdfTable.addCell(RsProduk.getString("NAMA_MAKANAN"));
+                pdfTable.addCell(RsProduk.getString("JUMLAH_PEMESANAN"));
+                pdfTable.addCell(RsProduk.getString("TOTAL_TAGIHAN"));
+            } 
+            
+            RsProduk=stt.executeQuery("SELECT p.*, m.NAMA_MINUMAN from pemesanan p, "
+                    + "minuman m WHERE STATUS = 0 AND p.ID_BARANG = m.ID_MINUMAN");
+            
+            while(RsProduk.next()){
+                pdfTable.addCell(RsProduk.getString("NAMA_MINUMAN"));
+                pdfTable.addCell(RsProduk.getString("JUMLAH_PEMESANAN"));
+                pdfTable.addCell(RsProduk.getString("TOTAL_TAGIHAN"));
+            } 
+            
+            RsProduk=stt.executeQuery("SELECT * from pemesanan WHERE STATUS = 0 AND TIPE_PEMESANAN = 3");
+                    
+            
+            while(RsProduk.next()){
+                pdfTable.addCell(RsProduk.getString("ID_BARANG"));
+                pdfTable.addCell(RsProduk.getString("JUMLAH_PEMESANAN"));
+                pdfTable.addCell(RsProduk.getString("TOTAL_TAGIHAN"));
+            }  
+            
+            cell = new PdfPCell(new Paragraph(total, smallBold));
+            cell.setColspan(3); 
+            cell.setBorder(0);
+            pdfTable.addCell(cell);  
+            
+            postface.add(new Paragraph("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", smallBold));
+            postface.add(new Paragraph("                           It's been pleasure serving you!", smallBold));
+            postface.add(new Paragraph("                                 Have a wonderful day.", smallBold));
+            postface.add(new Paragraph("                                      * Thank You *", smallBold));
             
             document.add(preface);
             document.add(pdfTable);

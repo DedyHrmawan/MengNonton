@@ -543,6 +543,12 @@ public class VBayar extends javax.swing.JFrame {
     }//GEN-LAST:event_BtAddTiketActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String title    = "Struk Pembayaran";
+        String total = "Total : "+jLabel4.getText().toString();
+        
+        PdfGenerator pdfGenerate = new PdfGenerator();
+        pdfGenerate.printStruk(title, total);
+        
         try{
             Connection conn=(Connection)koneksi.koneksiDB();
             Statement stt=conn.createStatement();
