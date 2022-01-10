@@ -39,7 +39,7 @@ ResultSet RsItem = null;
                 FormIDStudio.setText("ST"+String.format("%03d", newId));
 //                FormIDMakanan.setText(String.format("%3d", "4"));
              }else{
-                FormIDStudio.setText("FM001");
+                FormIDStudio.setText("ST001");
              }
             FormIDStudio.disable();
         } catch (Exception ex) {
