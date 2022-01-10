@@ -63,7 +63,7 @@ public class VTambahJadwal extends javax.swing.JFrame {
             rs = stt.executeQuery(sql);
             
             while(rs.next()){
-                String id = rs.getString("ID_FILM");
+                String id = rs.getString("ID_FILM")+" | "+rs.getString("JUDUL_FILM");
                 FormIDFilm.addItem(id);
             }
         }catch(Exception e){
@@ -79,7 +79,7 @@ public class VTambahJadwal extends javax.swing.JFrame {
             rs = stt.executeQuery(sql);
             
             while(rs.next()){
-                String id = rs.getString("ID_STUDIO");
+                String id = rs.getString("ID_STUDIO")+" | "+rs.getString("NAMA_STUDIO");
                 FormIDStudio.addItem(id);
             }
         }catch(Exception e){
@@ -615,11 +615,19 @@ public class VTambahJadwal extends javax.swing.JFrame {
         // TODO add your handling code here:
         DateFormat dateFormat = new SimpleDateFormat("yyyy-M-d hh-mm");          
         String date = dateFormat.format(FormTanggal.getDate());
+        String idselect = "";
+        String pilihan = FormIDFilm.getSelectedItem().toString();
+        String[] strs = pilihan.split("[ | ]");
+        idselect = strs[0].toString();
+        String idselect2 = "";
+        String pilihan2 = FormIDStudio.getSelectedItem().toString();
+        String[] strs2 = pilihan2.split("[ | ]");
+        idselect2 = strs2[0].toString();
         try{
             Connection conn=(Connection)koneksi.koneksiDB();
             Statement stt=conn.createStatement();
             stt.executeUpdate("insert into jadwal(ID_JADWAL, ID_FILM, ID_STUDIO, TGL_JADWAL)"+
-                    "VALUES('"+FormIDJadwal.getText()+"','"+FormIDFilm.getSelectedItem().toString()+"','"+FormIDStudio.getSelectedItem().toString()+"','"+date+"')");
+                    "VALUES('"+FormIDJadwal.getText()+"','"+idselect+"','"+idselect2+"','"+date+"')");
             conn.close();
             JOptionPane.showMessageDialog(null, "Berhasil simpan");
             new VJadwal().setVisible(true);
@@ -631,7 +639,7 @@ public class VTambahJadwal extends javax.swing.JFrame {
             Connection conn=(Connection)koneksi.koneksiDB();
             Statement stt=conn.createStatement();
             
-            RsItem=stt.executeQuery("SELECT KAPASITAS_STUDIO from studio where ID_STUDIO = '"+FormIDStudio.getSelectedItem().toString()+"'");  
+            RsItem=stt.executeQuery("SELECT KAPASITAS_STUDIO from studio where ID_STUDIO = '"+idselect2+"'");  
             
             if(RsItem.next()){
                 int jmlKursi = Integer.parseInt(RsItem.getString("KAPASITAS_STUDIO"));
